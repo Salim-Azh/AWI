@@ -4,7 +4,7 @@ import request from 'superagent';
 import Game from "./Game"
 import GameForm from "./GameForm"
 
-const apiUrlGames = "http://localhost:8090/api/games"
+const urlApi = require("../../public/urlApi")
 
 /*
 [
@@ -23,7 +23,7 @@ function GameList() {
         console.log(newGame)
 
         request
-            .post(apiUrlGames)
+            .post(urlApi.apiUrlGames)
             .send(newGame)
             .set('Accept', 'application/json')
             .end((err, res) => {

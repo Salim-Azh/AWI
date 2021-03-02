@@ -1,0 +1,1 @@
+export const apiUrlGames = "http://localhost:8090/api/games"
