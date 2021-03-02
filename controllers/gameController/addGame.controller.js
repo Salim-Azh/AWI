@@ -6,6 +6,7 @@ module.exports.addGame = async(req, res) => {
 
     try {
 
+        // TODO: faire correspondre le schéma avec le model de mongo
         const game = await GameModel.create({name, category})
         await game.save()
         res.status(201).json({game: game._id})
