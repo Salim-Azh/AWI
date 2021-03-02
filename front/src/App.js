@@ -6,8 +6,7 @@ import {Navbar, Nav, NavDropdown} from "react-bootstrap";
 
 //import TableList from "./component/tables/TableList"
 import GameList from "./component/games/GameList";
-import getGamesFromDB from "./component/games/GetGamesFromDB"
-import filterGames from "./component/search/filterGames"
+//import filterGames from "./component/search/filterGames"
 import {useState} from "react";
 import SearchBar from "./component/search/Search";
 
@@ -15,11 +14,11 @@ function App() {
 
   const { search } = window.location;
   const query = new URLSearchParams(search).get('s');
-  let games = getGamesFromDB
+  //let games = getGamesFromDB
 
   let [searchQuery, setSearchQuery] = useState(query || '');
 
-  const filteredGames = filterGames(games, query);
+  //const filteredGames = filterGames(games, query);
 
   return (
       <div className="App">
@@ -51,7 +50,7 @@ function App() {
           </Navbar.Collapse>
         </Navbar>
 
-        <GameList id={"jeux"} games={filteredGames} query={query}/>
+        <GameList/>
 
       </div>
   );

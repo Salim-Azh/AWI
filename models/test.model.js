@@ -23,7 +23,5 @@ const schema = new mongoose.Schema(
     }
 )
 
-
-
 const TestModel = mongoose.model('test', schema)
 module.exports = TestModel
