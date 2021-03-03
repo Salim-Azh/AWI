@@ -4,7 +4,8 @@ import request from 'superagent';
 import Game from "./Game"
 import GameForm from "./GameForm"
 
-const urlApi = require("../../public/urlApi")
+//const urlApi = require("../../public/urlApi")
+const urlApiGames = "http://localhost:8090/api/games"
 
 /*
 [
@@ -23,7 +24,7 @@ function GameList() {
         console.log(newGame)
 
         request
-            .post(urlApi.apiUrlGames)
+            .post(urlApiGames)
             .send(newGame)
             .set('Accept', 'application/json')
             .end((err, res) => {
@@ -43,7 +44,7 @@ function GameList() {
     // que useEffect ne s’exécutera qu’une fois, un peu comme
     // componentDidMount()
     useEffect(() => {
-        fetch(apiUrlGames)
+        fetch(urlApiGames)
             .then(res => res.json())
             .then(
                 (result) => {
