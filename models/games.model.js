@@ -8,8 +8,32 @@ const schema = new mongoose.Schema(
             required: true,
             trim : true
         },
+        min_yearold: {
+            type: Number,
+            required: true,
+            trim: true
+        },
         category:{
+            // TODO ajouter enum pour type
+            /*
+            'enum': [
+          'famille',
+          'ambiance',
+          'enfant',
+          'prototype'
+        ],
+             */
             type: String,
+            required: true,
+            trim: true
+        },
+        duration: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        editor: {
+            type: mongoose.ObjectId,
             required: true,
             trim: true
         }
