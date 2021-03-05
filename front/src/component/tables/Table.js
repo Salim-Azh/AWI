@@ -1,4 +1,4 @@
-import GameList from "../games/GameList"
+//import GameList from "../games/GameList"
 import {useState} from "react";
 import GameForm from "../games/GameForm";
 

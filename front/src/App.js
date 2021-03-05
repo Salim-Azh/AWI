@@ -3,22 +3,22 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import FilteredGamesTable from "./component/games/FilteredGamesTable"
 
-//import TableList from "./component/tables/TableList"
-import GameList from "./component/games/GameList";
-//import filterGames from "./component/search/filterGames"
-import {useState} from "react";
-import SearchBar from "./component/search/Search";
+//const gameHandler = require("./component/games/GamesHandler")
 
 function App() {
 
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('s');
-  //let games = getGamesFromDB
+  /*
+    const games = [
+      {id: 0, name: "Jeu de l'oie", category: "enfant"},
+      {id: 1, name: "l'autre jeu", category: "Adulte"},
+      {id: 1, name: "animan", category: "Adulte"},
+      {id: 1, name: "calcif", category: "Adulte"},
+    ]
+   */
 
-  let [searchQuery, setSearchQuery] = useState(query || '');
-
-  //const filteredGames = filterGames(games, query);
+  //const games = gameHandler.getGamesFromDB()
 
   return (
       <div className="App">
@@ -37,9 +37,6 @@ function App() {
                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
               </NavDropdown>
 
-              <SearchBar searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}/>
-
             </Nav>
             <Nav>
               <Nav.Link href="#deets">Connexion</Nav.Link>
@@ -50,12 +47,10 @@ function App() {
           </Navbar.Collapse>
         </Navbar>
 
-        <GameList/>
+        <FilteredGamesTable/>
 
       </div>
   );
 }
 
 export default App;
-
-//        <TableList id={"tables"} name={"Les tables du sud"} tables={["La table de l'enfer", "L'autre table"]}/>
