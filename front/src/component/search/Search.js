@@ -1,34 +1,28 @@
-import { BsSearch } from "react-icons/bs";
-import {Form, Button, FormControl} from "react-bootstrap";
+import {Form, FormControl} from "react-bootstrap";
+import {Component} from "react"
 
-//const {useHistory} = require("react-router-dom");
+class SearchBar extends Component {
+    constructor(props) {
+        super(props)
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
+    }
 
-const SearchBar = ({searchQuery, setSearchQuery}) => {
-/*
-    const history = useHistory();
-    const onSubmit = e => {
-        history.push(`?s=${searchQuery}`)
-        //e.preventDefault()
-    };
- */
+    handleFilterTextChange(e) {
+        this.props.onFilterTextChange(e.target.value)
+    }
 
-    return (
-        <Form id={"formSearch"} inline action="/" method="get" autoComplete="off">
-
-            <label htmlFor="header-search">
-                <span className="visually-hidden">Recherche de jeux</span>
-            </label>
-            <FormControl
-                value={searchQuery}
-                onChange={e => { setSearchQuery(e.target.value); }}
-                type="text"
-                id="header-search"
-                placeholder="Recherche de jeux"
-                name="s"
-            />
-            <Button type={"submit"}><BsSearch /></Button>
-        </Form>
-    )
+    render() {
+        return (
+            <Form>
+                <FormControl
+                    type="text"
+                    placeholder="Search..."
+                    value={this.props.filterText}
+                    onChange={this.handleFilterTextChange}
+                />
+            </Form>
+        )
+    }
 }
 
-export default SearchBar;
+export default SearchBar

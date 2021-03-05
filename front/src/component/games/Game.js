@@ -1,10 +1,10 @@
 
 function Game(props) {
     return (
-        <div id={props.id}>
-            <h2>{props.name}</h2>
-            <div>{props.category}</div>
-        </div>
+        <tr id={props._id}>
+            <td>{props.name}</td>
+            <td>{props.category}</td>
+        </tr>
     )
 }
 
