@@ -32,15 +32,15 @@ function App() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="/jeux">Jeux</Nav.Link>
-                <Nav.Link href="/tables">Tables</Nav.Link>
+                <Nav.Link to="/jeux">Jeux</Nav.Link>
+                <Nav.Link to="/tables">Tables</Nav.Link>
 
-                <NavDropdown title="Éditeur" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown to="editeur" title="Éditeur" id="collasible-nav-dropdown">
+                  <NavDropdown.Item>Action</NavDropdown.Item>
+                  <NavDropdown.Item>Another action</NavDropdown.Item>
+                  <NavDropdown.Item>Something</NavDropdown.Item>
                   <NavDropdown.Divider/>
-                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                  <NavDropdown.Item>Separated link</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav>
@@ -61,10 +61,14 @@ function App() {
             <Route path="/table">
 
             </Route>
+            <Route path="/editeur">
+
+            </Route>
+
             <Route path="/connexion">
 
             </Route>
-            <Route path={"/inscription"}>
+            <Route path="/inscription">
 
             </Route>
 
