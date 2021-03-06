@@ -3,13 +3,16 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {Navbar, Nav, NavDropdown} from "react-bootstrap";
-import FilteredGamesTable from "./component/games/FilteredGamesTable"
-
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+
+
+import FilteredGamesTable from "./component/games/FilteredGamesTable"
+import FormSignIn from "./component/signIn/FormSignIn";
+
 
 function App() {
 
@@ -69,7 +72,7 @@ function App() {
 
             </Route>
             <Route path="/inscription">
-
+              <FormSignIn/>
             </Route>
 
           </Switch>
