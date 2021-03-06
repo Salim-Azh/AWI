@@ -1,4 +1,3 @@
-
 function Game(props) {
     return (
         <tr id={props._id}>

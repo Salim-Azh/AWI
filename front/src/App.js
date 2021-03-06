@@ -32,10 +32,10 @@ function App() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link to="/jeux">Jeux</Nav.Link>
-                <Nav.Link to="/tables">Tables</Nav.Link>
+                <Nav.Link href="/jeux">Jeux</Nav.Link>
+                <Nav.Link href="/tables">Tables</Nav.Link>
 
-                <NavDropdown to="editeur" title="Éditeur" id="collasible-nav-dropdown">
+                <NavDropdown href="editeur" title="Éditeur" id="collasible-nav-dropdown">
                   <NavDropdown.Item>Action</NavDropdown.Item>
                   <NavDropdown.Item>Another action</NavDropdown.Item>
                   <NavDropdown.Item>Something</NavDropdown.Item>
@@ -45,8 +45,8 @@ function App() {
               </Nav>
               <Nav>
 
-                <Nav.Link to="/connexion">Connexion</Nav.Link>
-                <Nav.Link to="/inscription">Inscription</Nav.Link>
+                <Nav.Link href="/connexion">Connexion</Nav.Link>
+                <Nav.Link href="/inscription">Inscription</Nav.Link>
 
               </Nav>
             </Navbar.Collapse>
