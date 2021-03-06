@@ -5,7 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, NavDropdown} from "react-bootstrap";
 import FilteredGamesTable from "./component/games/FilteredGamesTable"
 
-//const gameHandler = require("./component/games/GamesHandler")
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 function App() {
 
@@ -21,35 +25,53 @@ function App() {
   //const games = gameHandler.getGamesFromDB()
 
   return (
-      <div className="App">
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">L'olympiade des jeux</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#jeux">Jeux</Nav.Link>
-              <Nav.Link href="#tables">Tables</Nav.Link>
-              <NavDropdown title="Éditeur" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider/>
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-              </NavDropdown>
+      <Router>
+        <div className="App">
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href="/home">L'olympiade des jeux</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/jeux">Jeux</Nav.Link>
+                <Nav.Link href="/tables">Tables</Nav.Link>
 
-            </Nav>
-            <Nav>
-              <Nav.Link href="#deets">Connexion</Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Dank memes
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+                <NavDropdown title="Éditeur" id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                  <NavDropdown.Divider/>
+                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+              <Nav>
 
-        <FilteredGamesTable/>
+                <Nav.Link to="/connexion">Connexion</Nav.Link>
+                <Nav.Link to="/inscription">Inscription</Nav.Link>
 
-      </div>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+
+
+
+          <Switch>
+            <Route path="/jeux">
+              <FilteredGamesTable/>
+            </Route>
+            <Route path="/table">
+
+            </Route>
+            <Route path="/connexion">
+
+            </Route>
+            <Route path={"/inscription"}>
+
+            </Route>
+
+          </Switch>
+
+        </div>
+      </Router>
   );
 }
 
