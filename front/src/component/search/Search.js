@@ -16,7 +16,7 @@ class SearchBar extends Component {
             <Form>
                 <FormControl
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Recherche par nom..."
                     value={this.props.filterText}
                     onChange={this.handleFilterTextChange}
                 />

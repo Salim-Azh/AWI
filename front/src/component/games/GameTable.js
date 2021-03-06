@@ -22,8 +22,13 @@ class GameTable extends Component {
     }
 
     render() {
-
-        const rows = gameHandler.filterGames(this.state.rows, this.props.filterText.toLowerCase())
+        let rows
+        if(this.props.filter === "name") {
+            rows = gameHandler.filterGamesByName(this.state.rows, this.props.filterText.toLowerCase())
+        }
+        else {
+            rows = gameHandler.filterGamesByCategory(this.state.rows, this.props.filterText.toLowerCase())
+        }
         return (
             <table>
                 <thead>
