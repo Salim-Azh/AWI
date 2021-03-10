@@ -3,6 +3,7 @@ import {Component} from "react"
 import GameTable from "./GameTable"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
+import {Table} from "react-bootstrap";
 
 class FilterableGamesTable extends Component {
     constructor(props) {
@@ -31,14 +32,24 @@ class FilterableGamesTable extends Component {
     render() {
         return (
             <div>
-                <Filter
-                    onFilterChange={this.handleFilterChange}
-                />
-                <SearchBar
-                    filterText={this.state.filterText}
-                    filter={this.state.filter}
-                    onFilterTextChange={this.handleFilterTextChange}
-                />
+                <Table striped bordered hover>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <Filter
+                                onFilterChange={this.handleFilterChange}
+                            />
+                        </td>
+                        <td>
+                            <SearchBar
+                                filterText={this.state.filterText}
+                                filter={this.state.filter}
+                                onFilterTextChange={this.handleFilterTextChange}
+                            />
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
                 <GameTable
                     games={this.props.games}
                     filterText={this.state.filterText}

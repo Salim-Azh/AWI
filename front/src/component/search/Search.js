@@ -12,11 +12,14 @@ class SearchBar extends Component {
     }
 
     render() {
+        const filter = (this.props.filter === "name") ? "nom":  "categorie"
+        const textField = "Recherche par " + filter + "..."
+
         return (
             <Form>
                 <FormControl
                     type="text"
-                    placeholder="Recherche par nom..."
+                    placeholder={textField}
                     value={this.props.filterText}
                     onChange={this.handleFilterTextChange}
                 />

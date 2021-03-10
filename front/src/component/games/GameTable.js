@@ -1,4 +1,5 @@
 import {Component} from "react"
+import {Table} from "react-bootstrap";
 
 const gameHandler = require("./GamesHandler")
 
@@ -30,7 +31,7 @@ class GameTable extends Component {
             rows = gameHandler.filterGamesByCategory(this.state.rows, this.props.filterText.toLowerCase())
         }
         return (
-            <table>
+            <Table striped bordered hover size={"sm"}>
                 <thead>
                 <tr>
                     <th>Nom du jeu</th>
@@ -38,7 +39,7 @@ class GameTable extends Component {
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>
-            </table>
+            </Table>
         )
     }
 }
