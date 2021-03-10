@@ -35,8 +35,8 @@ function App() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
+                <Nav.Link href="/festivals">Festivals</Nav.Link>
                 <Nav.Link href="/jeux">Jeux</Nav.Link>
-                <Nav.Link href="/tables">Tables</Nav.Link>
 
                 <NavDropdown href="editeur" title="Éditeur" id="collasible-nav-dropdown">
                   <NavDropdown.Item>Action</NavDropdown.Item>
@@ -45,6 +45,11 @@ function App() {
                   <NavDropdown.Divider/>
                   <NavDropdown.Item>Separated link</NavDropdown.Item>
                 </NavDropdown>
+
+                <Nav.Link gref="/zones">Zones</Nav.Link>
+                <Nav.Link href="/tables">Tables</Nav.Link>
+                <Nav.Link href="/reservations">Réservations</Nav.Link>
+                <Nav.Link gref="/factures">Factures</Nav.Link>
               </Nav>
               <Nav>
 
@@ -55,16 +60,28 @@ function App() {
             </Navbar.Collapse>
           </Navbar>
 
-
-
           <Switch>
+            <Route path="/festivals">
+
+            </Route>
+            <Route path="/editeur">
+
+            </Route>
             <Route path="/jeux">
               <FilteredGamesTable/>
             </Route>
             <Route path="/table">
 
             </Route>
-            <Route path="/editeur">
+            <Route path="/zones">
+
+            </Route>
+
+            <Route path="/reservations">
+
+            </Route>
+
+            <Route path="/factures">
 
             </Route>
 
