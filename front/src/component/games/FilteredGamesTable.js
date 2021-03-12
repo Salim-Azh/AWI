@@ -4,6 +4,9 @@ import GameTable from "./GameTable"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Table} from "react-bootstrap";
+import GameForm from "./GameForm";
+
+const GamesHandler = require("./GamesHandler")
 
 class FilterableGamesTable extends Component {
     constructor(props) {
@@ -27,6 +30,10 @@ class FilterableGamesTable extends Component {
         this.setState({
             filter: filter
         })
+    }
+
+    handleAddGames(game) {
+        GamesHandler.addGames(game)
     }
 
     render() {
@@ -55,6 +62,7 @@ class FilterableGamesTable extends Component {
                     filterText={this.state.filterText}
                     filter={this.state.filter}
                 />
+                <GameForm handleClick={this.handleAddGames}/>
             </div>
         )
     }

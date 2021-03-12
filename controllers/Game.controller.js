@@ -1,11 +1,23 @@
-const GameModel = require("../../models/games.model")
+const GameModel = require("../models/games.model")
 const mongoose = require("mongoose")
+
+module.exports.getListOfGames = async(req,res) => {
+
+    try {
+        const games = await GameModel.find()
+        res.status(201).json({games: games})
+    } catch (error) {
+        res.status(400).send({error})
+    }
+}
 
 
 module.exports.addGame = async(req, res) => {
-    let {name, min_yearold, category, duration, editor} = req.body
 
-    editor = "603fc7c15552f9c6ae78e660"
+    const {name, min_yearold, category, duration} = req.body
+
+    // TODO ajouter dans le front l'envoie de l'editor id
+    const editor = "603fc7c15552f9c6ae78e660"
     /*
     { _id: ObjectID("603fc7c15552f9c6ae78e660"),
   name: 'Nicolas',
@@ -13,19 +25,8 @@ module.exports.addGame = async(req, res) => {
   contacts: [ { email: 'vzsuik' } ] }
      */
 
-    console.log(
-        {
-            name: name,
-            min_yearold: min_yearold,
-            category: category,
-            duration: duration,
-            editor: editor
-        }
-    )
-
     try {
 
-        // TODO : objectId editor is malfunctioning
         const game = await GameModel.create({
             name: name,
             min_yearold: min_yearold,
@@ -39,4 +40,9 @@ module.exports.addGame = async(req, res) => {
         console.log(error)
         res.status(400).send({error})
     }
+}
+
+module.exports.deleteGame = async(req, res) => {
+    // L'id du jeu est dans la requete sous la forme de ...../games/1238193
+    console.log("route", req.url)
 }

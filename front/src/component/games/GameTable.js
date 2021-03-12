@@ -40,7 +40,7 @@ class GameTable extends Component {
                 </thead>
                 <tbody>{rows}</tbody>
             </Table>
-        )
+    )
     }
 }
 

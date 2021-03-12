@@ -1,9 +1,11 @@
 import Game from "./Game";
+import {post} from "superagent";
+import axios from "superagent/lib/client";
 
 const apiUrl = require("../../public/urlApi")
 
 export function getGamesFromDB() {
-    return fetch(apiUrl.apiUrlGames)
+    return fetch(apiUrl.Games)
         .then(r => r.json())
         .then((response) => {
             return response.games
@@ -23,7 +25,9 @@ export function filterGamesByName(games, filterText) {
                     <Game
                         key={game._id}
                         name={game.name}
-                        category={game.category}/>
+                        category={game.category}
+                        handleDelete={deleteGames(game)}
+                    />
                 )
             }
         })
@@ -40,10 +44,25 @@ export function filterGamesByCategory(games, filterText) {
                     <Game
                         key={game._id}
                         name={game.name}
-                        category={game.category}/>
+                        category={game.category}
+                        handleDelete={deleteGames(game)}
+                    />
                 )
             }
         })
         return rows
     }
+}
+
+// TODO ajouter dans le front l'envoie de l'editor id
+export function addGames(game) {
+    axios.post(apiUrl.Games, game)
+        .then(data => console.log(data))
+}
+
+export function deleteGames(game) {
+    console.log(game._id)
+
+    fetch(apiUrl.Games + "/" + game._id, { method: 'DELETE' })
+        .then(() => console.log("delete success"));
 }

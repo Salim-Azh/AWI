@@ -2,10 +2,10 @@ const express = require('express')
 const router = express.Router()
 
 // Controllers
-const listingGameController = require("../controllers/gameController/listingGame.controller")
-const addGameController = require("../controllers/gameController/addGame.controller")
+const gameController = require("../controllers/Game.controller")
 
-router.get("/", listingGameController.getListOfGames)
-router.post("/", addGameController.addGame)
+router.get("/", gameController.getListOfGames)
+router.post("/", gameController.addGame)
+router.delete("/:id", gameController.deleteGame)
 
 module.exports = router

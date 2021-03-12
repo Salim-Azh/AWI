@@ -11,7 +11,14 @@ class GameForm extends Component {
             min_yearold: "",
             category: "",
             duration: "",
-            editor: ""
+            editor: "",
+            zone: "",
+            countPlayer: "",
+            prototype: "",
+            placed: "",
+            recieved: "",
+            need_volunteer: "",
+            date: ""
         }
 
         this.submit = this.submit.bind(this)
@@ -35,7 +42,14 @@ class GameForm extends Component {
             min_yearold: "",
             category: "",
             duration: "",
-            editor: ""
+            editor: "",
+            zone: "",
+            countPlayer: "",
+            prototype: "",
+            placed: "",
+            recieved: "",
+            need_volunteer: "",
+            date: ""
         })
     }
 
