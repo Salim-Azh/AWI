@@ -47,7 +47,7 @@ module.exports.deleteGame = async(req, res) => {
     const mongooseId = mongoose.Types.ObjectId(idGame)
 
     try {
-        GameModel.deleteOne({_id: mongoose.Types.ObjectId(idGame)})
+        GameModel.deleteOne({_id: mongooseId})
             .then(() => res.status(201).send())
 
     } catch(e) {
