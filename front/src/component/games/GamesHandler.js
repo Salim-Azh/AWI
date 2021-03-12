@@ -17,6 +17,7 @@ export function getGamesFromDB() {
 
 export function filterGamesByName(games, filterText) {
     let rows = []
+    console.log("games", games)
     if(games) {
         games.map(game => {
             if (game && (game.name.toLowerCase().includes(filterText))) {
@@ -58,13 +59,14 @@ export function filterGamesByCategory(games, filterText) {
 // TODO ajouter dans le front l'envoie de l'editor id
 export function addGames(game) {
     axios.post(apiUrl.Games, game)
-        .then(data => console.log(data))
+        //.then(data => console.log(data))
+        .then()
 }
 
 export function deleteGame(event) {
     const gameId = event.target.name
 
     fetch(apiUrl.Games + "/" + gameId, { method: 'DELETE' })
-        .then((data) => console.log(data.statusText))
-
+        //.then((data) => console.log(data.statusText))
+        .then()
 }

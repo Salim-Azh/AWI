@@ -6,18 +6,29 @@ import Filter from "../search/Filter";
 import {Table} from "react-bootstrap";
 import GameForm from "./GameForm";
 
-const GamesHandler = require("./GamesHandler")
+const gameHandler = require("./GamesHandler")
 
 class FilterableGamesTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            games: "",
             filterText: "",
             filter: "name"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
+        this.handleAddGames = this.handleAddGames.bind(this)
+    }
+
+    componentDidMount() {
+        gameHandler.getGamesFromDB()
+            .then(games => {
+                this.setState({
+                    games: games
+                })
+            })
     }
 
     handleFilterTextChange(filterText) {
@@ -33,8 +44,11 @@ class FilterableGamesTable extends Component {
     }
 
     handleAddGames(game) {
-        GamesHandler.addGames(game)
+        gameHandler.addGames(game)
+        this.state.games.push(game)
+        this.setState({games: this.state.games})
     }
+    // TODO ajouter le delete reactif
 
     render() {
         return (
@@ -58,7 +72,7 @@ class FilterableGamesTable extends Component {
                     </tbody>
                 </Table>
                 <GameTable
-                    games={this.props.games}
+                    games={this.state.games}
                     filterText={this.state.filterText}
                     filter={this.state.filter}
                 />
