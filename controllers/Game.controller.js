@@ -28,6 +28,7 @@ module.exports.addGame = async(req, res) => {
     try {
 
         const game = await GameModel.create({
+            _id: mongoose.Types.ObjectId(),
             name: name,
             min_yearold: min_yearold,
             category: category,

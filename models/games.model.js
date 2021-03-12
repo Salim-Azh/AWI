@@ -4,7 +4,7 @@ const schema = new mongoose.Schema(
     {
         _id: {
             type: mongoose.ObjectId,
-            required: false
+            required: true
         },
         name:{
             type: String,
