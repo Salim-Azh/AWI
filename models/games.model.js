@@ -1,12 +1,15 @@
 const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema(
-    // TODO : ajouter une image, catégorie dans une liste ajout possible/ plusieurs catégories
     {
+        _id: {
+            type: mongoose.ObjectId,
+            required: false
+        },
         name:{
             type: String,
             required: true,
-            trim : true
+            trim: true
         },
         min_yearold: {
             type: Number,

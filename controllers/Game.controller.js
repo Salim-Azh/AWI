@@ -43,6 +43,15 @@ module.exports.addGame = async(req, res) => {
 }
 
 module.exports.deleteGame = async(req, res) => {
-    // L'id du jeu est dans la requete sous la forme de ...../games/1238193
-    console.log("route", req.url)
+    const idGame = req.url.split("/")[1]
+    const mongooseId = mongoose.Types.ObjectId(idGame)
+
+    try {
+        GameModel.deleteOne({_id: mongoose.Types.ObjectId(idGame)})
+            .then(() => res.status(201).send())
+
+    } catch(e) {
+        console.log(e)
+        res.status(400).send({e})
+    }
 }

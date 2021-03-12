@@ -1,5 +1,4 @@
 import Game from "./Game";
-import {post} from "superagent";
 import axios from "superagent/lib/client";
 
 const apiUrl = require("../../public/urlApi")
@@ -24,9 +23,10 @@ export function filterGamesByName(games, filterText) {
                 rows.push(
                     <Game
                         key={game._id}
+                        _id={game._id}
                         name={game.name}
                         category={game.category}
-                        handleDelete={deleteGames(game)}
+                        handleDelete={deleteGame}
                     />
                 )
             }
@@ -43,9 +43,10 @@ export function filterGamesByCategory(games, filterText) {
                 rows.push(
                     <Game
                         key={game._id}
+                        _id={game._id}
                         name={game.name}
                         category={game.category}
-                        handleDelete={deleteGames(game)}
+                        handleDelete={deleteGame}
                     />
                 )
             }
@@ -60,9 +61,10 @@ export function addGames(game) {
         .then(data => console.log(data))
 }
 
-export function deleteGames(game) {
-    console.log(game._id)
+export function deleteGame(event) {
+    const gameId = event.target.name
 
-    fetch(apiUrl.Games + "/" + game._id, { method: 'DELETE' })
-        .then(() => console.log("delete success"));
+    fetch(apiUrl.Games + "/" + gameId, { method: 'DELETE' })
+        .then((data) => console.log(data.statusText))
+
 }
