@@ -12,8 +12,7 @@ class SearchBar extends Component {
     }
 
     render() {
-        const filter = (this.props.filter === "name") ? "nom":  "categorie"
-        const textField = "Recherche par " + filter + "..."
+        const textField = "Recherche par " + this.props.filter.french + "..."
 
         return (
             <Form>
