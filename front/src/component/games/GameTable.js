@@ -13,22 +13,13 @@ class GameTable extends Component {
         }
     }
 
-    componentDidMount() {
-        gameHandler.getGamesFromDB()
-            .then(games => {
-                this.setState({
-                    rows: games
-                })
-        })
-    }
-
     render() {
         let rows
         if(this.props.filter === "name") {
-            rows = gameHandler.filterGamesByName(this.state.rows, this.props.filterText.toLowerCase())
+            rows = gameHandler.filterGamesByName(this.props.games, this.props.filterText.toLowerCase())
         }
         else {
-            rows = gameHandler.filterGamesByCategory(this.state.rows, this.props.filterText.toLowerCase())
+            rows = gameHandler.filterGamesByCategory(this.props.games, this.props.filterText.toLowerCase())
         }
         return (
             <Table striped bordered hover size={"sm"}>
@@ -36,11 +27,12 @@ class GameTable extends Component {
                 <tr>
                     <th>Nom du jeu</th>
                     <th>Catégorie</th>
+                    <th>Durée en minutes</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>
             </Table>
-        )
+    )
     }
 }
 
