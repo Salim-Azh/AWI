@@ -59,17 +59,25 @@ export function filterGamesByCategory(games, filterText, handleDelete) {
 
 // TODO ajouter dans le front l'envoie de l'editor id
 export function addGames(game) {
-    axios.post(apiUrl.Games, game)
-        //.then(data => console.log(data))
-        .then()
+    let data = new FormData()
+    data.append("json", JSON.stringify(game))
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "POST",
+        body: JSON.stringify(game)
+    }
+    return fetch(apiUrl.Games, param)
 }
 
-export let handleDelete = undefined
+export let _handleDelete
+
+export function setHandleDelete(handler) {
+    _handleDelete = handler
+}
 
 export function deleteGame(event) {
     const gameId = event.target.name
 
     fetch(apiUrl.Games + "/" + gameId, { method: 'DELETE' })
-        //.then((data) => console.log(data.statusText))
-        .then(handleDelete(gameId))
+        .then(() => _handleDelete(gameId))
 }

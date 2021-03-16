@@ -35,10 +35,9 @@ module.exports.addGame = async(req, res) => {
             duration: duration,
             editor: mongoose.Types.ObjectId(editor)
         })
-        res.status(201).json({game: game._id})
+        res.status(201).json({gameId: game._id})
 
     } catch (error) {
-        console.log(error)
         res.status(400).send({error})
     }
 }

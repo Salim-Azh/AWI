@@ -30,6 +30,7 @@ class FilterableGamesTable extends Component {
                     games: games
                 })
             })
+        gameHandler.setHandleDelete(this.handleDelete)
     }
 
     handleFilterTextChange(filterText) {
@@ -44,14 +45,20 @@ class FilterableGamesTable extends Component {
         })
     }
 
+    // TODO verifier la catégorie avant l'ajout
     handleAddGames(game) {
         gameHandler.addGames(game)
-        this.state.games.push(game)
-        this.setState({games: this.state.games})
+            .then(response => response.json())
+            .then(response => game._id = response.gameId)
+            .then(() => this.state.games.push(game))
+            .then(() => this.setState({games: this.state.games}))
     }
 
     handleDelete(gameId) {
-        console.log("salut" + gameId)
+        const newGames = this.state.games.filter((game) => {
+            return game._id !== gameId
+        })
+        this.setState({games: newGames})
     }
 
     render() {
@@ -79,7 +86,6 @@ class FilterableGamesTable extends Component {
                     games={this.state.games}
                     filterText={this.state.filterText}
                     filter={this.state.filter}
-                    handleDelete={this.handleDelete}
                 />
                 <GameForm handleClick={this.handleAddGames}/>
             </div>
