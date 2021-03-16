@@ -2,9 +2,9 @@ import {Component} from "react"
 
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
-import {Table} from "react-bootstrap";
+import {Card, Table} from "react-bootstrap";
 import EditorTable from "./EditorTable";
-import EditorForm from "./EditorForm";
+import FormContainer from "./FormContainer";
 const EditorHandler = require("./EditorHandler")
 
 class FilterableEditorsTable extends Component {
@@ -86,12 +86,14 @@ class FilterableEditorsTable extends Component {
                     </tr>
                     </tbody>
                 </Table>
+                <Card style={{width: '4rem'}}>
+                    <FormContainer handleClick={this.handleAddEditor}/>
+                </Card>
                 <EditorTable
                     editors={this.state.editors}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
-                <EditorForm handleClick={this.handleAddEditor}/>
             </div>
         )
     }

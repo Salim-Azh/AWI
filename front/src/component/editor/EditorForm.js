@@ -1,5 +1,6 @@
 import {Component} from "react"
 import Button from "react-bootstrap/Button"
+import {Form, FormControl, FormGroup} from "react-bootstrap";
 
 class EditorForm extends Component {
 
@@ -44,14 +45,21 @@ class EditorForm extends Component {
 
     render() {
         return (
-            <form>
-                <input name="name" type="text" value={this.state.name} placeholder="Nom"
-                       onChange={this.handleChange}/>
-                <input name="contact" type="text" value={this.state.contact} placeholder="Contact"
-                        onChange={this.handleChange}/>
+            <Form>
+                <FormGroup>
+                    <Form.Label>Nom</Form.Label>
+                    <FormControl as={"input"} name="name" type="text" value={this.state.name} placeholder="Nom"
+                           onChange={this.handleChange}/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Form.Label>Contacts</Form.Label>
+                    <FormControl as={"input"} name="contact" type="text" value={this.state.contact} placeholder="Contact"
+                           onChange={this.handleChange}/>
+                </FormGroup>
 
                 <Button onClick={this.submit} variant={"link"}>Ajouter</Button>
-            </form>
+            </Form>
         )
     }
 }
