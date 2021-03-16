@@ -14,7 +14,7 @@ function FormContainer(props) {
     // TODO faire en sorte d'appeler le submit du GameForm dans le bouton ajouter
     return (
         <>
-            <Button onClick={handleShow}>
+            <Button onClick={handleShow} variant={"success"}>
                 <img src={img} alt={"Ajouter"}/>
             </Button>
 
