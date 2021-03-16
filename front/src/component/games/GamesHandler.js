@@ -1,6 +1,4 @@
 import Game from "./Game";
-import axios from "superagent/lib/client";
-
 const apiUrl = require("../../public/urlApi")
 
 export function getGamesFromDB() {
@@ -54,8 +52,6 @@ export function filterGamesByCategory(games, filterText) {
 
 // TODO ajouter dans le front l'envoie de l'editor id
 export function addGames(game) {
-    let data = new FormData()
-    data.append("json", JSON.stringify(game))
     const param = {
         headers: {'Content-Type': 'application/json'},
         method: "POST",

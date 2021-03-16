@@ -2,7 +2,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import {Navbar, Nav} from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +12,7 @@ import {
 
 import FilteredGamesTable from "./component/games/FilteredGamesTable"
 import FormSignIn from "./component/signIn/FormSignIn";
+import FilterableEditorsTable from "./component/editor/FilteredEditorsTable";
 
 
 function App() {
@@ -38,18 +39,12 @@ function App() {
                 <Nav.Link href="/festivals">Festivals</Nav.Link>
                 <Nav.Link href="/jeux">Jeux</Nav.Link>
 
-                <NavDropdown href="editeur" title="Éditeur" id="collasible-nav-dropdown">
-                  <NavDropdown.Item>Action</NavDropdown.Item>
-                  <NavDropdown.Item>Another action</NavDropdown.Item>
-                  <NavDropdown.Item>Something</NavDropdown.Item>
-                  <NavDropdown.Divider/>
-                  <NavDropdown.Item>Separated link</NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link href="/editeur">Éditeur</Nav.Link>
 
-                <Nav.Link gref="/zones">Zones</Nav.Link>
+                <Nav.Link href="/zones">Zones</Nav.Link>
                 <Nav.Link href="/tables">Tables</Nav.Link>
                 <Nav.Link href="/reservations">Réservations</Nav.Link>
-                <Nav.Link gref="/factures">Factures</Nav.Link>
+                <Nav.Link href="/factures">Factures</Nav.Link>
               </Nav>
               <Nav>
 
@@ -65,7 +60,7 @@ function App() {
 
             </Route>
             <Route path="/editeur">
-
+              <FilterableEditorsTable/>
             </Route>
             <Route path="/jeux">
               <FilteredGamesTable/>

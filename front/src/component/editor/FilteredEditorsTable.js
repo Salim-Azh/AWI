@@ -1,18 +1,17 @@
 import {Component} from "react"
 
-import GameTable from "./GameTable"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Table} from "react-bootstrap";
-import GameForm from "./GameForm";
+import EditorTable from "./EditorTable";
+import EditorForm from "./EditorForm";
+const EditorHandler = require("./EditorHandler")
 
-const GameHandler = require("./GamesHandler")
-
-class FilterableGamesTable extends Component {
+class FilterableEditorsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            games: "",
+            editors: "",
             filterText: "",
             filterEnglish: "name",
             filterFrench: "Nom"
@@ -20,18 +19,18 @@ class FilterableGamesTable extends Component {
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
-        this.handleAddGames = this.handleAddGames.bind(this)
+        this.handleAddEditor = this.handleAddEditor.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
-        GameHandler.getGamesFromDB()
-            .then(games => {
+        EditorHandler.getEditorsFromDB()
+            .then(editors => {
                 this.setState({
-                    games: games
+                    editors: editors
                 })
             })
-        GameHandler.setHandleDelete(this.handleDelete)
+        EditorHandler.setHandleDelete(this.handleDelete)
     }
 
     handleFilterTextChange(filterText) {
@@ -47,19 +46,18 @@ class FilterableGamesTable extends Component {
         })
     }
 
-    // TODO verifier la catégorie avant l'ajout
-    handleAddGames(game) {
-        GameHandler.addGames(game)
+    handleAddEditor(editor) {
+        EditorHandler.addEditor(editor)
             .then(response => response.json())
-            .then(response => game._id = response.gameId)
-            .then(() => this.state.games.push(game))
-            .then(() => this.setState({games: this.state.games}))
+            .then(response => editor._id = response.editorId)
+            .then(() => this.state.editors.push(editor))
+            .then(() => this.setState({editors: this.state.editors}))
     }
 
-    handleDelete(gameId) {
+    handleDelete(editorId) {
         this.setState({
-            games: this.state.games.filter((game) => {
-                return game._id !== gameId
+            editors: this.state.editors.filter((editor) => {
+                return editor._id !== editorId
             })
         })
     }
@@ -74,7 +72,6 @@ class FilterableGamesTable extends Component {
                             <Filter
                                 filters={[
                                     {english: "name", french: "nom"},
-                                    {english: "category", french: "catégorie"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
                             />
@@ -89,15 +86,15 @@ class FilterableGamesTable extends Component {
                     </tr>
                     </tbody>
                 </Table>
-                <GameTable
-                    games={this.state.games}
+                <EditorTable
+                    editors={this.state.editors}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
-                <GameForm handleClick={this.handleAddGames}/>
+                <EditorForm handleClick={this.handleAddEditor}/>
             </div>
         )
     }
 }
 
-export default FilterableGamesTable
+export default FilterableEditorsTable
