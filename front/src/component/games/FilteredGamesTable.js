@@ -3,8 +3,8 @@ import {Component} from "react"
 import GameTable from "./GameTable"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
-import {Table} from "react-bootstrap";
-import GameForm from "./GameForm";
+import {Card, Table} from "react-bootstrap";
+import FormContainer from "./FormContainer"
 
 const GameHandler = require("./GamesHandler")
 
@@ -89,12 +89,14 @@ class FilterableGamesTable extends Component {
                     </tr>
                     </tbody>
                 </Table>
+                <Card style={{ width: '18rem'}}>
+                    <FormContainer handleClick={this.handleAddGames}/>
+                </Card>
                 <GameTable
                     games={this.state.games}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
-                <GameForm handleClick={this.handleAddGames}/>
             </div>
         )
     }

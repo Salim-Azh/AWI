@@ -1,6 +1,5 @@
 import {Component} from "react"
-import Button from "react-bootstrap/Button"
-import {FormControl} from "react-bootstrap";
+import {Form, FormControl, Button, FormGroup} from "react-bootstrap";
 
 class GameForm extends Component {
 
@@ -68,25 +67,39 @@ class GameForm extends Component {
 
     render() {
         return (
-            <form>
-                <FormControl as={"input"} name="name" type="text" value={this.state.name} placeholder="Nom du jeu"
-                       onChange={this.handleChange}/>
-                <FormControl as={"input"} name="min_yearold" type="number" value={this.state.min_yearold} placeholder="Âge minimum"
-                       onChange={this.handleChange}/>
-                <FormControl as={"select"} name="category" onChange={this.handleChange}>
-                    <option value="">---</option>
-                    <option value="enfant">enfant</option>
-                    <option value="cat2">cat2</option>
-                    <option value="cat3">cat3</option>
-                    <option value="cat4">cat4</option>
-                    <option value="cat5">cat5</option>
-                </FormControl>
+            <Form>
+                <FormGroup>
+                    <Form.Label>Nom</Form.Label>
+                    <FormControl as={"input"} name="name" type="text" value={this.state.name} placeholder="Nom du jeu"
+                                 onChange={this.handleChange}/>
+                </FormGroup>
 
-                <FormControl as={"input"} name="duration" type="number" value={this.state.duration} placeholder="Durée"
-                       onChange={this.handleChange}/>
+                <FormGroup>
+                    <Form.Label>Âge requis</Form.Label>
+                    <FormControl as={"input"} name="min_yearold" type="number" value={this.state.min_yearold} placeholder="Âge minimum"
+                                 onChange={this.handleChange} min={0}/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Form.Label>Catégorie</Form.Label>
+                    <FormControl as={"select"} name="category" onChange={this.handleChange}>
+                        <option value="">---</option>
+                        <option value="enfant">enfant</option>
+                        <option value="cat2">cat2</option>
+                        <option value="cat3">cat3</option>
+                        <option value="cat4">cat4</option>
+                        <option value="cat5">cat5</option>
+                    </FormControl>
+                </FormGroup>
+
+                <FormGroup>
+                    <Form.Label>Durée de partie</Form.Label>
+                    <FormControl as={"input"} name="duration" type="number" value={this.state.duration} placeholder="Durée"
+                                 onChange={this.handleChange} min={0}/>
+                </FormGroup>
 
                 <Button onClick={this.submit} variant={"link"}>Ajouter</Button>
-            </form>
+            </Form>
         )
     }
 }

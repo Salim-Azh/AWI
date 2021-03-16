@@ -1,4 +1,3 @@
-//import GameList from "../games/GameList"
 import {useState} from "react";
 import GameForm from "../games/GameForm";
 
@@ -11,7 +10,6 @@ function Table(props) {
     return (
         <div>
             <h2>{props.name}</h2>
-            <GameList games={["lui", "elle"]}/>
             <GameForm handleClick={addGame}/>
         </div>
     )
