@@ -55,10 +55,11 @@ class FilterableGamesTable extends Component {
     }
 
     handleDelete(gameId) {
-        const newGames = this.state.games.filter((game) => {
-            return game._id !== gameId
+        this.setState({
+            games: this.state.games.filter((game) => {
+                return game._id !== gameId
+            })
         })
-        this.setState({games: newGames})
     }
 
     render() {

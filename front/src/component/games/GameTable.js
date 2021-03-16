@@ -27,6 +27,7 @@ class GameTable extends Component {
                 <tr>
                     <th>Nom du jeu</th>
                     <th>Catégorie</th>
+                    <th>Durée en minutes</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>

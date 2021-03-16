@@ -15,42 +15,37 @@ export function getGamesFromDB() {
         })
 }
 
-export function filterGamesByName(games, filterText, handleDelete) {
+function createGame(game) {
+    return (
+        <Game
+            key={game._id}
+            _id={game._id}
+            name={game.name}
+            category={game.category}
+            duration={game.duration}
+            deleteGame={deleteGame}
+        />
+    )
+}
+
+export function filterGamesByName(games, filterText) {
     let rows = []
     if(games) {
         games.map(game => {
             if (game && (game.name.toLowerCase().includes(filterText))) {
-                rows.push(
-                    <Game
-                        key={game._id}
-                        _id={game._id}
-                        name={game.name}
-                        category={game.category}
-                        handleDelete={handleDelete}
-                        deleteGame={deleteGame}
-                    />
-                )
+                rows.push(createGame(game))
             }
         })
         return rows
     }
 }
 
-export function filterGamesByCategory(games, filterText, handleDelete) {
+export function filterGamesByCategory(games, filterText) {
     let rows = []
     if(games) {
         games.map(game => {
             if (game && (game.category.toLowerCase().includes(filterText))) {
-                rows.push(
-                    <Game
-                        key={game._id}
-                        _id={game._id}
-                        name={game.name}
-                        category={game.category}
-                        handleDelete={handleDelete}
-                        deleteGame={deleteGame}
-                    />
-                )
+                rows.push(createGame(game))
             }
         })
         return rows
@@ -69,8 +64,7 @@ export function addGames(game) {
     return fetch(apiUrl.Games, param)
 }
 
-export let _handleDelete
-
+let _handleDelete
 export function setHandleDelete(handler) {
     _handleDelete = handler
 }

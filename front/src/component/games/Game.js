@@ -3,6 +3,7 @@ function Game(props) {
         <tr id={props._id}>
             <td>{props.name}</td>
             <td>{props.category}</td>
+            <td>{props.duration}</td>
             <td>{props.zone}</td>
             <td>{props.countPlayer}</td>
             <td>{props.placed}</td>
