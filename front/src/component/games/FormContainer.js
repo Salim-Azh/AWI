@@ -1,7 +1,6 @@
 import {Button, Modal} from "react-bootstrap";
 import GameForm from "./GameForm";
 import img from "../../img/addFiles.svg"
-import "./css/FormContainer.css"
 
 const {useState} = require("react");
 
