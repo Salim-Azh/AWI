@@ -10,7 +10,7 @@ function Game(props) {
             <td>{props.recieved}</td>
             <td>{props.need_volunteer}</td>
             <td>{props.date}</td>
-            <td><input type={"button"} onClick={props.deleteGame} name={props._id}/></td>
+            <td><input type={"button"} onClick={props.deleteGame} name={props._id} value={"🗑"}/></td>
         </tr>
     )
 }
