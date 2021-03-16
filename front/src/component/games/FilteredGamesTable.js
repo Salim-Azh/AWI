@@ -14,7 +14,8 @@ class FilterableGamesTable extends Component {
         this.state = {
             games: "",
             filterText: "",
-            filter: "name"
+            filterEnglish: "name",
+            filterFrench: "Nom"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
@@ -39,9 +40,10 @@ class FilterableGamesTable extends Component {
         })
     }
 
-    handleFilterChange(filter) {
+    handleFilterChange(filterEnglish, filterFrench) {
         this.setState({
-            filter: filter
+            filterEnglish: filterEnglish,
+            filterFrench: filterFrench
         })
     }
 
@@ -70,13 +72,17 @@ class FilterableGamesTable extends Component {
                     <tr>
                         <td>
                             <Filter
+                                filters={[
+                                    {english: "name", french: "nom"},
+                                    {english: "category", french: "catégorie"}
+                                ]}
                                 onFilterChange={this.handleFilterChange}
                             />
                         </td>
                         <td>
                             <SearchBar
                                 filterText={this.state.filterText}
-                                filter={this.state.filter}
+                                filter={{english: this.state.filterEnglish, french: this.state.filterFrench}}
                                 onFilterTextChange={this.handleFilterTextChange}
                             />
                         </td>

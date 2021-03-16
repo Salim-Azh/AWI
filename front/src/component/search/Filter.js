@@ -7,16 +7,19 @@ class Filter extends Component {
         this.handleFilterChange = this.handleFilterChange.bind(this)
     }
 
+    listFilter = this.props.filters.map(filter =>
+        <option key={filter.english} value={filter.english + "," + filter.french}>{filter.french}</option>
+    )
+
     handleFilterChange(e) {
-        this.props.onFilterChange(e.target.value)
+        this.props.onFilterChange(e.target.value.split(",")[0], e.target.value.split(',')[1])
     }
 
     render() {
         return (
             <Form>
                 <FormControl as={"select"} onChange={this.handleFilterChange}>
-                    <option value={"name"}>Nom</option>
-                    <option value={"category"}>Catégorie</option>
+                    {this.listFilter}
                 </FormControl>
             </Form>
         )
