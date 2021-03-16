@@ -1,9 +1,9 @@
 import {Component} from "react"
 import {Table} from "react-bootstrap";
 
-const GameHandler = require("./GamesHandler")
+const EditorHandler = require("./EditorHandler")
 
-class GameTable extends Component {
+class EditorTable extends Component {
 
     constructor(props) {
         super(props)
@@ -16,24 +16,21 @@ class GameTable extends Component {
     render() {
         let rows
         if(this.props.filter === "name") {
-            rows = GameHandler.filterGamesByName(this.props.games, this.props.filterText.toLowerCase())
+            rows = EditorHandler.filterEditorByName(this.props.editors, this.props.filterText.toLowerCase())
         }
         else {
-            rows = GameHandler.filterGamesByCategory(this.props.games, this.props.filterText.toLowerCase())
         }
         return (
             <Table striped bordered hover size={"sm"}>
                 <thead>
                 <tr>
-                    <th>Nom du jeu</th>
-                    <th>Catégorie</th>
-                    <th>Durée en minutes</th>
+                    <th>Nom</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>
             </Table>
-    )
+        )
     }
 }
 
-export default GameTable
+export default EditorTable
