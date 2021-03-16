@@ -15,7 +15,7 @@ class FilterableGamesTable extends Component {
             games: "",
             filterText: "",
             filterEnglish: "name",
-            filterFrench: "Nom"
+            filterFrench: "nom"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
