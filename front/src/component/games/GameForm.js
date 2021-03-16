@@ -1,5 +1,4 @@
-import {Component} from "react";
-
+import {Component} from "react"
 import Button from "react-bootstrap/Button"
 
 class GameForm extends Component {
@@ -11,7 +10,14 @@ class GameForm extends Component {
             min_yearold: "",
             category: "",
             duration: "",
-            editor: ""
+            editor: "",
+            zone: "",
+            countPlayer: "",
+            prototype: "",
+            placed: "",
+            recieved: "",
+            need_volunteer: "",
+            date: ""
         }
 
         this.submit = this.submit.bind(this)
@@ -28,14 +34,34 @@ class GameForm extends Component {
         })
     }
 
+    formIsUnchanged() {
+        return (
+            this.state.name === "" ||
+            this.state.min_yearold === "" ||
+            this.state.category === "" ||
+            this.state.duration === ""
+        )
+    }
+
     submit() {
+        // TODO faire un retour utilisateur
+        if (this.formIsUnchanged()) {
+            return
+        }
         this.props.handleClick(this.state)
         this.setState({
             name: "",
             min_yearold: "",
             category: "",
             duration: "",
-            editor: ""
+            editor: "",
+            zone: "",
+            countPlayer: "",
+            prototype: "",
+            placed: "",
+            recieved: "",
+            need_volunteer: "",
+            date: ""
         })
     }
 
@@ -46,8 +72,15 @@ class GameForm extends Component {
                        onChange={this.handleChange}/>
                 <input name="min_yearold" type="number" value={this.state.min_yearold} placeholder="Âge minimum"
                        onChange={this.handleChange}/>
-                <input name="category" type="text" value={this.state.category} placeholder="Catégorie"
-                       onChange={this.handleChange}/>
+                <select name="category" onChange={this.handleChange}>
+                    <option value="">---</option>
+                    <option value="enfant">enfant</option>
+                    <option value="cat2">cat2</option>
+                    <option value="cat3">cat3</option>
+                    <option value="cat4">cat4</option>
+                    <option value="cat5">cat5</option>
+                </select>
+
                 <input name="duration" type="number" value={this.state.duration} placeholder="Durée"
                        onChange={this.handleChange}/>
 
