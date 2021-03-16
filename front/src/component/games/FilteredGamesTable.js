@@ -89,7 +89,7 @@ class FilterableGamesTable extends Component {
                     </tr>
                     </tbody>
                 </Table>
-                <Card style={{ width: '18rem'}}>
+                <Card style={{width: '4rem'}}>
                     <FormContainer handleClick={this.handleAddGames}/>
                 </Card>
                 <GameTable
