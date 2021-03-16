@@ -15,8 +15,9 @@ class Filter extends Component {
         return (
             <Form>
                 <FormControl as={"select"} onChange={this.handleFilterChange}>
-                    <option value={"name"}>Nom</option>
-                    <option value={"category"}>Catégorie</option>
+                    {this.props.filters.map(filter => {
+                        <option name={filter.english}></option>
+                    })}
                 </FormControl>
             </Form>
         )

@@ -37,6 +37,10 @@ class FilterableGamesTable extends Component {
                     <tr>
                         <td>
                             <Filter
+                                filters={[
+                                    {english: "name", french: "nom"},
+                                    {english: "category", french: "catégorie"}
+                                ]}
                                 onFilterChange={this.handleFilterChange}
                             />
                         </td>
