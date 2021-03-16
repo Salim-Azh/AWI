@@ -11,6 +11,8 @@ class GameTable extends Component {
         this.state = {
             rows: []
         }
+        console.log(props.handleDelete)
+        gameHandler.handleDelete = props.handleDelete
     }
 
     render() {

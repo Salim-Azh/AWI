@@ -15,9 +15,8 @@ export function getGamesFromDB() {
         })
 }
 
-export function filterGamesByName(games, filterText) {
+export function filterGamesByName(games, filterText, handleDelete) {
     let rows = []
-    console.log("games", games)
     if(games) {
         games.map(game => {
             if (game && (game.name.toLowerCase().includes(filterText))) {
@@ -27,7 +26,8 @@ export function filterGamesByName(games, filterText) {
                         _id={game._id}
                         name={game.name}
                         category={game.category}
-                        handleDelete={deleteGame}
+                        handleDelete={handleDelete}
+                        deleteGame={deleteGame}
                     />
                 )
             }
@@ -36,7 +36,7 @@ export function filterGamesByName(games, filterText) {
     }
 }
 
-export function filterGamesByCategory(games, filterText) {
+export function filterGamesByCategory(games, filterText, handleDelete) {
     let rows = []
     if(games) {
         games.map(game => {
@@ -47,7 +47,8 @@ export function filterGamesByCategory(games, filterText) {
                         _id={game._id}
                         name={game.name}
                         category={game.category}
-                        handleDelete={deleteGame}
+                        handleDelete={handleDelete}
+                        deleteGame={deleteGame}
                     />
                 )
             }
@@ -63,10 +64,12 @@ export function addGames(game) {
         .then()
 }
 
+export let handleDelete = undefined
+
 export function deleteGame(event) {
     const gameId = event.target.name
 
     fetch(apiUrl.Games + "/" + gameId, { method: 'DELETE' })
         //.then((data) => console.log(data.statusText))
-        .then()
+        .then(handleDelete(gameId))
 }

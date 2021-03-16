@@ -20,6 +20,7 @@ class FilterableGamesTable extends Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleAddGames = this.handleAddGames.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -48,7 +49,10 @@ class FilterableGamesTable extends Component {
         this.state.games.push(game)
         this.setState({games: this.state.games})
     }
-    // TODO ajouter le delete reactif
+
+    handleDelete(gameId) {
+        console.log("salut" + gameId)
+    }
 
     render() {
         return (
@@ -75,6 +79,7 @@ class FilterableGamesTable extends Component {
                     games={this.state.games}
                     filterText={this.state.filterText}
                     filter={this.state.filter}
+                    handleDelete={this.handleDelete}
                 />
                 <GameForm handleClick={this.handleAddGames}/>
             </div>
