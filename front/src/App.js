@@ -16,6 +16,8 @@ import FilterableEditorsTable from "./component/editor/FilteredEditorsTable";
 import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable";
 import FilteredReservationsTable from "./component/reservations/FilteredReservationsTable";
 import FilteredBillsTable from "./component/bills/FilteredBillsTable";
+import FilterableTablesList from "./component/tables/FilteredTablesList";
+import FilteredZonesTable from "./component/zones/FilteredZonesTable";
 
 
 function App() {
@@ -68,11 +70,12 @@ function App() {
             <Route path="/jeux">
               <FilteredGamesTable/>
             </Route>
-            <Route path="/table">
 
+            <Route path="/tables">
+              <FilterableTablesList/>
             </Route>
             <Route path="/zones">
-
+              <FilteredZonesTable/>
             </Route>
 
             <Route path="/reservations">

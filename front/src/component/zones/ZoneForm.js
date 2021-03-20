@@ -2,7 +2,7 @@ import {Component} from "react"
 import Button from "react-bootstrap/Button"
 import {Form, FormControl, FormGroup} from "react-bootstrap";
 
-class TableForm extends Component {
+class ZoneForm extends Component {
 
     constructor(props) {
         super(props)
@@ -64,4 +64,4 @@ class TableForm extends Component {
     }
 }
 
-export default TableForm
+export default ZoneForm

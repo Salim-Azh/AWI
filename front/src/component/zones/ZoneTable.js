@@ -1,9 +1,9 @@
 import {Component} from "react"
 import {Table} from "react-bootstrap";
 
-const TableHandler = require("./TableHandler")
+const ZoneHandler = require("./ZoneHandler")
 
-class TableTable extends Component {
+class ZoneTable extends Component {
 
     constructor(props) {
         super(props)
@@ -16,7 +16,7 @@ class TableTable extends Component {
     render() {
         let rows
         if(this.props.filter === "name") {
-            rows = TableHandler.filterTableByName(this.props.tables, this.props.filterText.toLowerCase())
+            rows = ZoneHandler.filterZoneByName(this.props.zones, this.props.filterText.toLowerCase())
         }
         else {
         }
@@ -33,4 +33,4 @@ class TableTable extends Component {
     }
 }
 
-export default TableTable
+export default ZoneTable
