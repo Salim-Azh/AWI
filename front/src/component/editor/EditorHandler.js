@@ -13,14 +13,17 @@ export function getEditorsFromDB() {
         })
 }
 
-
 function createEditor(editor) {
     return (
         <Editor
             key={editor._id}
             _id={editor._id}
             name={editor.name}
+            contacts={editor.contacts}
             deleteEditor={deleteEditor}
+            isEditor={editor.isEditor}
+            isExhibitor={editor.isExhibitor}
+            isPotential={editor.isPotential}
         />
     )
 }
@@ -33,6 +36,44 @@ export function filterEditorByName(editors, filterText) {
                 rows.push(createEditor(editor))
             }
         })
+        return rows
+    }
+}
+
+export function filterEditorByEditorOnly(editors) {
+    let rows = []
+    if(editors) {
+        editors.map(editor => {
+            if (editor && (editor.isEditor)) {
+                rows.push(createEditor(editor))
+            }
+        })
+        return rows
+    }
+}
+
+export function filterEditorByExhibitorOnly(editors) {
+    let rows = []
+    if(editors) {
+        editors.map(editor => {
+            if (editor && (editor.isExhibitor)) {
+                rows.push(createEditor(editor))
+            }
+        })
+        return rows
+    }
+}
+
+export function filterEditorByPotentialOnly(editors) {
+    let rows = []
+    if(editors) {
+        editors.map(editor => {
+            console.log(editor.isPotential)
+            if (editor && (editor.isPotential)) {
+                rows.push(createEditor(editor))
+            }
+        })
+        console.log("pot", rows, editors)
         return rows
     }
 }

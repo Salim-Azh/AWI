@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 
 const EditorModel = require("../models/editor.model")
-const ContactModel = require("../models/editor.model");
 
 module.exports.getListOfEditors = async(req,res) => {
 
@@ -19,27 +18,22 @@ module.exports.addEditor = async(req, res) => {
     const {name} = req.body
 
     /*
-    {
-    "_id": {
-        "$oid": "6050edfb550bfd86aa4d3d14"
-    },
-    "name": "Rogerio",
-    "address": "ici",
-    "contacts": [{
-        "email": "din"
-    }]
-}
+    {"_id":{"$oid":"603fc7c15552f9c6ae78e660"},
+    "name":"Nicolas",
+    "contacts":["la@gmail.com"],
+    "isEditor":true,
+    "isExhibitor":false,
+    "isPotential":true
+    }
     */
 
     try {
         const editor = await EditorModel.create({
             _id: mongoose.Types.ObjectId(),
             name: name,
-            address: "sa",
-            contacts: [{email: "sa"}]
+            contacts: ['sa']
         })
         res.status(201).json({gameId: editor._id})
-
     } catch (error) {
         console.log(error)
         res.status(400).send({error})

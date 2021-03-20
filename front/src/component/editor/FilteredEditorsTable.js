@@ -11,7 +11,6 @@ class FilterableEditorsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            editors: "",
             filterText: "",
             filterEnglish: "name",
             filterFrench: "Nom"
@@ -20,17 +19,6 @@ class FilterableEditorsTable extends Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleAddEditor = this.handleAddEditor.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-    }
-
-    componentDidMount() {
-        EditorHandler.getEditorsFromDB()
-            .then(editors => {
-                this.setState({
-                    editors: editors
-                })
-            })
-        EditorHandler.setHandleDelete(this.handleDelete)
     }
 
     handleFilterTextChange(filterText) {
@@ -50,16 +38,8 @@ class FilterableEditorsTable extends Component {
         EditorHandler.addEditor(editor)
             .then(response => response.json())
             .then(response => editor._id = response.editorId)
-            .then(() => this.state.editors.push(editor))
-            .then(() => this.setState({editors: this.state.editors}))
-    }
-
-    handleDelete(editorId) {
-        this.setState({
-            editors: this.state.editors.filter((editor) => {
-                return editor._id !== editorId
-            })
-        })
+            .then(() => this.props.editors.push(editor))
+            //.then(() => this.setState({editors: this.state.editors}))
     }
 
     render() {
@@ -90,9 +70,12 @@ class FilterableEditorsTable extends Component {
                     <FormContainer handleClick={this.handleAddEditor}/>
                 </Card>
                 <EditorTable
-                    editors={this.state.editors}
+                    editors={this.props.editors}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
+                    editorOnly={this.props.editorOnly}
+                    exhibitorOnly={this.props.exhibitorOnly}
+                    potentialOnly={this.props.potentialOnly}
                 />
             </div>
         )
