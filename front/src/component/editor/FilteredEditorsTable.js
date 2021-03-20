@@ -13,7 +13,7 @@ class FilterableEditorsTable extends Component {
         this.state = {
             filterText: "",
             filterEnglish: "name",
-            filterFrench: "Nom"
+            filterFrench: "nom"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)

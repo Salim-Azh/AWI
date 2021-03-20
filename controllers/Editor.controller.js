@@ -16,19 +16,6 @@ module.exports.getListOfEditors = async(req,res) => {
 module.exports.addEditor = async(req, res) => {
 
     const {name, contacts, isEditor, isExhibitor, isPotential} = req.body
-    console.log(req.body)
-
-    /*
-    additionalProperties: false,
-
-    {"_id":{"$oid":"603fc7c15552f9c6ae78e660"},
-    "name":"Nicolas",
-    "contacts":["la@gmail.com"],
-    "isEditor":true,
-    "isExhibitor":false,
-    "isPotential":true
-    }
-    */
 
     try {
         const editor = await EditorsModel.create({
