@@ -18,6 +18,7 @@ import FilteredReservationsTable from "./component/reservations/FilteredReservat
 import FilteredBillsTable from "./component/bills/FilteredBillsTable";
 import FilterableTablesList from "./component/tables/FilteredTablesList";
 import FilteredZonesTable from "./component/zones/FilteredZonesTable";
+import TabsReservations from "./component/reservations/TabsReservations";
 
 
 function App() {
@@ -79,7 +80,7 @@ function App() {
             </Route>
 
             <Route path="/reservations">
-              <FilteredReservationsTable/>
+              <TabsReservations/>
             </Route>
 
             <Route path="/factures">
