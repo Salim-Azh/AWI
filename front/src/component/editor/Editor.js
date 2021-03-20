@@ -3,7 +3,7 @@ function Editor(props) {
         <tr id={props._id}>
             <td>{props.name}</td>
             <td>{props.contact}</td>
-            <td><input type={"button"} onClick={props.deleteGame} name={props._id} value={"🗑"}/></td>
+            <td><input type={"button"} onClick={props.deleteEditor} name={props._id} value={"🗑"}/></td>
         </tr>
     )
 }

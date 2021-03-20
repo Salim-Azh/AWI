@@ -15,6 +15,7 @@ import FormSignIn from "./component/signIn/FormSignIn";
 import FilterableEditorsTable from "./component/editor/FilteredEditorsTable";
 import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable";
 import FilteredReservationsTable from "./component/reservations/FilteredReservationsTable";
+import FilteredBillsTable from "./component/bills/FilteredBillsTable";
 
 
 function App() {
@@ -79,7 +80,7 @@ function App() {
             </Route>
 
             <Route path="/factures">
-
+              <FilteredBillsTable/>
             </Route>
 
             <Route path="/connexion">
