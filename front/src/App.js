@@ -2,7 +2,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Navbar, Nav, Card} from "react-bootstrap";
+import {Navbar, Nav} from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,8 +13,8 @@ import {
 import FilteredGamesTable from "./component/games/FilteredGamesTable"
 import FormSignIn from "./component/signIn/FormSignIn";
 import FilterableEditorsTable from "./component/editor/FilteredEditorsTable";
-import FestivalDetail from "./component/festival/FestivalDetail";
-import SideBar from "./component/sideBar/SideBar";
+import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable";
+import FilteredReservationsTable from "./component/reservations/FilteredReservationsTable";
 
 
 function App() {
@@ -42,7 +42,11 @@ function App() {
                 <Nav.Link href="/jeux">Jeux</Nav.Link>
 
                 <Nav.Link href="/editeur">Éditeur</Nav.Link>
-                <Nav.Link href="/exposant">Exposant</Nav.Link>
+
+                <Nav.Link href="/zones">Zones</Nav.Link>
+                <Nav.Link href="/tables">Tables</Nav.Link>
+                <Nav.Link href="/reservations">Réservations</Nav.Link>
+                <Nav.Link href="/factures">Factures</Nav.Link>
               </Nav>
               <Nav>
 
@@ -53,21 +57,28 @@ function App() {
             </Navbar.Collapse>
           </Navbar>
 
-          <SideBar/>
           <Switch>
             <Route path="/festivals">
-              <Card>
-                <FestivalDetail/>
-              </Card>
+              <FilteredFestivalsTable/>
+            </Route>
+            <Route path="/editeur">
+              <FilterableEditorsTable/>
             </Route>
             <Route path="/jeux">
               <FilteredGamesTable/>
             </Route>
+            <Route path="/table">
 
-            <Route path="/editeur">
-              <FilterableEditorsTable/>
             </Route>
-            <Route path="/exposant">
+            <Route path="/zones">
+
+            </Route>
+
+            <Route path="/reservations">
+              <FilteredReservationsTable/>
+            </Route>
+
+            <Route path="/factures">
 
             </Route>
 
@@ -78,13 +89,6 @@ function App() {
               <FormSignIn/>
             </Route>
 
-            <Route path={"/suivi_editeurs"}>
-              <FilteredGamesTable/>
-            </Route>
-
-            <Route path={"suivi_exposant"}>
-              <FilterableEditorsTable/>
-            </Route>
           </Switch>
 
         </div>

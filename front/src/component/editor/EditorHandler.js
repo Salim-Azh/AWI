@@ -37,7 +37,6 @@ export function filterEditorByName(editors, filterText) {
     }
 }
 
-// TODO ajouter dans le front l'envoie de l'editor id
 export function addEditor(editor) {
     const param = {
         headers: {'Content-Type': 'application/json'},

@@ -25,7 +25,7 @@ function FormContainer(props) {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Ajouter un jeu</Modal.Title>
+                    <Modal.Title>Ajouter un éditeur/exposant</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <EditorForm handleClick={props.handleClick}/>
@@ -34,7 +34,7 @@ function FormContainer(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>Ajouter</Button>
+                    <Button variant="primary" onClick={handleClose}>OK</Button>
                 </Modal.Footer>
             </Modal>
         </>
