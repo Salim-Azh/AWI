@@ -1,7 +1,7 @@
 import {Button, Modal} from "react-bootstrap";
-import GameForm from "./GameForm";
 import img from "../../img/addFiles.svg"
 import "./css/FormContainer.css"
+import FestivalForm from "./FestivalForm";
 
 const {useState} = require("react");
 
@@ -25,10 +25,10 @@ function FormContainer(props) {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Ajouter un jeu</Modal.Title>
+                    <Modal.Title>Ajouter un festival</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <GameForm handleClick={props.handleClick}/>
+                    <FestivalForm handleClick={props.handleClick}/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

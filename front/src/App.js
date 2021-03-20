@@ -13,6 +13,7 @@ import {
 import FilteredGamesTable from "./component/games/FilteredGamesTable"
 import FormSignIn from "./component/signIn/FormSignIn";
 import FilterableEditorsTable from "./component/editor/FilteredEditorsTable";
+import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable";
 
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
 
           <Switch>
             <Route path="/festivals">
-
+              <FilteredFestivalsTable/>
             </Route>
             <Route path="/editeur">
               <FilterableEditorsTable/>
