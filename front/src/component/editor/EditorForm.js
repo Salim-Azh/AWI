@@ -8,11 +8,16 @@ class EditorForm extends Component {
         super(props)
         this.state = {
             name: "",
-            contact: ""
+            contacts: "",
+            isEditor: false,
+            isExhibitor: false,
+            isPotential: true
         }
 
         this.submit = this.submit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleEditorCheckChange = this.handleEditorCheckChange.bind(this)
+        this.handleExhibitorCheckChange = this.handleExhibitorCheckChange.bind(this)
     }
 
     handleChange(event) {
@@ -23,6 +28,18 @@ class EditorForm extends Component {
         this.setState({
             [name]: value
         })
+    }
+
+    handleEditorCheckChange(event) {
+        const target = event.target;
+        const checked = target.checked;
+        this.setState({isEditor: checked})
+    }
+
+    handleExhibitorCheckChange(event) {
+        const target = event.target;
+        const checked = target.checked;
+        this.setState({isExhibitor: checked})
     }
 
     formIsUnchanged() {
@@ -39,7 +56,10 @@ class EditorForm extends Component {
         this.props.handleClick(this.state)
         this.setState({
             name: "",
-            contact: ""
+            contact: [""],
+            isEditor: "",
+            isExhibitor: "",
+            isPotential: true
         })
     }
 
@@ -54,8 +74,21 @@ class EditorForm extends Component {
 
                 <FormGroup>
                     <Form.Label>Contacts</Form.Label>
-                    <FormControl as={"input"} name="contact" type="text" value={this.state.contact} placeholder="Contact"
+                    <FormControl as={"input"} name="contacts" type="text" value={this.state.contacts} placeholder="Contact"
                            onChange={this.handleChange}/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Form.Check label={"Editeur ?"}
+                                checked={this.state.isEditor}
+                                onChange={this.handleEditorCheckChange}
+                                name="isEditor"
+                    />
+                    <Form.Check label={"Exposant ?"}
+                                checked={this.state.isExhibitor}
+                                onChange={this.handleExhibitorCheckChange}
+                                name="isExhibitor"
+                    />
                 </FormGroup>
 
                 <Button onClick={this.submit} variant={"link"}>Ajouter</Button>

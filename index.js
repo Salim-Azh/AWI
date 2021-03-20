@@ -6,7 +6,6 @@ const path = require("path");
 const app = express()
 const port = process.env.PORT|| 8090
 
-const testRoutes = require('./routes/test.routes')
 const gamesRoutes = require("./routes/games.routes")
 const editorsRoutes = require("./routes/editor.routes")
 
@@ -18,7 +17,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 //routes
-app.use('/api/test', testRoutes)
 app.use("/api/games", gamesRoutes)
 app.use("/api/editors", editorsRoutes)
 

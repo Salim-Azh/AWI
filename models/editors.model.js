@@ -16,7 +16,6 @@ const schema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        /*
         isEditor: {
             type: Boolean,
             required: true
@@ -29,9 +28,8 @@ const schema = new mongoose.Schema(
             type: Boolean,
             required: true
         }
-         */
     }
 )
 
-const EditorModel = mongoose.model('editor', schema)
-module.exports = EditorModel
+const EditorsModel = mongoose.model('editors', schema)
+module.exports = EditorsModel

@@ -1,11 +1,11 @@
 const mongoose = require("mongoose")
 
-const EditorModel = require("../models/editor.model")
+const EditorsModel = require("../models/editors.model")
 
 module.exports.getListOfEditors = async(req,res) => {
 
     try {
-        const editors = await EditorModel.find()
+        const editors = await EditorsModel.find()
         res.status(201).json({editors: editors})
     } catch (error) {
         res.status(400).send({error})
@@ -15,9 +15,12 @@ module.exports.getListOfEditors = async(req,res) => {
 
 module.exports.addEditor = async(req, res) => {
 
-    const {name} = req.body
+    const {name, contacts, isEditor, isExhibitor, isPotential} = req.body
+    console.log(req.body)
 
     /*
+    additionalProperties: false,
+
     {"_id":{"$oid":"603fc7c15552f9c6ae78e660"},
     "name":"Nicolas",
     "contacts":["la@gmail.com"],
@@ -28,12 +31,16 @@ module.exports.addEditor = async(req, res) => {
     */
 
     try {
-        const editor = await EditorModel.create({
+        const editor = await EditorsModel.create({
             _id: mongoose.Types.ObjectId(),
             name: name,
-            contacts: ['sa']
+            contacts: [contacts],
+            isEditor: isEditor,
+            isExhibitor: isExhibitor,
+            isPotential: isPotential
         })
-        res.status(201).json({gameId: editor._id})
+
+        res.status(201).json({editorId: editor._id})
     } catch (error) {
         console.log(error)
         res.status(400).send({error})
@@ -45,7 +52,7 @@ module.exports.deleteEditor = async(req, res) => {
     const mongooseId = mongoose.Types.ObjectId(idEditor)
 
     try {
-        EditorModel.deleteOne({_id: mongooseId})
+        EditorsModel.deleteOne({_id: mongooseId})
             .then(() => res.status(201).send())
 
     } catch(e) {

@@ -20,10 +20,10 @@ function createEditor(editor) {
             _id={editor._id}
             name={editor.name}
             contacts={editor.contacts}
-            deleteEditor={deleteEditor}
             isEditor={editor.isEditor}
             isExhibitor={editor.isExhibitor}
             isPotential={editor.isPotential}
+            deleteEditor={deleteEditor}
         />
     )
 }

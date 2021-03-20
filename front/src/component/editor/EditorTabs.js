@@ -13,6 +13,7 @@ class EditorTabs extends Component{
             editors: ""
         }
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleAddEditor = this.handleAddEditor.bind(this)
     }
 
     componentDidMount() {
@@ -31,22 +32,30 @@ class EditorTabs extends Component{
         })
     }
 
+    handleAddEditor(editor) {
+        EditorHandler.addEditor(editor)
+            .then(response => response.json())
+            .then(response => editor._id = response.editorId)
+            .then(() => this.state.editors.push(editor))
+            .then(() => this.setState({editors: this.state.editors}))
+    }
+
     render() {
         return (
             <Tabs defaultActiveKey="all">
                 <Tab eventKey="all" title="Tout">
                     <FilteredEditorsTable editorOnly={false} exhibitorOnly={false} potentialOnly={false}
-                                          editors={this.state.editors}
+                                          editors={this.state.editors} handleAddEditor={this.handleAddEditor}
                     />
                 </Tab>
                 <Tab eventKey="Editeur" title="Editeur">
                     <FilteredEditorsTable editorOnly={true} exhibitorOnly={false} potentialOnly={true}
-                                          editors={this.state.editors}
+                                          editors={this.state.editors} handleAddEditor={this.handleAddEditor}
                     />
                 </Tab>
                 <Tab eventKey="Exhibitor" title="Exposant">
                     <FilteredEditorsTable editorOnly={false} exhibitorOnly={true} potentialOnly={true}
-                                          editors={this.state.editors}
+                                          editors={this.state.editors} handleAddEditor={this.handleAddEditor}
                     />
                 </Tab>
             </Tabs>

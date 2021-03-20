@@ -35,11 +35,7 @@ class FilterableEditorsTable extends Component {
     }
 
     handleAddEditor(editor) {
-        EditorHandler.addEditor(editor)
-            .then(response => response.json())
-            .then(response => editor._id = response.editorId)
-            .then(() => this.props.editors.push(editor))
-            //.then(() => this.setState({editors: this.state.editors}))
+        this.props.handleAddEditor(editor)
     }
 
     render() {
