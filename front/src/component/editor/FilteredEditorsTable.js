@@ -5,7 +5,6 @@ import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import EditorTable from "./EditorTable";
 import FormContainer from "./FormContainer";
-const EditorHandler = require("./EditorHandler")
 
 class FilterableEditorsTable extends Component {
     constructor(props) {
