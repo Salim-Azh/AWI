@@ -2,10 +2,10 @@ import Festival from "./Festival";
 const apiUrl = require("../../public/urlApi")
 
 export function getFestivalsFromDB() {
-    return fetch(apiUrl.Editors)
+    return fetch(apiUrl.Festivals)
         .then(r => r.json())
         .then((response) => {
-            return response.editors
+            return response.reservations
         })
         .catch(e => {
             console.log(e.stack)
@@ -20,7 +20,7 @@ function createFestival(festival) {
             key={festival._id}
             _id={festival._id}
             name={festival.name}
-            deleteEditor={deleteFestival}
+            deleteFestival={deleteFestival}
         />
     )
 }
@@ -28,23 +28,22 @@ function createFestival(festival) {
 export function filterFestivalByName(festivals, filterText) {
     let rows = []
     if(festivals) {
-        festivals.map(editor => {
-            if (editor && (editor.name.toLowerCase().includes(filterText))) {
-                rows.push(createFestival(editor))
+        festivals.map(festival => {
+            if (festival && (festival.name.toLowerCase().includes(filterText))) {
+                rows.push(createFestival(festival))
             }
         })
         return rows
     }
 }
 
-// TODO ajouter dans le front l'envoie de l'editor id
-export function addFestival(editor) {
+export function addFestival(festival) {
     const param = {
         headers: {'Content-Type': 'application/json'},
         method: "POST",
-        body: JSON.stringify(editor)
+        body: JSON.stringify(festival)
     }
-    return fetch(apiUrl.Editors, param)
+    return fetch(apiUrl.Festivals, param)
 }
 
 let _handleDelete
@@ -55,6 +54,6 @@ export function setHandleDelete(handler) {
 export function deleteFestival(event) {
     const festivalId = event.target.name
 
-    fetch(apiUrl.Editors + "/" + festivalId, { method: 'DELETE' })
+    fetch(apiUrl.Festivals + "/" + festivalId, { method: 'DELETE' })
         .then(() => _handleDelete(festivalId))
 }

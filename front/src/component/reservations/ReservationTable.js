@@ -1,9 +1,9 @@
 import {Component} from "react"
 import {Table} from "react-bootstrap";
 
-const FestivalHandler = require("./FestivalHandler")
+const ReservationHandler = require("./ReservationHandler")
 
-class FestivalTable extends Component {
+class ReservationTable extends Component {
 
     constructor(props) {
         super(props)
@@ -16,7 +16,7 @@ class FestivalTable extends Component {
     render() {
         let rows
         if(this.props.filter === "name") {
-            rows = FestivalHandler.filterFestivalByName(this.props.festivals, this.props.filterText.toLowerCase())
+            rows = ReservationHandler.filterReservationByName(this.props.reservations, this.props.filterText.toLowerCase())
         }
         else {
         }
@@ -33,4 +33,4 @@ class FestivalTable extends Component {
     }
 }
 
-export default FestivalTable
+export default ReservationTable

@@ -3,15 +3,15 @@ import {Component} from "react"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
-import FestivalTable from "./FestivalTable";
+import ReservationTable from "./ReservationTable";
 import FormContainer from "./FormContainer";
-const FestivalHandler = require("./FestivalHandler")
+const ReservationHandler = require("./ReservationHandler")
 
-class FilterableFestivalsTable extends Component {
+class FilterableReservationsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            festivals: "",
+            reservations: "",
             filterText: "",
             filterEnglish: "name",
             filterFrench: "Nom"
@@ -19,18 +19,18 @@ class FilterableFestivalsTable extends Component {
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
-        this.handleAddFestival = this.handleAddFestival.bind(this)
+        this.handleAddReservation = this.handleAddReservation.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
-        FestivalHandler.getFestivalsFromDB()
-            .then(festivals => {
+        ReservationHandler.getReservationsFromDB()
+            .then(reservations => {
                 this.setState({
-                    festivals: festivals
+                    reservations: reservations
                 })
             })
-        FestivalHandler.setHandleDelete(this.handleDelete)
+        ReservationHandler.setHandleDelete(this.handleDelete)
     }
 
     handleFilterTextChange(filterText) {
@@ -46,18 +46,18 @@ class FilterableFestivalsTable extends Component {
         })
     }
 
-    handleAddFestival(festival) {
-        FestivalHandler.addFestival(festival)
+    handleAddReservation(reservation) {
+        ReservationHandler.addReservation(reservation)
             .then(response => response.json())
-            .then(response => festival._id = response.festivalId)
-            .then(() => this.state.festivals.push(festival))
-            .then(() => this.setState({festivals: this.state.festivals}))
+            .then(response => reservation._id = response.reservationId)
+            .then(() => this.state.reservations.push(reservation))
+            .then(() => this.setState({reservations: this.state.reservations}))
     }
 
-    handleDelete(festivalId) {
+    handleDelete(reservationId) {
         this.setState({
-            festivals: this.state.festivals.filter((festival) => {
-                return festival._id !== festivalId
+            reservations: this.state.reservations.filter((reservation) => {
+                return reservation._id !== reservationId
             })
         })
     }
@@ -87,10 +87,10 @@ class FilterableFestivalsTable extends Component {
                     </tbody>
                 </Table>
                 <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddFestival}/>
+                    <FormContainer handleClick={this.handleAddReservation}/>
                 </Card>
-                <FestivalTable
-                    Festival={this.state.Festival}
+                <ReservationTable
+                    reservations={this.state.reservations}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
@@ -99,4 +99,4 @@ class FilterableFestivalsTable extends Component {
     }
 }
 
-export default FilterableFestivalsTable
+export default FilterableReservationsTable
