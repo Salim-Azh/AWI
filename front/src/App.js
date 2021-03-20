@@ -2,7 +2,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Navbar, Nav} from "react-bootstrap";
+import {Navbar, Nav, NavItem} from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,34 +11,20 @@ import {
 
 
 import FilteredGamesTable from "./component/games/FilteredGamesTable"
-import FormSignIn from "./component/signIn/FormSignIn";
-import FilterableEditorsTable from "./component/editor/FilteredEditorsTable";
-import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable";
-import FilteredReservationsTable from "./component/reservations/FilteredReservationsTable";
-import FilteredBillsTable from "./component/bills/FilteredBillsTable";
-import FilterableTablesList from "./component/tables/FilteredTablesList";
-import FilteredZonesTable from "./component/zones/FilteredZonesTable";
-import EditorTabs from "./component/editor/EditorTabs";
-
+import FormSignIn from "./component/signIn/FormSignIn"
+import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable"
+import FilteredReservationsTable from "./component/reservations/FilteredReservationsTable"
+import FilteredBillsTable from "./component/bills/FilteredBillsTable"
+import FilterableTablesList from "./component/tables/FilteredTablesList"
+import FilteredZonesTable from "./component/zones/FilteredZonesTable"
+import EditorTabs from "./component/editor/EditorTabs"
 
 function App() {
-
-  /*
-    const games = [
-      {id: 0, name: "Jeu de l'oie", category: "enfant"},
-      {id: 1, name: "l'autre jeu", category: "Adulte"},
-      {id: 1, name: "animan", category: "Adulte"},
-      {id: 1, name: "calcif", category: "Adulte"},
-    ]
-   */
-
-  //const games = gameHandler.getGamesFromDB()
-
   return (
       <Router>
         <div className="App">
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/home">L'olympiade des jeux</Navbar.Brand>
+          <Navbar expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href="/home">Le festival des jeux</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
