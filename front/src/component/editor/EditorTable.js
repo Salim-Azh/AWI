@@ -13,14 +13,7 @@ class EditorTable extends Component {
         this.state = {
             rows: []
         }
-
-        this.ref = React.createRef()
     }
-
-    componentDidMount() {
-        this.ref.current.focus();
-    }
-
     render() {
         let rows
 
@@ -35,7 +28,7 @@ class EditorTable extends Component {
         }
 
         return (
-            <Table striped bordered hover size={"sm"} ref={this.ref}>
+            <Table striped bordered hover size={"sm"}>
                 <thead>
                 <tr>
                     <th>Nom</th>

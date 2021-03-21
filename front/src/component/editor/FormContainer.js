@@ -31,9 +31,6 @@ function FormContainer(props) {
                     <EditorForm handleClick={props.handleClick}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
                     <Button variant="primary" onClick={handleClose}>OK</Button>
                 </Modal.Footer>
             </Modal>

@@ -44,7 +44,8 @@ class EditorForm extends Component {
 
     formIsUnchanged() {
         return (
-            this.state.name === ""
+            this.state.name === "" ||
+                this.state.contacts === ""
         )
     }
 

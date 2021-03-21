@@ -38,6 +38,15 @@ class FilterableEditorsTable extends Component {
     }
 
     render() {
+        let cardForm
+
+        if(this.props.showForm) {
+            cardForm = (
+                <Card style={{width: '4rem'}}>
+                    <FormContainer handleClick={this.handleAddEditor}/>
+                </Card>
+            )
+        }
         return (
             <div>
                 <Table striped bordered hover>
@@ -61,9 +70,7 @@ class FilterableEditorsTable extends Component {
                     </tr>
                     </tbody>
                 </Table>
-                <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddEditor}/>
-                </Card>
+                {cardForm}
                 <EditorTable
                     editors={this.props.editors}
                     filterText={this.state.filterText}
