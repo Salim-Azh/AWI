@@ -72,6 +72,7 @@ class FilterableFestivalsTable extends Component {
                             <Filter
                                 filters={[
                                     {english: "name", french: "nom"},
+                                    {english: "year", french: "année"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
                             />

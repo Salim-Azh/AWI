@@ -18,6 +18,9 @@ class FestivalTable extends Component {
         if(this.props.filter === "name") {
             rows = FestivalHandler.filterFestivalByName(this.props.festivals, this.props.filterText.toLowerCase())
         }
+        else if (this.props.filter === "year") {
+            rows = FestivalHandler.filterFestivalByYear(this.props.festivals, this.props.filterText)
+        }
         return (
             <Row>
                 {rows}

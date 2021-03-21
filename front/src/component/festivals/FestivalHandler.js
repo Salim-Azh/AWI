@@ -52,6 +52,18 @@ export function filterFestivalByName(festivals, filterText) {
     }
 }
 
+export function filterFestivalByYear(festivals, filterText) {
+    let rows = []
+    if(festivals) {
+        festivals.map(festival => {
+            if (festival && (festival.year.toString().includes(filterText))) {
+                rows.push(createFestival(festival))
+            }
+        })
+        return rows
+    }
+}
+
 export function addFestival(festival) {
     const param = {
         headers: {'Content-Type': 'application/json'},
