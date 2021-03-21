@@ -86,11 +86,6 @@ export function deleteFestival(event) {
         .then(() => _handleDelete(festivalId))
 }
 
-let _handleUpdate
-export function setHandleChange(handler) {
-    _handleUpdate = handler
-}
-
 export function updateFestival(festival) {
     const param = {
         headers: {'Content-Type': 'application/json'},
