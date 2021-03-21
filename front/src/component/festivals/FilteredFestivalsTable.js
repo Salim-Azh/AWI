@@ -7,6 +7,8 @@ import FestivalTable from "./FestivalTable";
 import FormContainer from "./FormContainer";
 const FestivalHandler = require("./FestivalHandler")
 
+
+// TODO ajouter un retour sur modification
 class FilterableFestivalsTable extends Component {
     constructor(props) {
         super(props)

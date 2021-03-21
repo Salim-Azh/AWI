@@ -61,12 +61,11 @@ export function filterEditorByExhibitorOnly(editors) {
                 rows.push(editor)
             }
         })
-        console.log("exhi", rows, editors)
         return filterEditorByPotentialOnly(rows)
     }
 }
 
-export function filterEditorByPotentialOnly(editors) {
+function filterEditorByPotentialOnly(editors) {
     let rows = []
     if(editors) {
         editors.map(editor => {
@@ -74,7 +73,6 @@ export function filterEditorByPotentialOnly(editors) {
                 rows.push(createEditor(editor))
             }
         })
-        console.log("pot", rows, editors)
         return rows
     }
 }

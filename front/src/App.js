@@ -22,7 +22,7 @@ function App() {
       <Router>
         <div className="App">
           <Navbar expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/home">Le festival des jeux</Navbar.Brand>
+            <Navbar.Brand href="/festivals">Le festival des jeux</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">

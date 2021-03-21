@@ -21,6 +21,7 @@ class Festival extends Component {
 
         this.handleChange = this.handleChange.bind(this)
         this.submit = this.submit.bind(this)
+        this.setCurrent = this.setCurrent.bind(this)
     }
 
     handleChange(event) {
@@ -35,6 +36,10 @@ class Festival extends Component {
 
     submit() {
         this.props.handleSubmit(this.state)
+    }
+
+    setCurrent() {
+        // TODO ajouter ce festoche en festoche courant
     }
 
     render() {
@@ -117,7 +122,7 @@ class Festival extends Component {
                     </Card.Text>
                     <Button variant="success" type={"button"} onClick={this.submit}>Modifier</Button>
                     <Button variant="danger" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Button variant="primary" onClick={this.setCurrent}>Sélectionner</Button>
                 </Card.Body>
             </>
         )
