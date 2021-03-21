@@ -1,11 +1,12 @@
 import Festival from "./Festival";
+import {Card, Col} from "react-bootstrap";
 const apiUrl = require("../../public/urlApi")
 
 export function getFestivalsFromDB() {
     return fetch(apiUrl.Festivals)
         .then(r => r.json())
         .then((response) => {
-            return response.reservations
+            return response.festivals
         })
         .catch(e => {
             console.log(e.stack)
@@ -16,12 +17,26 @@ export function getFestivalsFromDB() {
 
 function createFestival(festival) {
     return (
-        <Festival
-            key={festival._id}
-            _id={festival._id}
-            name={festival.name}
-            deleteFestival={deleteFestival}
-        />
+        <Col style={{margin: '1em'}}>
+        <Card bg={"secondary"}>
+            <Festival
+                key={festival._id}
+                _id={festival._id}
+                name={festival.name}
+                year={festival.year}
+                nb_tables_premium={festival.nb_tables_premium}
+                nb_tables_standard={festival.nb_tables_standard}
+                nb_tables_low={festival.nb_tables_low}
+                premium_t_price={festival.premium_t_price}
+                standard_t_price={festival.standard_t_price}
+                low_t_price={festival.low_t_price}
+                premium_sm_price={festival.premium_sm_price}
+                standard_sm_price={festival.standard_sm_price}
+                low_sm_price={festival.low_sm_price}
+                deleteFestival={deleteFestival}
+            />
+        </Card>
+        </Col>
     )
 }
 

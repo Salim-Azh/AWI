@@ -14,7 +14,7 @@ class FilterableFestivalsTable extends Component {
             festivals: "",
             filterText: "",
             filterEnglish: "name",
-            filterFrench: "Nom"
+            filterFrench: "nom"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
@@ -90,7 +90,7 @@ class FilterableFestivalsTable extends Component {
                     <FormContainer handleClick={this.handleAddFestival}/>
                 </Card>
                 <FestivalTable
-                    Festival={this.state.Festival}
+                    festivals={this.state.festivals}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />

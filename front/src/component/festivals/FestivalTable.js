@@ -1,5 +1,5 @@
 import {Component} from "react"
-import {Table} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 
 const FestivalHandler = require("./FestivalHandler")
 
@@ -18,17 +18,10 @@ class FestivalTable extends Component {
         if(this.props.filter === "name") {
             rows = FestivalHandler.filterFestivalByName(this.props.festivals, this.props.filterText.toLowerCase())
         }
-        else {
-        }
         return (
-            <Table striped bordered hover size={"sm"}>
-                <thead>
-                <tr>
-                    <th>Nom</th>
-                </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </Table>
+            <Row>
+                {rows}
+            </Row>
         )
     }
 }
