@@ -14,6 +14,7 @@ class EditorTabs extends Component{
         }
         this.handleDelete = this.handleDelete.bind(this)
         this.handleAddEditor = this.handleAddEditor.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
     }
 
     componentDidMount() {
@@ -22,6 +23,7 @@ class EditorTabs extends Component{
                 this.setState({editors: editors})
             )
         EditorHandler.setHandleDelete(this.handleDelete)
+        EditorHandler.setHandleUpdate(this.handleUpdate)
     }
 
     handleDelete(editorId) {
@@ -30,6 +32,21 @@ class EditorTabs extends Component{
                 return editor._id !== editorId
             })
         })
+    }
+
+    handleUpdate(editorId, attribute, checked) {
+        const editor = this.state.editors.filter((editor) => {
+            return editor._id === editorId
+        })
+
+        if(attribute === "isEditor") {
+            editor[0].isEditor = checked
+        } else if(attribute === "isExhibitor") {
+            editor[0].isExhibitor = checked
+        } else {
+            editor[0].isPotential = checked
+        }
+        this.setState({editors: this.state.editors})
     }
 
     handleAddEditor(editor) {

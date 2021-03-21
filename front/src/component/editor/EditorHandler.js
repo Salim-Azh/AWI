@@ -4,7 +4,7 @@ const apiUrl = require("../../public/urlApi")
 export function getEditorsFromDB() {
     return fetch(apiUrl.Editors)
         .then(r => r.json())
-        .then((response) => {
+        .then(response => {
             return response.editors
         })
         .catch(e => {
@@ -24,6 +24,7 @@ function createEditor(editor) {
             isExhibitor={editor.isExhibitor}
             isPotential={editor.isPotential}
             deleteEditor={deleteEditor}
+            handleEditor={updateEditor}
         />
     )
 }
@@ -45,10 +46,10 @@ export function filterEditorByEditorOnly(editors) {
     if(editors) {
         editors.map(editor => {
             if (editor && (editor.isEditor)) {
-                rows.push(createEditor(editor))
+                rows.push(editor)
             }
         })
-        return rows
+        return filterEditorByPotentialOnly(rows)
     }
 }
 
@@ -57,10 +58,11 @@ export function filterEditorByExhibitorOnly(editors) {
     if(editors) {
         editors.map(editor => {
             if (editor && (editor.isExhibitor)) {
-                rows.push(createEditor(editor))
+                rows.push(editor)
             }
         })
-        return rows
+        console.log("exhi", rows, editors)
+        return filterEditorByPotentialOnly(rows)
     }
 }
 
@@ -68,7 +70,6 @@ export function filterEditorByPotentialOnly(editors) {
     let rows = []
     if(editors) {
         editors.map(editor => {
-            console.log(editor.isPotential)
             if (editor && (editor.isPotential)) {
                 rows.push(createEditor(editor))
             }
@@ -97,4 +98,25 @@ export function deleteEditor(event) {
 
     fetch(apiUrl.Editors + "/" + editorId, { method: 'DELETE' })
         .then(() => _handleDelete(editorId))
+}
+
+let _handleUpdate
+export function setHandleUpdate(handler) {
+    _handleUpdate = handler
+}
+
+export function updateEditor(event) {
+    const editorId = event.target.id
+    const checked = event.target.checked
+    const name = event.target.name
+
+    const body = {[name]: checked}
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "PUT",
+        body: JSON.stringify(body)
+    }
+
+    fetch(apiUrl.Editors + "/" + editorId, param)
+        .then(() => _handleUpdate(editorId, name, checked))
 }

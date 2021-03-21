@@ -2,6 +2,9 @@ import {Component} from "react"
 import React from "react"
 
 import {Table} from "react-bootstrap";
+import {
+    BrowserRouter as Router,
+} from "react-router-dom";
 
 const EditorHandler = require("./EditorHandler")
 
@@ -9,7 +12,6 @@ class EditorTable extends Component {
 
     constructor(props) {
         super(props)
-        this.rows = []
         this.state = {
             rows: []
         }
@@ -17,14 +19,14 @@ class EditorTable extends Component {
     render() {
         let rows
 
-        if(this.props.filter === "name") {
-            rows = EditorHandler.filterEditorByName(this.props.editors, this.props.filterText.toLowerCase())
-        }
         if(this.props.editorOnly) {
             rows = EditorHandler.filterEditorByEditorOnly(this.props.editors)
         }
-        if(this.props.exhibitorOnly) {
+        else if(this.props.exhibitorOnly) {
             rows = EditorHandler.filterEditorByExhibitorOnly(this.props.editors)
+        }
+        else {
+            rows = EditorHandler.filterEditorByName(this.props.editors, this.props.filterText.toLowerCase())
         }
 
         return (

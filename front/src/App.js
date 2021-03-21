@@ -31,7 +31,7 @@ function App() {
                 <Nav.Link href="/festivals">Festivals</Nav.Link>
                 <Nav.Link href="/jeux">Jeux</Nav.Link>
 
-                <Nav.Link href="/editeur">Éditeur</Nav.Link>
+                <Nav.Link href="/editeurs">Éditeur</Nav.Link>
 
                 <Nav.Link href="/zones">Zones</Nav.Link>
                 <Nav.Link href="/tables">Tables</Nav.Link>
@@ -51,9 +51,10 @@ function App() {
             <Route path="/festivals">
               <FilteredFestivalsTable/>
             </Route>
-            <Route path="/editeur">
+            <Route path="/editeurs">
               <EditorTabs/>
             </Route>
+
             <Route path="/jeux">
               <FilteredGamesTable/>
             </Route>

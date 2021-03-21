@@ -47,3 +47,28 @@ module.exports.deleteEditor = async(req, res) => {
         res.status(400).send({e})
     }
 }
+
+module.exports.updateEditor = async(req, res) => {
+    const idEditor = req.url.split("/")[1]
+    const mongooseId = mongoose.Types.ObjectId(idEditor)
+
+    const {isEditor, isExhibitor, isPotential} = req.body
+    let update
+
+    if(isEditor !== undefined) {
+        update = {isEditor: isEditor}
+    } else if(isExhibitor !== undefined){
+        update = {isExhibitor: isExhibitor}
+    } else if(isPotential !== undefined) {
+        update = {isPotential: isPotential}
+    }
+
+    try {
+        EditorsModel.updateOne({_id: mongooseId}, update)
+            .then(() => res.status(201).send())
+
+    } catch(e) {
+        console.log(e)
+        res.status(400).send({e})
+    }
+}
