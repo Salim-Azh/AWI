@@ -15,8 +15,6 @@ import FormSignIn from "./component/signIn/FormSignIn"
 import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable"
 import FilteredReservationsTable from "./component/reservations/FilteredReservationsTable"
 import FilteredBillsTable from "./component/bills/FilteredBillsTable"
-import FilterableTablesList from "./component/tables/FilteredTablesList"
-import FilteredZonesTable from "./component/zones/FilteredZonesTable"
 import EditorTabs from "./component/editor/EditorTabs"
 
 function App() {
@@ -32,9 +30,6 @@ function App() {
                 <Nav.Link href="/jeux">Jeux</Nav.Link>
 
                 <Nav.Link href="/editeurs">Éditeur</Nav.Link>
-
-                <Nav.Link href="/zones">Zones</Nav.Link>
-                <Nav.Link href="/tables">Tables</Nav.Link>
                 <Nav.Link href="/reservations">Réservations</Nav.Link>
                 <Nav.Link href="/factures">Factures</Nav.Link>
               </Nav>
@@ -57,13 +52,6 @@ function App() {
 
             <Route path="/jeux">
               <FilteredGamesTable/>
-            </Route>
-
-            <Route path="/tables">
-              <FilterableTablesList/>
-            </Route>
-            <Route path="/zones">
-              <FilteredZonesTable/>
             </Route>
 
             <Route path="/reservations">
