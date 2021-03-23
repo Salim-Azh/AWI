@@ -40,9 +40,7 @@ module.exports.addGame = async(req, res) => {
 
         if(editor) {
             // TODO faire push new games to editors
-            const editorModel = EditorsModel.findOne({_id: mongoose.Types.ObjectId(editor)})
-            editorModel.push({games: game._id})
-            const update = {games: game._id}
+            const update = {$push: { games: game._id }}
             EditorsModel.updateOne({_id: mongoose.Types.ObjectId(editor)}, update)
         }
 
