@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import GameTable from "../games/GameTable";
 const EditorHandler = require("./EditorHandler")
 
+// TODO faire le bouton delete game ^pour un jeu de l'editeur
 class EditorDetail extends Component {
     constructor(props) {
         super(props);
@@ -70,19 +71,26 @@ class EditorDetail extends Component {
         }
         const rows = this.state.contacts.map((contact, index) =>
             <FormControl
-                as={"input"} type={"text"} value={contact}
+                as={"input"} type={"text"} value={contact} key={index}
                 onChange={this.handleContactsChange} name={index}/>
         )
 
         let games
         if(this.state.isEditor) {
-            games = (
-                <GameTable
-                    games={this.state.games}
-                    filter={"name"}
-                    filterText={""}
-                />
+            if(this.state.games.length > 0) {
+                games = (
+                    <FormGroup>
+                        <Form.Label>Jeux de l'éditeur</Form.Label>
+                        <GameTable
+                            games={this.state.games}
+                            filter={"name"}
+                            filterText={""}
+                        />
+                    </FormGroup>
                 )
+            } else {
+                games = <div>Ajouter un jeu à l'éditeur</div>
+            }
         }
 
         return (
@@ -117,10 +125,7 @@ class EditorDetail extends Component {
                     </Row>
                 </FormGroup>
 
-                <FormGroup>
-                    <Form.Label>Jeux de l'éditeur</Form.Label>
-                    {games}
-                </FormGroup>
+                {games}
 
                 <Button onClick={this.submit} variant={"outline-success"}>Sauvegarder</Button>
             </Form>
