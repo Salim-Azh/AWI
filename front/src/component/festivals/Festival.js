@@ -2,6 +2,7 @@ import {Component} from "react"
 import {Card, FormControl, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
+// Faire le set current ou la nav vers reservation
 class Festival extends Component {
 
     constructor(props) {
@@ -122,7 +123,7 @@ class Festival extends Component {
                     </Card.Text>
                     <Button variant="primary" type={"button"} onClick={this.submit}>Modifier</Button>
                     <Button variant="warning" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Button variant="primary">set current/ Navigation vers resa</Button>
                 </Card.Body>
             </>
         )
