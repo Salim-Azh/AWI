@@ -2,10 +2,9 @@ import {Component} from "react"
 import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import GameTable from "../games/GameTable";
 const EditorHandler = require("./EditorHandler")
 
-
-// TODO faire apparaitre la liste de jeu
 class EditorDetail extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +15,8 @@ class EditorDetail extends Component {
             contacts: [],
             isEditor: "",
             isExhibitor: "",
-            isPotential: ""
+            isPotential: "",
+            games: []
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleContactsChange = this.handleContactsChange.bind(this)
@@ -33,6 +33,9 @@ class EditorDetail extends Component {
                 isExhibitor: editor.isExhibitor,
                 isPotential: editor.isPotential
             }))
+            .then(() => EditorHandler.getGamesFromEditor(this.state._id)
+                .then(games => this.setState({games: games}))
+            )
     }
 
     handleChange(event) {
@@ -58,20 +61,30 @@ class EditorDetail extends Component {
 
     submit() {
         EditorHandler.updateEditor(this.state)
-            .then(() => this.setState({redirect: true}))
+            .then(() => this.setState({redirect: "/editeurs"}))
     }
 
     render() {
         if(this.state.redirect) {
-            return <Redirect to={"/editeurs"}/>
+            return <Redirect to={this.state.redirect}/>
         }
-
-
         const rows = this.state.contacts.map((contact, index) =>
             <FormControl
                 as={"input"} type={"text"} value={contact}
                 onChange={this.handleContactsChange} name={index}/>
         )
+
+        let games
+        if(this.state.isEditor) {
+            games = (
+                <GameTable
+                    games={this.state.games}
+                    filter={"name"}
+                    filterText={""}
+                />
+                )
+        }
+
         return (
             <Card>
             <Form>
@@ -103,6 +116,12 @@ class EditorDetail extends Component {
                         </Col>
                     </Row>
                 </FormGroup>
+
+                <FormGroup>
+                    <Form.Label>Jeux de l'éditeur</Form.Label>
+                    {games}
+                </FormGroup>
+
                 <Button onClick={this.submit} variant={"outline-success"}>Sauvegarder</Button>
             </Form>
             </Card>

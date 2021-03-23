@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const EditorsModel = require("../models/editors.model")
+const GamesModel = require("../models/games.model")
 
 module.exports.getListOfEditors = async(req,res) => {
 
@@ -102,5 +103,18 @@ module.exports.updateEditor = async(req, res) => {
     } catch(e) {
         console.log(e)
         res.status(400).send({e})
+    }
+}
+
+module.exports.getGamesFromEditor = async(req, res) => {
+    const idEditor = req.url.split("/")[1]
+    let games = []
+    try {
+        const editor = await EditorsModel.findOne({_id: idEditor})
+        games = await GamesModel.find({_id: editor.games})
+        res.status(201).json({games: games})
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({error})
     }
 }

@@ -142,3 +142,15 @@ export function updateEditor(editor) {
     return fetch(apiUrl.Editors + "/" + editor._id, param)
         .then(r => errorHandler.handleResponse(r, "Modification de l'éditeur"))
 }
+
+export function getGamesFromEditor(editorId) {
+    return fetch(apiUrl.Editors + "/" + editorId + "/games/")
+        .then(r => r.json())
+        .then(response => {
+            return response.games
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
