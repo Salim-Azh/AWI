@@ -13,9 +13,9 @@ import {
 import FilteredGamesTable from "./component/games/FilteredGamesTable"
 import FormSignIn from "./component/signIn/FormSignIn"
 import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable"
-import FilteredReservationsTable from "./component/reservations/FilteredReservationsTable"
 import FilteredBillsTable from "./component/bills/FilteredBillsTable"
 import EditorTabs from "./component/editor/EditorTabs"
+import TabsReservations from "./component/reservations/TabsReservations";
 
 function App() {
   return (
@@ -55,7 +55,7 @@ function App() {
             </Route>
 
             <Route path="/reservations">
-              <FilteredReservationsTable/>
+              <TabsReservations/>
             </Route>
 
             <Route path="/factures">

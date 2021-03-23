@@ -5,6 +5,7 @@ import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import EditorTable from "./EditorTable";
 import FormContainer from "./FormContainer";
+import ExhibitorTable from "./exhibitor/ExhibitorTable";
 
 class FilterableEditorsTable extends Component {
     constructor(props) {
@@ -47,6 +48,30 @@ class FilterableEditorsTable extends Component {
                 </Card>
             )
         }
+
+        let table
+        if(this.props.editors) {
+            table = (
+                <EditorTable
+                    editors={this.props.editors}
+                    filterText={this.state.filterText}
+                    filter={this.state.filterEnglish}
+                    editorOnly={this.props.editorOnly}
+                    exhibitorOnly={this.props.exhibitorOnly}
+                    potentialOnly={this.props.potentialOnly}
+                />
+            )
+        }
+
+        else {
+            table = (
+                <ExhibitorTable
+                    exhibitors={this.props.exhibitors}
+                    filterText={this.state.filterText}
+                    filter={this.state.filterEnglish}
+                />
+            )
+        }
         return (
             <div>
                 <Table striped bordered hover>
@@ -71,14 +96,7 @@ class FilterableEditorsTable extends Component {
                     </tbody>
                 </Table>
                 {cardForm}
-                <EditorTable
-                    editors={this.props.editors}
-                    filterText={this.state.filterText}
-                    filter={this.state.filterEnglish}
-                    editorOnly={this.props.editorOnly}
-                    exhibitorOnly={this.props.exhibitorOnly}
-                    potentialOnly={this.props.potentialOnly}
-                />
+                {table}
             </div>
         )
     }

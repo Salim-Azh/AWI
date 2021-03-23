@@ -13,6 +13,18 @@ export function getReservationsFromDB() {
         })
 }
 
+export function getExhibitorsFromDB() {
+    return fetch(apiUrl.Exhibitors)
+        .then(r => r.json())
+        .then(response => {
+            return response.exhibitors
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
+
 
 function createReservation(reservation) {
     return (
@@ -20,6 +32,7 @@ function createReservation(reservation) {
             key={reservation._id}
             _id={reservation._id}
             name={reservation.name}
+
             deleteReservation={deleteReservation}
         />
     )
@@ -31,6 +44,43 @@ export function filterReservationByName(reservations, filterText) {
         reservations.map(reservation => {
             if (reservation && (reservation.name.toLowerCase().includes(filterText))) {
                 rows.push(createReservation(reservation))
+            }
+        })
+        return rows
+    }
+}
+
+export function filterEditorByVolunteer(editors) {
+    console.log(editors)
+    let rows = []
+    if(editors) {
+        editors.map(editor => {
+            if (editor && (editor.needVolunteer)) {
+                rows.push(createReservation(editor))
+            }
+        })
+        return rows
+    }
+}
+
+export function filterEditorByEditorPresent(editors) {
+    let rows = []
+    if(editors) {
+        editors.map(editor => {
+            if (editor && (editor.isEditorHere)) {
+                rows.push(createReservation(editor))
+            }
+        })
+        return rows
+    }
+}
+
+export function filterEditorByReportSent(editors) {
+    let rows = []
+    if(editors) {
+        editors.map(editor => {
+            if (editor && (editor.reportSent)) {
+                rows.push(createReservation(editor))
             }
         })
         return rows
