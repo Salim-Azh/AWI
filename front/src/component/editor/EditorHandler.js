@@ -130,7 +130,6 @@ export function updateEditorState(event) {
 
     return fetch(apiUrl.Editors + "/" + editorId, param)
         .then(() => _handleUpdate(editorId, name, checked))
-        .then(r => errorHandler.handleResponse(r, "Modification de l'éditeur"))
 }
 
 export function updateEditor(editor) {
