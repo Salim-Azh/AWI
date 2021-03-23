@@ -17,12 +17,9 @@ export function getFestivalsFromDB() {
 
 function createFestival(festival) {
     let color
-    if(festival.is_current) {
-        color = "success"
-    }
-    else {
-        color = "secondary"
-    }
+    if(festival.is_current) {color = "success"}
+    else {color = "secondary"}
+
     return (
         <Col style={{margin: '1em'}}>
         <Card bg={color}>
@@ -31,9 +28,12 @@ function createFestival(festival) {
                 _id={festival._id}
                 name={festival.name}
                 year={festival.year}
-                nb_tables_premium={festival.nb_tables_premium}
-                nb_tables_standard={festival.nb_tables_standard}
-                nb_tables_low={festival.nb_tables_low}
+                nb_t_premium={festival.nb_t_premium}
+                nb_t_standard={festival.nb_t_standard}
+                nb_t_low={festival.nb_t_low}
+                nb_sm_premium={festival.nb_sm_premium}
+                nb_sm_standard={festival.nb_sm_standard}
+                nb_sm_low={festival.nb_sm_low}
                 premium_t_price={festival.premium_t_price}
                 standard_t_price={festival.standard_t_price}
                 low_t_price={festival.low_t_price}

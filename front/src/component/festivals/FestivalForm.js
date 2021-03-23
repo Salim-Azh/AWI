@@ -9,9 +9,12 @@ class FestivalForm extends Component {
         this.state = {
             name: "",
             year: "",
-            nb_tables_premium: "",
-            nb_tables_standard: "",
-            nb_tables_low: "",
+            nb_t_premium: "",
+            nb_t_standard: "",
+            nb_t_low: "",
+            nb_sm_premium: "",
+            nb_sm_standard: "",
+            nb_sm_low: "",
             premium_t_price: "",
             standard_t_price: "",
             low_t_price: "",
@@ -38,9 +41,12 @@ class FestivalForm extends Component {
     formIsUnchanged() {
         return (
             this.state.name === "" ||
-            this.state.nb_tables_premium ===  "" ||
-            this.state.nb_tables_standard === "" ||
-            this.state.nb_tables_low === "" ||
+            this.state.nb_t_premium ===  "" ||
+            this.state.nb_t_standard === "" ||
+            this.state.nb_t_low === "" ||
+            this.state.nb_sm_premium === "" ||
+            this.state.nb_sm_standard === "" ||
+            this.state.nb_sm_low === "" ||
             this.state.year === "" ||
             this.state.premium_t_price === "" ||
             this.state.standard_t_price === "" ||
@@ -61,9 +67,12 @@ class FestivalForm extends Component {
         this.setState({
             name: "",
             year: "",
-            nb_tables_premium: "",
-            nb_tables_standard: "",
-            nb_tables_low: "",
+            nb_t_premium: "",
+            nb_t_standard: "",
+            nb_t_low: "",
+            nb_sm_premium: "",
+            nb_sm_standard: "",
+            nb_sm_low: "",
             premium_t_price: "",
             standard_t_price: "",
             low_t_price: "",
@@ -91,13 +100,25 @@ class FestivalForm extends Component {
 
                 <FormGroup>
                     <Form.Label>Nombre de tables</Form.Label>
-                    <FormControl as={"input"} name="nb_tables_premium" type="number" min={0} value={this.state.nb_tables_premium}
+                    <FormControl as={"input"} name="nb_t_premium" type="number" min={0} value={this.state.nb_t_premium}
                                  placeholder="premium" onChange={this.handleChange}/>
 
-                    <FormControl as={"input"} name="nb_tables_standard" type="number" min={0} value={this.state.nb_tables_standard}
+                    <FormControl as={"input"} name="nb_t_standard" type="number" min={0} value={this.state.nb_t_standard}
                                  placeholder="standard" onChange={this.handleChange}/>
 
-                    <FormControl as={"input"} name="nb_tables_low" type="number" min={0} value={this.state.nb_tables_low}
+                    <FormControl as={"input"} name="nb_t_low" type="number" min={0} value={this.state.nb_t_low}
+                                 placeholder="low" onChange={this.handleChange}/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Form.Label>Nombre de m²</Form.Label>
+                    <FormControl as={"input"} name="nb_sm_premium" type="number" min={0} value={this.state.nb_sm_premium}
+                                 placeholder="premium" onChange={this.handleChange}/>
+
+                    <FormControl as={"input"} name="nb_sm_standard" type="number" min={0} value={this.state.nb_sm_standard}
+                                 placeholder="standard" onChange={this.handleChange}/>
+
+                    <FormControl as={"input"} name="nb_sm_low" type="number" min={0} value={this.state.nb_sm_low}
                                  placeholder="low" onChange={this.handleChange}/>
                 </FormGroup>
 
