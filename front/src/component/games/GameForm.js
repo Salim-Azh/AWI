@@ -10,7 +10,7 @@ class GameForm extends Component {
             min_yearold: "",
             category: "",
             duration: "",
-            editor: "",
+            editor: "603fc7c15552f9c6ae78e660",
             zone: "",
             countPlayer: "",
             prototype: "",

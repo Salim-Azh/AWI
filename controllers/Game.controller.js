@@ -1,4 +1,5 @@
 const GameModel = require("../models/games.model")
+const EditorsModel = require("../models/editors.model")
 const mongoose = require("mongoose")
 
 module.exports.getListOfGames = async(req,res) => {
@@ -24,11 +25,7 @@ module.exports.getGame = async(req,res) => {
 }
 
 module.exports.addGame = async(req, res) => {
-
-    const {name, min_yearold, category, duration} = req.body
-
-    // TODO ajouter dans le front l'envoie de l'editor id
-    const editor = "603fc7c15552f9c6ae78e660"
+    const {name, min_yearold, category, duration, editor} = req.body
 
     try {
 
@@ -40,6 +37,15 @@ module.exports.addGame = async(req, res) => {
             duration: duration,
             editor: mongoose.Types.ObjectId(editor)
         })
+
+        if(editor) {
+            // TODO faire push new games to editors
+            const editorModel = EditorsModel.findOne({_id: mongoose.Types.ObjectId(editor)})
+            editorModel.push({games: game._id})
+            const update = {games: game._id}
+            EditorsModel.updateOne({_id: mongoose.Types.ObjectId(editor)}, update)
+        }
+
         res.status(201).json({gameId: game._id})
 
     } catch (error) {
