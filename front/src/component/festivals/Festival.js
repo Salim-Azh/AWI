@@ -115,8 +115,8 @@ class Festival extends Component {
                             </tbody>
                         </Table>
                     </Card.Text>
-                    <Button variant="success" type={"button"} onClick={this.submit}>Modifier</Button>
-                    <Button variant="outline-warning" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
+                    <Button variant="primary" type={"button"} onClick={this.submit}>Modifier</Button>
+                    <Button variant="warning" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
                     <Button variant="primary">Go somewhere</Button>
                 </Card.Body>
             </>
