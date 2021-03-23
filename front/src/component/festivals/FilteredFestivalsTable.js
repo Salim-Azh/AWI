@@ -66,7 +66,7 @@ class FilterableFestivalsTable extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 <Table striped bordered hover>
                     <tbody>
                     <tr>
@@ -97,7 +97,7 @@ class FilterableFestivalsTable extends Component {
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
-            </div>
+            </>
         )
     }
 }
