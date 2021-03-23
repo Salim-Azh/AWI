@@ -19,14 +19,13 @@ class EditorDetail extends Component {
     componentDidMount() {
         EditorHandler.getEditorFromDB(window.location.href.split('/')[4])
             .then(editor => this.setState({
-                _id: editor[0]._id,
-                name: editor[0].name,
-                contacts: editor[0].contacts,
-                isEditor: editor[0].isEditor,
-                isExhibitor: editor[0].isExhibitor,
-                isPotential: editor[0].isPotential
+                _id: editor._id,
+                name: editor.name,
+                contacts: editor.contacts,
+                isEditor: editor.isEditor,
+                isExhibitor: editor.isExhibitor,
+                isPotential: editor.isPotential
             }))
-            .then(() => console.log(this.state))
     }
 
 

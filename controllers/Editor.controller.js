@@ -15,7 +15,7 @@ module.exports.getListOfEditors = async(req,res) => {
 module.exports.getEditor = async(req,res) => {
     const idEditor = req.url.split("/")[1]
     try {
-        const editor = await EditorsModel.find({_id: idEditor})
+        const editor = await EditorsModel.findOne({_id: idEditor})
         res.status(201).json({editor: editor})
     } catch (error) {
         res.status(400).send({error})
