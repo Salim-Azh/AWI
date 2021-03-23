@@ -8,6 +8,7 @@ router.get("/", editorController.getListOfEditors)
 router.get("/:id", editorController.getEditor)
 router.post("/", editorController.addEditor)
 router.delete("/:id", editorController.deleteEditor)
+router.post("/:id", editorController.updateEditorState)
 router.put("/:id", editorController.updateEditor)
 
 module.exports = router

@@ -2,6 +2,7 @@ import {Component} from "react"
 
 import {Tab, Tabs} from "react-bootstrap";
 import FilteredEditorsTable from "./FilteredEditorsTable";
+import {handleResponse} from "./EditorHandler";
 
 const EditorHandler = require("./EditorHandler")
 
@@ -9,9 +10,8 @@ class EditorTabs extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {
-            editors: ""
-        }
+        this.state = {editors: []}
+
         this.handleDelete = this.handleDelete.bind(this)
         this.handleAddEditor = this.handleAddEditor.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)

@@ -1,5 +1,6 @@
 import Editor from "./Editor";
 const apiUrl = require("../../public/urlApi")
+const errorHandler = require("../error/errorHandler")
 
 export function getEditorsFromDB() {
     return fetch(apiUrl.Editors)
@@ -36,7 +37,7 @@ function createEditor(editor) {
             isExhibitor={editor.isExhibitor}
             isPotential={editor.isPotential}
             deleteEditor={deleteEditor}
-            handleEditor={updateEditor}
+            handleEditor={updateEditorState}
         />
     )
 }
@@ -115,7 +116,7 @@ export function setHandleUpdate(handler) {
     _handleUpdate = handler
 }
 
-export function updateEditor(event) {
+export function updateEditorState(event) {
     const editorId = event.target.id
     const checked = event.target.checked
     const name = event.target.name
@@ -123,10 +124,22 @@ export function updateEditor(event) {
     const body = {[name]: checked}
     const param = {
         headers: {'Content-Type': 'application/json'},
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(body)
     }
 
     fetch(apiUrl.Editors + "/" + editorId, param)
         .then(() => _handleUpdate(editorId, name, checked))
+        .then(r => errorHandler.handleResponse(r, "Modification de l'éditeur"))
+}
+
+export function updateEditor(editor) {
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "PUT",
+        body: JSON.stringify(editor)
+    }
+
+    fetch(apiUrl.Editors + "/" + editor._id, param)
+        .then(r => errorHandler.handleResponse(r, "Modification de l'éditeur"))
 }
