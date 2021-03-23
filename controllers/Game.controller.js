@@ -72,7 +72,6 @@ module.exports.updateGame = async(req, res) => {
         min_yearold: min_yearold,
         category: category
     }
-    console.log(update)
 
     try {
         GameModel.updateOne({_id: mongooseId}, update)
