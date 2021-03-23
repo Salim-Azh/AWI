@@ -60,6 +60,10 @@ const schema = new mongoose.Schema(
             type: Number,
             required: true,
             min: 0
+        },
+        is_current: {
+            type: Boolean,
+            required: true
         }
     }
 )
