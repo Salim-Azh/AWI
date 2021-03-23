@@ -8,6 +8,7 @@ import FormContainer from "./FormContainer"
 
 const GameHandler = require("./GamesHandler")
 
+// TODO faire un tabs comme editeur pour tous les jeux ou les jeux du festival courant
 class FilterableGamesTable extends Component {
     constructor(props) {
         super(props)

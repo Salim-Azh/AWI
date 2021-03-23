@@ -5,32 +5,19 @@ import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import EditorTable from "./EditorTable";
 import FormContainer from "./FormContainer";
-const EditorHandler = require("./EditorHandler")
 
 class FilterableEditorsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            editors: "",
             filterText: "",
             filterEnglish: "name",
-            filterFrench: "Nom"
+            filterFrench: "nom"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleAddEditor = this.handleAddEditor.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-    }
-
-    componentDidMount() {
-        EditorHandler.getEditorsFromDB()
-            .then(editors => {
-                this.setState({
-                    editors: editors
-                })
-            })
-        EditorHandler.setHandleDelete(this.handleDelete)
     }
 
     handleFilterTextChange(filterText) {
@@ -47,22 +34,19 @@ class FilterableEditorsTable extends Component {
     }
 
     handleAddEditor(editor) {
-        EditorHandler.addEditor(editor)
-            .then(response => response.json())
-            .then(response => editor._id = response.editorId)
-            .then(() => this.state.editors.push(editor))
-            .then(() => this.setState({editors: this.state.editors}))
-    }
-
-    handleDelete(editorId) {
-        this.setState({
-            editors: this.state.editors.filter((editor) => {
-                return editor._id !== editorId
-            })
-        })
+        this.props.handleAddEditor(editor)
     }
 
     render() {
+        let cardForm
+
+        if(this.props.showForm) {
+            cardForm = (
+                <Card style={{width: '4rem'}}>
+                    <FormContainer handleClick={this.handleAddEditor}/>
+                </Card>
+            )
+        }
         return (
             <div>
                 <Table striped bordered hover>
@@ -86,13 +70,14 @@ class FilterableEditorsTable extends Component {
                     </tr>
                     </tbody>
                 </Table>
-                <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddEditor}/>
-                </Card>
+                {cardForm}
                 <EditorTable
-                    editors={this.state.editors}
+                    editors={this.props.editors}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
+                    editorOnly={this.props.editorOnly}
+                    exhibitorOnly={this.props.exhibitorOnly}
+                    potentialOnly={this.props.potentialOnly}
                 />
             </div>
         )

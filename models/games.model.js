@@ -17,15 +17,6 @@ const schema = new mongoose.Schema(
             trim: true
         },
         category:{
-            // TODO ajouter enum pour type
-            /*
-            'enum': [
-          'famille',
-          'ambiance',
-          'enfant',
-          'prototype'
-        ],
-             */
             type: String,
             required: true,
             trim: true

@@ -7,6 +7,8 @@ import FestivalTable from "./FestivalTable";
 import FormContainer from "./FormContainer";
 const FestivalHandler = require("./FestivalHandler")
 
+
+// TODO ajouter un retour sur modification
 class FilterableFestivalsTable extends Component {
     constructor(props) {
         super(props)
@@ -14,7 +16,7 @@ class FilterableFestivalsTable extends Component {
             festivals: "",
             filterText: "",
             filterEnglish: "name",
-            filterFrench: "Nom"
+            filterFrench: "nom"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
@@ -72,6 +74,7 @@ class FilterableFestivalsTable extends Component {
                             <Filter
                                 filters={[
                                     {english: "name", french: "nom"},
+                                    {english: "year", french: "année"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
                             />
@@ -90,7 +93,7 @@ class FilterableFestivalsTable extends Component {
                     <FormContainer handleClick={this.handleAddFestival}/>
                 </Card>
                 <FestivalTable
-                    Festival={this.state.Festival}
+                    festivals={this.state.festivals}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
