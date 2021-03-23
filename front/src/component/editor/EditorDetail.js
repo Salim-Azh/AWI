@@ -1,4 +1,5 @@
 import {Component} from "react"
+import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 const EditorHandler = require("./EditorHandler")
@@ -57,9 +58,15 @@ class EditorDetail extends Component {
 
     submit() {
         EditorHandler.updateEditor(this.state)
+            .then(() => this.setState({redirect: true}))
     }
 
     render() {
+        if(this.state.redirect) {
+            return <Redirect to={"/editeurs"}/>
+        }
+
+
         const rows = this.state.contacts.map((contact, index) =>
             <FormControl
                 as={"input"} type={"text"} value={contact}

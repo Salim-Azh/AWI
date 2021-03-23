@@ -1,11 +1,24 @@
 import Game from "./Game";
 const apiUrl = require("../../public/urlApi")
+const errorHandler = require("../error/errorHandler")
 
 export function getGamesFromDB() {
     return fetch(apiUrl.Games)
         .then(r => r.json())
         .then((response) => {
             return response.games
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
+
+export function getGameFromDB(gameId) {
+    return fetch(apiUrl.Games + "/" + gameId)
+        .then(r => r.json())
+        .then((response) => {
+            return response.game
         })
         .catch(e => {
             console.log(e.stack)
@@ -68,6 +81,18 @@ export function setHandleDelete(handler) {
 export function deleteGame(event) {
     const gameId = event.target.name
 
-    fetch(apiUrl.Games + "/" + gameId, { method: 'DELETE' })
+    return fetch(apiUrl.Games + "/" + gameId, { method: 'DELETE' })
         .then(() => _handleDelete(gameId))
+}
+
+export function updateGame(game) {
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "PUT",
+        body: JSON.stringify(game)
+    }
+    console.log(game._id)
+
+    return fetch(apiUrl.Games + "/" + game._id, param)
+        .then(r => errorHandler.handleResponse(r, "Modification du jeu"))
 }
