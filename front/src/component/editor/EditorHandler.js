@@ -13,6 +13,18 @@ export function getEditorsFromDB() {
         })
 }
 
+export function getEditorFromDB(id) {
+    return fetch(apiUrl.Editors + "/" + id)
+        .then(r => r.json())
+        .then(response => {
+            return response.editor
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
+
 function createEditor(editor) {
     return (
         <Editor

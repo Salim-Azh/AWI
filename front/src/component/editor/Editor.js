@@ -1,7 +1,9 @@
+import {Nav} from "react-bootstrap"
+
 function Editor(props) {
     return (
         <tr id={props._id}>
-            <td>{props.name}</td>
+            <td><Nav.Link href={"/editeur/" + props._id}>{props.name}</Nav.Link></td>
             <td>{props.contacts}</td>
             <td><input type={"checkbox"} checked={props.isEditor}
                        onChange={props.handleEditor} id={props._id} name={"isEditor"}/></td>
