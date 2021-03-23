@@ -32,7 +32,8 @@ module.exports.addFestival = async(req, res) => {
             low_t_price: low_t_price,
             premium_sm_price: premium_sm_price,
             standard_sm_price: standard_sm_price,
-            low_sm_price: low_sm_price
+            low_sm_price: low_sm_price,
+            is_current: true
         })
         res.status(201).json({festivalId: festival._id})
 

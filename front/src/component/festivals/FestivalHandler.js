@@ -16,9 +16,16 @@ export function getFestivalsFromDB() {
 
 
 function createFestival(festival) {
+    let color
+    if(festival.is_current) {
+        color = "success"
+    }
+    else {
+        color = "secondary"
+    }
     return (
         <Col style={{margin: '1em'}}>
-        <Card bg={"secondary"}>
+        <Card bg={color}>
             <Festival
                 key={festival._id}
                 _id={festival._id}
