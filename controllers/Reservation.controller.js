@@ -2,7 +2,6 @@ const ReservationsModel = require("../models/reservations.model")
 const mongoose = require("mongoose")
 
 module.exports.getListOfReservations = async(req,res) => {
-
     try {
         const festivals = await ReservationsModel.find()
         res.status(201).json({festivals: festivals})

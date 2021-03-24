@@ -1,13 +1,13 @@
 function Reservation(props) {
     return (
         <tr id={props._id}>
-            <td>{props.name}</td>
-            <td>{props.comms}</td>
-            <td>{props.firstContact}</td>
-            <td>{props.secondContact}</td>
-            <td>{props.thirdContact}</td>
+            <td>{props.exhibitor}</td>
+            <td>{props.comment}</td>
+            <td>{props.first_contact}</td>
+            <td>{props.second_contact}</td>
+            <td>{props.third_contact}</td>
             <td>{props.state}</td>
-            <td><input type={"checkbox"} checked={props.needVolunteer}/></td>
+            <td><input type={"checkbox"} checked={props.need_volunteer}/></td>
             <td><input type={"checkbox"} checked={props.isEditorHere}/></td>
             <td><input type={"checkbox"} checked={props.reportSent}/></td>
             <td>{props.tableReserved}</td>
