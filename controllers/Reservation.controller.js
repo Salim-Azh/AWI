@@ -20,7 +20,7 @@ module.exports.getListOfReservations = async(req,res) => {
                 response[i].exhibitor = await EditorModel.findOne({
                     _id: mongoose.Types.ObjectId(reservations[i].exhibitor)
                 }).select('name')
-                response[i].reservation = await reservations[i]
+                response[i].reservation = reservations[i]
             }
         }
         res.status(201).json({reservations: response})
