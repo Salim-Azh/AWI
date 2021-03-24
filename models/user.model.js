@@ -22,7 +22,7 @@ const userSchema = new Schema(
         },
         right:{
             type: Number,
-            enum: [0,1]
+            enum: [0,1]//0: consultant; 1:admin;
         }
     },
     {
@@ -34,12 +34,14 @@ const userSchema = new Schema(
 )
 
 userSchema.pre("save", async function(next){
+    if(!this.isModified("pwd"))
+        return next()
     const salt = await bcrypt.genSalt()
     this.pwd = await bcrypt.hash(this.pwd, salt)
     next()
 })
 
-/*userSchema.pre("update", async function(next){
+/*userSchema.pre("findOneAndUpdate", async function(next){
     if(!this.isModified("pwd"))
         return next()
     const salt = await bcrypt.genSalt()
