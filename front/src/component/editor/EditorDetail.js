@@ -3,6 +3,7 @@ import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import EditorGamesTable from "./EditorGamesTable";
+import FormContainer from "./FormContainer";
 const EditorHandler = require("./EditorHandler")
 
 class EditorDetail extends Component {
@@ -64,6 +65,10 @@ class EditorDetail extends Component {
             .then(() => this.setState({redirect: "/editeurs"}))
     }
 
+    addGames() {
+
+    }
+
     render() {
         if(this.state.redirect) {
             return <Redirect to={this.state.redirect}/>
@@ -118,6 +123,11 @@ class EditorDetail extends Component {
                     </Row>
                 </FormGroup>
                 <FormGroup>
+                    <FormContainer
+                        component={"GameForm"}
+                        editorName={this.state.name}
+                        editorId={this.state._id}
+                    />
                     {games}
                 </FormGroup>
 
