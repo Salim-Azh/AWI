@@ -3,6 +3,7 @@ import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import GameTable from "../games/GameTable";
+import EditorGamesTable from "./EditorGamesTable";
 const EditorHandler = require("./EditorHandler")
 
 class EditorDetail extends Component {
@@ -77,10 +78,8 @@ class EditorDetail extends Component {
         let games
         if(this.state.isEditor) {
             games = (
-                <GameTable
+                <EditorGamesTable
                     games={this.state.games}
-                    filter={"name"}
-                    filterText={""}
                 />
                 )
         }

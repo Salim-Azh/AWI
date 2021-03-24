@@ -5,6 +5,7 @@ function Game(props) {
     return (
         <tr id={props._id}>
             <td><Nav.Link href={"/jeu/" + props._id}>{props.name}</Nav.Link></td>
+            <td>{props.editorName}</td>
             <td>{props.category}</td>
             <td>{props.duration}</td>
             <td>{props.zone}</td>
