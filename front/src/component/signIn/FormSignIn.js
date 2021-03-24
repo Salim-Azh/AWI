@@ -5,9 +5,8 @@ class FormSignIn extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: "",
+            email: "",
             password: "",
-            address: ""
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -30,108 +29,36 @@ class FormSignIn extends Component {
     handleSubmit() {
         // Todo add user to db
         this.setState({
-            name: "",
-            password: "",
-            address: ""
+            email: "",
+            password: ""
         })
     }
 
     render() {
         return (
             <Form noValidate onSubmit={this.handleSubmit}>
-                    <FormLabel>Nom de l'entreprise</FormLabel>
-                    <FormControl
-                        type={"text"}
-                        value={this.state.name}
-                        name={"name"}
-                        placeholder={"Nom"}
-                        onChange={this.handleChange}
-                    />
+                <FormLabel>Email</FormLabel>
+                <FormControl
+                    type={"text"}
+                    value={this.state.email}
+                    name={"email"}
+                    placeholder={"prenom.nom@jeux.com"}
+                    onChange={this.handleChange}
+                />
 
-                    <FormLabel>Mot de passe</FormLabel>
-                    <FormControl
-                        type={"password"}
-                        value={this.state.password}
-                        name={"password"}
-                        placeholder={"Mot de passe"}
-                        onChange={this.handleChange}
-                    />
+                <FormLabel>Mot de passe</FormLabel>
+                <FormControl
+                    type={"password"}
+                    value={this.state.password}
+                    name={"password"}
+                    placeholder={"Mot de passe"}
+                    onChange={this.handleChange}
+                />
 
-
-                    <FormLabel>Addresse</FormLabel>
-                    <FormControl
-                        type={"text"}
-                        value={this.state.address}
-                        name={"address"}
-                        placeholder={"Adresse"}
-                        onChange={this.handleChange}
-                    />
-
-                <Button type={"submit"}>Valider</Button>
+                <Button type={"submit"} onClick={this.submit}>Connexion</Button>
             </Form>
         )
     }
 }
 
 export default FormSignIn
-
-/*
-import { Field, reduxForm } from 'redux-form'
-
-const validate = values => {
-    const errors = {}
-    if (!values.name) {
-        errors.name = 'Le nom est requis'
-    }
-
-    if (!values.email) {
-        errors.email = 'Required'
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-    }
-
-    if (!values.address) {
-        errors.age = "L'adresse est requise"
-    }
-
-    return errors
-}
-
-const warn = values => {
-    const warnings = {}
-    if (values.age < 19) {
-        warnings.age = 'Hmm, you seem a bit young...'
-    }
-    return warnings
-}
-
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-    <div>
-        <label>{label}</label>
-        <div>
-            <input {...input} placeholder={label} type={type}/>
-            {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-        </div>
-    </div>
-)
-
-const FormSignIn = (props) => {
-    const { handleSubmit, submitting } = props
-    return (
-        <form onSubmit={handleSubmit}>
-            <Field name="name" type="text" component={renderField} label="Nom"/>
-            <Field name="password" type="email" component={renderField} label="Mot de passe"/>
-            <Field name="address" type="type" component={renderField} label="Adresse"/>
-            <div>
-                <button type="submit" disabled={submitting}>Valider</button>
-            </div>
-        </form>
-    )
-}
-
-export default reduxForm({
-    form: 'syncValidation',  // a unique identifier for this form
-    validate,                // <--- validation function given to redux-form
-    warn                     // <--- warning function given to redux-form
-})(FormSignIn)
-*/
