@@ -1,16 +1,18 @@
 import {Component} from "react"
 import {Form, FormControl, Button, FormLabel} from "react-bootstrap";
+import Cookies from 'js-cookie'
+const urlApi = require('../../public/urlApi')
 
 class FormSignIn extends Component {
     constructor(props) {
         super(props)
         this.state = {
             email: "",
-            password: "",
+            pwd: "",
         }
 
         this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.submit = this.submit.bind(this)
 
     }
 
@@ -22,15 +24,38 @@ class FormSignIn extends Component {
         this.setState({
             [name]: value
         })
-
-        console.log(name, value)
     }
 
-    handleSubmit() {
+    formIsUnchanged() {
+        return (
+            this.state.email === "" ||
+            this.state.pwd === ""
+        )
+    }
+
+    submit() {
         // Todo add user to db
+        if (this.formIsUnchanged()) {
+            return
+        }
+        const params = {
+            headers: {'Content-Type': 'application/json'},
+            method: "POST",
+            body: JSON.stringify(this.state)
+        }
+        fetch(urlApi.login, params)
+            .then(res => res.headers)
+            .then((res) => {
+                console.log(Cookies.get())
+                return res
+            })
+            .catch(e => {
+                console.log(e.stack)
+                console.log(e.message)
+            })
         this.setState({
             email: "",
-            password: ""
+            pwd: ""
         })
     }
 
@@ -49,13 +74,12 @@ class FormSignIn extends Component {
                 <FormLabel>Mot de passe</FormLabel>
                 <FormControl
                     type={"password"}
-                    value={this.state.password}
-                    name={"password"}
+                    value={this.state.pwd}
+                    name={"pwd"}
                     placeholder={"Mot de passe"}
                     onChange={this.handleChange}
                 />
-
-                <Button type={"submit"} onClick={this.submit}>Connexion</Button>
+                <Button onClick={this.submit}> Connexion</Button>
             </Form>
         )
     }
