@@ -2,7 +2,6 @@ import {Component} from "react"
 import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import GameTable from "../games/GameTable";
 import EditorGamesTable from "./EditorGamesTable";
 const EditorHandler = require("./EditorHandler")
 
@@ -78,9 +77,12 @@ class EditorDetail extends Component {
         let games
         if(this.state.isEditor) {
             games = (
+                <>
+                <Form.Label>Jeux de l'éditeur</Form.Label>
                 <EditorGamesTable
-                    games={this.state.games}
+                    editor={this.state}
                 />
+                </>
                 )
         }
 
@@ -115,9 +117,7 @@ class EditorDetail extends Component {
                         </Col>
                     </Row>
                 </FormGroup>
-
                 <FormGroup>
-                    <Form.Label>Jeux de l'éditeur</Form.Label>
                     {games}
                 </FormGroup>
 

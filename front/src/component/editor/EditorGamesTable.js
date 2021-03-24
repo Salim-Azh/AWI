@@ -14,15 +14,10 @@ class EditorGamesTable extends Component {
     }
 
     render() {
-        let rows
-        if(this.props.filter === "name") {
-            rows = GameHandler.filterGamesByName(this.props.games, this.props.filterText.toLowerCase())
-        }
-        else if(this.props.filter === "category") {
-            rows = GameHandler.filterGamesByCategory(this.props.games, this.props.filterText.toLowerCase())
-        } else {
-            rows = GameHandler.filterGamesByEditor(this.props.games, this.props.filterText.toLowerCase())
-        }
+        const rows = this.props.editor.games.map(game =>
+                GameHandler.createGameFromEditor(game)
+            )
+
         return (
             <Table striped bordered hover size={"sm"}>
                 <thead>

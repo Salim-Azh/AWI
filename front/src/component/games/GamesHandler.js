@@ -1,4 +1,5 @@
 import Game from "./Game";
+import EditorGame from "../editor/EditorGame";
 const apiUrl = require("../../public/urlApi")
 const errorHandler = require("../error/errorHandler")
 
@@ -26,13 +27,26 @@ export function getGameFromDB(gameId) {
         })
 }
 
-function createGame(game) {
+export function createGame(game) {
     return (
         <Game
             key={game._id}
             _id={game._id}
             name={game.name}
             editorName={game.editor.name}
+            category={game.category}
+            duration={game.duration}
+            deleteGame={deleteGame}
+        />
+    )
+}
+
+export function createGameFromEditor(game) {
+    return (
+        <EditorGame
+            key={game._id}
+            _id={game._id}
+            name={game.name}
             category={game.category}
             duration={game.duration}
             deleteGame={deleteGame}
