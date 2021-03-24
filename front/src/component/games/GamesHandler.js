@@ -1,4 +1,5 @@
 import Game from "./Game";
+import EditorGame from "../editor/EditorGame";
 const apiUrl = require("../../public/urlApi")
 const errorHandler = require("../error/errorHandler")
 
@@ -6,7 +7,7 @@ export function getGamesFromDB() {
     return fetch(apiUrl.Games)
         .then(r => r.json())
         .then((response) => {
-            return response.games
+            return response.response
         })
         .catch(e => {
             console.log(e.stack)
@@ -26,9 +27,23 @@ export function getGameFromDB(gameId) {
         })
 }
 
-function createGame(game) {
+export function createGame(game) {
     return (
         <Game
+            key={game._id}
+            _id={game._id}
+            name={game.name}
+            editorName={game.editor.name}
+            category={game.category}
+            duration={game.duration}
+            deleteGame={deleteGame}
+        />
+    )
+}
+
+export function createGameFromEditor(game) {
+    return (
+        <EditorGame
             key={game._id}
             _id={game._id}
             name={game.name}
@@ -56,6 +71,18 @@ export function filterGamesByCategory(games, filterText) {
     if(games) {
         games.map(game => {
             if (game && (game.category.toLowerCase().includes(filterText))) {
+                rows.push(createGame(game))
+            }
+        })
+        return rows
+    }
+}
+
+export function filterGamesByEditor(games, filterText) {
+    let rows = []
+    if(games) {
+        games.map(game => {
+            if (game && (game.editor.name.toLowerCase().includes(filterText))) {
                 rows.push(createGame(game))
             }
         })

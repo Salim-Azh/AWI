@@ -1,13 +1,27 @@
 const GameModel = require("../models/games.model")
-const EditorsModel = require("../models/editors.model")
 const mongoose = require("mongoose")
+const EditorsModel = require("../models/editors.model");
 
 module.exports.getListOfGames = async(req,res) => {
+    const response = []
 
     try {
         const games = await GameModel.find()
-        res.status(201).json({games: games})
+        for(let i = 0; i < games.length; i++) {
+            const editor = await EditorsModel.findOne({games: games[i]._id})
+
+            const res = {
+                _id: games[i]._id,
+                name: games[i].name,
+                category: games[i].category,
+                duration: games[i].duration,
+                editor: editor
+            }
+            response.push(res)
+        }
+        res.status(201).json({response: response})
     } catch (error) {
+        console.log(error)
         res.status(400).send({error})
     }
 }
@@ -25,28 +39,22 @@ module.exports.getGame = async(req,res) => {
 }
 
 module.exports.addGame = async(req, res) => {
+
     const {name, min_yearold, category, duration, editor} = req.body
-
     try {
-
         const game = await GameModel.create({
             _id: mongoose.Types.ObjectId(),
             name: name,
             min_yearold: min_yearold,
             category: category,
-            duration: duration,
-            editor: mongoose.Types.ObjectId(editor)
+            duration: duration
         })
-
-        if(editor) {
-            // TODO faire push new games to editors
-            const update = {$push: { games: game._id }}
-            EditorsModel.updateOne({_id: mongoose.Types.ObjectId(editor)}, update)
-        }
-
+        const update = {$addToSet: {games: game._id.toString()}}
+        await EditorsModel.updateOne({_id: mongoose.Types.ObjectId(editor._id)}, update)
         res.status(201).json({gameId: game._id})
 
     } catch (error) {
+        console.log(error)
         res.status(400).send({error})
     }
 }
@@ -57,6 +65,7 @@ module.exports.deleteGame = async(req, res) => {
 
     try {
         GameModel.deleteOne({_id: mongooseId})
+            .then(() => EditorsModel.updateOne({games: idGame}, {$pull: {games: idGame}}))
             .then(() => res.status(201).send())
 
     } catch(e) {

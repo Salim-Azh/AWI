@@ -2,10 +2,9 @@ import {Component} from "react"
 import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import GameTable from "../games/GameTable";
+import EditorGamesTable from "./EditorGamesTable";
 const EditorHandler = require("./EditorHandler")
 
-// TODO faire le bouton delete game ^pour un jeu de l'editeur
 class EditorDetail extends Component {
     constructor(props) {
         super(props);
@@ -65,6 +64,10 @@ class EditorDetail extends Component {
             .then(() => this.setState({redirect: "/editeurs"}))
     }
 
+    addGames() {
+
+    }
+
     render() {
         if(this.state.redirect) {
             return <Redirect to={this.state.redirect}/>
@@ -77,20 +80,14 @@ class EditorDetail extends Component {
 
         let games
         if(this.state.isEditor) {
-            if(this.state.games.length > 0) {
-                games = (
-                    <FormGroup>
-                        <Form.Label>Jeux de l'éditeur</Form.Label>
-                        <GameTable
-                            games={this.state.games}
-                            filter={"name"}
-                            filterText={""}
-                        />
-                    </FormGroup>
+            games = (
+                <>
+                <Form.Label>Jeux de l'éditeur</Form.Label>
+                <EditorGamesTable
+                    editor={this.state}
+                />
+                </>
                 )
-            } else {
-                games = <div>Ajouter un jeu à l'éditeur</div>
-            }
         }
 
         return (
