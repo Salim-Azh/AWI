@@ -22,10 +22,9 @@ function createFestival(festival) {
     else {color = "secondary"}
 
     return (
-        <Col style={{margin: '1em'}}>
+        <Col style={{margin: '1em'}} key={festival._id}>
         <Card bg={color}>
             <Festival
-                key={festival._id}
                 _id={festival._id}
                 name={festival.name}
                 year={festival.year}

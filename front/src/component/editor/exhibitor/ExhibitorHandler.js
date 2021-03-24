@@ -3,6 +3,7 @@ import Exhibitor from "./Exhibitor";
 function createExhibitor(exhibitor) {
     return (
         <Exhibitor
+            key={exhibitor._id}
             _id={exhibitor._id}
             name={exhibitor.name}
             contacts={exhibitor.contacts}

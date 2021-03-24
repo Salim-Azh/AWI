@@ -4,7 +4,7 @@ import GameTable from "./GameTable"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
-import FormContainer from "./FormContainer"
+import FormContainer from "../Modal/FormContainer"
 
 const GameHandler = require("./GamesHandler")
 
@@ -91,7 +91,10 @@ class FilterableGamesTable extends Component {
                     </tbody>
                 </Table>
                 <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddGames}/>
+                    <FormContainer
+                        title={"Ajouter un jeu"}
+                        component={"GameForm"}
+                        handleClick={this.handleAddGames}/>
                 </Card>
                 <GameTable
                     response={this.state.games}

@@ -2,10 +2,10 @@ import {Component} from "react"
 import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import EditorGamesTable from "./EditorGamesTable";
-import FormContainer from "./FormContainer";
+import GameTable from "../games/GameTable";
 const EditorHandler = require("./EditorHandler")
 
+// TODO faire le bouton delete game ^pour un jeu de l'editeur
 class EditorDetail extends Component {
     constructor(props) {
         super(props);
@@ -75,7 +75,7 @@ class EditorDetail extends Component {
         }
         const rows = this.state.contacts.map((contact, index) =>
             <FormControl
-                as={"input"} type={"text"} value={contact}
+                as={"input"} type={"text"} value={contact} key={index}
                 onChange={this.handleContactsChange} name={index}/>
         )
 
@@ -122,14 +122,8 @@ class EditorDetail extends Component {
                         </Col>
                     </Row>
                 </FormGroup>
-                <FormGroup>
-                    <FormContainer
-                        component={"GameForm"}
-                        editorName={this.state.name}
-                        editorId={this.state._id}
-                    />
-                    {games}
-                </FormGroup>
+
+                {games}
 
                 <Button onClick={this.submit} variant={"outline-success"}>Sauvegarder</Button>
             </Form>

@@ -59,7 +59,6 @@ module.exports.addGame = async(req, res) => {
     }
 }
 
-// TODO ajouter la suppression sur le jeu des editeurs
 module.exports.deleteGame = async(req, res) => {
     const idGame = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idGame)
