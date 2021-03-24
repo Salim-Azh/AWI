@@ -1,8 +1,10 @@
 import {Button, Modal} from "react-bootstrap";
-import img from "../../img/addFiles.svg"
+import img from "../../public/img/addFiles.svg"
 import "../editor/css/FormContainer.css"
 import EditorForm from "../editor/EditorForm";
 import GameForm from "../games/GameForm";
+import FestivalForm from "../festivals/FestivalForm";
+import ReservationForm from "../reservations/ReservationForm";
 
 const {useState} = require("react");
 
@@ -17,6 +19,10 @@ function FormContainer(props) {
         form = <EditorForm handleClick={props.handleClick}/>
     } else if(props.component === "GameForm") {
         form = <GameForm handleClick={props.handleClick}/>
+    } else if(props.component === "FestivalForm") {
+        form = <FestivalForm handleClick={props.handleClick}/>
+    } else if(props.component === "ReservationForm") {
+        form = <ReservationForm handleClick={props.handleClick}/>
     }
     // TODO faire le component ajouter un jeu a un editeur ici aussi
     // TODO faire en sorte d'appeler le submit du GameForm dans le bouton ajouter

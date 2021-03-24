@@ -4,7 +4,7 @@ import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import ReservationTable from "./ReservationTable";
-import FormContainer from "./FormContainer";
+import FormContainer from "../Modal/FormContainer";
 import FilterCheck from "../search/FilterCheck";
 const ReservationHandler = require("./ReservationHandler")
 const EditorHandler = require("../editor/EditorHandler")
@@ -109,7 +109,10 @@ class FilterableReservationsTable extends Component {
                     </tbody>
                 </Table>
                 <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddReservation}/>
+                    <FormContainer
+                        title={"Créer une réservation"}
+                        component={"ReservationForm"}
+                        handleClick={this.handleAddReservation}/>
                 </Card>
                 <ReservationTable
                     reservations={this.state.reservations}

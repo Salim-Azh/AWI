@@ -51,7 +51,6 @@ class ReservationForm extends Component {
                     <Form.Label>Exposant</Form.Label>
                     <FormControl as={"select"} name="name" type="text" value={this.state.exhibitor} placeholder="Nom"
                            onChange={this.handleChange}/>
-                    {}
                 </FormGroup>
 
                 <FormGroup>
