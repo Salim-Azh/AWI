@@ -7,8 +7,8 @@ class ReservationForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: "",
-            contact: ""
+            festival: "",
+            exhibitor: ""
         }
 
         this.submit = this.submit.bind(this)
@@ -27,7 +27,8 @@ class ReservationForm extends Component {
 
     formIsUnchanged() {
         return (
-            this.state.name === ""
+            this.state.festival === "" ||
+            this.state.exhibitor === ""
         )
     }
 
@@ -38,8 +39,8 @@ class ReservationForm extends Component {
         }
         this.props.handleClick(this.state)
         this.setState({
-            name: "",
-            contact: ""
+            festival: "",
+            exhibitor: ""
         })
     }
 
@@ -47,9 +48,10 @@ class ReservationForm extends Component {
         return (
             <Form>
                 <FormGroup>
-                    <Form.Label>Nom</Form.Label>
-                    <FormControl as={"input"} name="name" type="text" value={this.state.name} placeholder="Nom"
+                    <Form.Label>Exposant</Form.Label>
+                    <FormControl as={"select"} name="name" type="text" value={this.state.exhibitor} placeholder="Nom"
                            onChange={this.handleChange}/>
+                    {}
                 </FormGroup>
 
                 <FormGroup>

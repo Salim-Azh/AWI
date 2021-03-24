@@ -16,17 +16,32 @@ const schema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        nb_tables_premium: {
+        nb_t_premium: {
             type: Number,
             required: true,
             min: 0
         },
-        nb_tables_standard: {
+        nb_t_standard: {
             type: Number,
             required: true,
             min: 0
         },
-        nb_tables_low: {
+        nb_t_low: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        nb_sm_premium: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        nb_sm_standard: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        nb_sm_low: {
             type: Number,
             required: true,
             min: 0
@@ -60,6 +75,10 @@ const schema = new mongoose.Schema(
             type: Number,
             required: true,
             min: 0
+        },
+        is_current: {
+            type: Boolean,
+            required: true
         }
     }
 )

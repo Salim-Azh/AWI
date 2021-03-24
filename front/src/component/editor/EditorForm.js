@@ -8,7 +8,10 @@ class EditorForm extends Component {
         super(props)
         this.state = {
             name: "",
-            contacts: "",
+            contacts: {
+                email: "",
+                phone_number: ""
+            },
             isEditor: false,
             isExhibitor: false,
             isPotential: true
@@ -16,13 +19,11 @@ class EditorForm extends Component {
 
         this.submit = this.submit.bind(this)
         this.handleChange = this.handleChange.bind(this)
-        this.handleEditorCheckChange = this.handleEditorCheckChange.bind(this)
-        this.handleExhibitorCheckChange = this.handleExhibitorCheckChange.bind(this)
     }
 
     handleChange(event) {
         const target = event.target;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         this.setState({
@@ -30,22 +31,10 @@ class EditorForm extends Component {
         })
     }
 
-    handleEditorCheckChange(event) {
-        const target = event.target;
-        const checked = target.checked;
-        this.setState({isEditor: checked})
-    }
-
-    handleExhibitorCheckChange(event) {
-        const target = event.target;
-        const checked = target.checked;
-        this.setState({isExhibitor: checked})
-    }
-
     formIsUnchanged() {
         return (
             this.state.name === "" ||
-                this.state.contacts === ""
+            this.state.contacts === ""
         )
     }
 
@@ -57,7 +46,7 @@ class EditorForm extends Component {
         this.props.handleClick(this.state)
         this.setState({
             name: "",
-            contact: [""],
+            contact: "",
             isEditor: "",
             isExhibitor: "",
             isPotential: true
@@ -75,19 +64,20 @@ class EditorForm extends Component {
 
                 <FormGroup>
                     <Form.Label>Contacts</Form.Label>
-                    <FormControl as={"input"} name="contacts" type="text" value={this.state.contacts} placeholder="Contact"
-                           onChange={this.handleChange}/>
+                    <FormControl as={"input"} name="contacts.email" type="text" value={this.state.contacts.email}
+                                 placeholder="Contact"
+                                 onChange={this.handleChange}/>
                 </FormGroup>
 
                 <FormGroup>
                     <Form.Check label={"Editeur ?"}
                                 checked={this.state.isEditor}
-                                onChange={this.handleEditorCheckChange}
+                                onChange={this.handleChange}
                                 name="isEditor"
                     />
                     <Form.Check label={"Exposant ?"}
                                 checked={this.state.isExhibitor}
-                                onChange={this.handleExhibitorCheckChange}
+                                onChange={this.handleChange}
                                 name="isExhibitor"
                     />
                 </FormGroup>

@@ -5,20 +5,24 @@ import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import ReservationTable from "./ReservationTable";
 import FormContainer from "./FormContainer";
+import FilterCheck from "../search/FilterCheck";
 const ReservationHandler = require("./ReservationHandler")
+const EditorHandler = require("../editor/EditorHandler")
 
 class FilterableReservationsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
             reservations: "",
+            editors: "",
             filterText: "",
             filterEnglish: "name",
-            filterFrench: "Nom"
+            filterFrench: "nom"
         }
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
+        this.handleFilterCheckedChange = this.handleFilterCheckedChange.bind(this)
         this.handleAddReservation = this.handleAddReservation.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
     }
@@ -43,6 +47,12 @@ class FilterableReservationsTable extends Component {
         this.setState({
             filterEnglish: filterEnglish,
             filterFrench: filterFrench
+        })
+    }
+
+    handleFilterCheckedChange(filterName, value) {
+        this.setState({
+            [filterName]: value
         })
     }
 
@@ -81,6 +91,18 @@ class FilterableReservationsTable extends Component {
                                 filterText={this.state.filterText}
                                 filter={{english: this.state.filterEnglish, french: this.state.filterFrench}}
                                 onFilterTextChange={this.handleFilterTextChange}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <FilterCheck
+                                filters={[
+                                    {english: "needVolunteer", french: "Besoins de bénévoles ?"},
+                                    {english: "isEditorHere", french: "Editeur présent ?"},
+                                    {english: "reportSent", french: "CR envoyé ?"}
+                                ]}
+                                onChecked={this.handleFilterCheckedChange}
                             />
                         </td>
                     </tr>

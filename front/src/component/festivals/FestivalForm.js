@@ -9,15 +9,19 @@ class FestivalForm extends Component {
         this.state = {
             name: "",
             year: "",
-            nb_tables_premium: "",
-            nb_tables_standard: "",
-            nb_tables_low: "",
+            nb_t_premium: "",
+            nb_t_standard: "",
+            nb_t_low: "",
+            nb_sm_premium: "",
+            nb_sm_standard: "",
+            nb_sm_low: "",
             premium_t_price: "",
             standard_t_price: "",
             low_t_price: "",
             premium_sm_price: "",
             standard_sm_price: "",
-            low_sm_price: ""
+            low_sm_price: "",
+            isCurrent: ""
         }
 
         this.submit = this.submit.bind(this)
@@ -26,7 +30,7 @@ class FestivalForm extends Component {
 
     handleChange(event) {
         const target = event.target;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         this.setState({
@@ -37,16 +41,20 @@ class FestivalForm extends Component {
     formIsUnchanged() {
         return (
             this.state.name === "" ||
-            this.state.nb_tables_premium ===  "" ||
-            this.state.nb_tables_standard === "" ||
-            this.state.nb_tables_low === "" ||
+            this.state.nb_t_premium ===  "" ||
+            this.state.nb_t_standard === "" ||
+            this.state.nb_t_low === "" ||
+            this.state.nb_sm_premium === "" ||
+            this.state.nb_sm_standard === "" ||
+            this.state.nb_sm_low === "" ||
             this.state.year === "" ||
             this.state.premium_t_price === "" ||
             this.state.standard_t_price === "" ||
             this.state.low_t_price === "" ||
             this.state.premium_sm_price === "" ||
             this.state.standard_sm_price === "" ||
-            this.state.low_sm_price === ""
+            this.state.low_sm_price === "" ||
+            this.state.isCurrent === ""
         )
     }
 
@@ -59,15 +67,19 @@ class FestivalForm extends Component {
         this.setState({
             name: "",
             year: "",
-            nb_tables_premium: "",
-            nb_tables_standard: "",
-            nb_tables_low: "",
+            nb_t_premium: "",
+            nb_t_standard: "",
+            nb_t_low: "",
+            nb_sm_premium: "",
+            nb_sm_standard: "",
+            nb_sm_low: "",
             premium_t_price: "",
             standard_t_price: "",
             low_t_price: "",
             premium_sm_price: "",
             standard_sm_price: "",
-            low_sm_price: ""
+            low_sm_price: "",
+            isCurrent: ""
         })
     }
 
@@ -88,13 +100,25 @@ class FestivalForm extends Component {
 
                 <FormGroup>
                     <Form.Label>Nombre de tables</Form.Label>
-                    <FormControl as={"input"} name="nb_tables_premium" type="number" min={0} value={this.state.nb_tables_premium}
+                    <FormControl as={"input"} name="nb_t_premium" type="number" min={0} value={this.state.nb_t_premium}
                                  placeholder="premium" onChange={this.handleChange}/>
 
-                    <FormControl as={"input"} name="nb_tables_standard" type="number" min={0} value={this.state.nb_tables_standard}
+                    <FormControl as={"input"} name="nb_t_standard" type="number" min={0} value={this.state.nb_t_standard}
                                  placeholder="standard" onChange={this.handleChange}/>
 
-                    <FormControl as={"input"} name="nb_tables_low" type="number" min={0} value={this.state.nb_tables_low}
+                    <FormControl as={"input"} name="nb_t_low" type="number" min={0} value={this.state.nb_t_low}
+                                 placeholder="low" onChange={this.handleChange}/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Form.Label>Nombre de m²</Form.Label>
+                    <FormControl as={"input"} name="nb_sm_premium" type="number" min={0} value={this.state.nb_sm_premium}
+                                 placeholder="premium" onChange={this.handleChange}/>
+
+                    <FormControl as={"input"} name="nb_sm_standard" type="number" min={0} value={this.state.nb_sm_standard}
+                                 placeholder="standard" onChange={this.handleChange}/>
+
+                    <FormControl as={"input"} name="nb_sm_low" type="number" min={0} value={this.state.nb_sm_low}
                                  placeholder="low" onChange={this.handleChange}/>
                 </FormGroup>
 
@@ -121,6 +145,9 @@ class FestivalForm extends Component {
                     <FormControl as={"input"} name="low_sm_price" type="number" min={0} value={this.state.low_sm_price}
                                  placeholder="low" onChange={this.handleChange}/>
                 </FormGroup>
+
+                <Form.Check label={"Festival courant ?"} name={"isCurrent"} checked={this.state.isCurrent}
+                onChange={this.handleChange}/>
 
                 <Button onClick={this.submit} variant={"link"}>Ajouter</Button>
             </Form>

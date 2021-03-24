@@ -2,15 +2,19 @@ import {Component} from "react"
 import {Card, FormControl, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
+// Faire le set current ou la nav vers reservation
 class Festival extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             _id: props._id,
-            nb_tables_premium: props.nb_tables_premium,
-            nb_tables_standard: props.nb_tables_standard,
-            nb_tables_low: props.nb_tables_low,
+            nb_t_premium: props.nb_t_premium,
+            nb_t_standard: props.nb_t_standard,
+            nb_t_low: props.nb_t_low,
+            nb_sm_premium: props.nb_sm_premium,
+            nb_sm_standard: props.nb_sm_standard,
+            nb_sm_low: props.nb_sm_low,
             premium_t_price: props.premium_t_price,
             standard_t_price: props.standard_t_price,
             low_t_price: props.low_t_price,
@@ -64,13 +68,18 @@ class Festival extends Component {
                             <tr>
                                 <td>Premium</td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.nb_tables_premium}
+                                    <FormControl as={"input"} type={"text"} value={this.state.nb_t_premium}
                                                  onChange={this.handleChange} name={"nb_tables_premium"}
                                     />
                                 </td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.premium_t_price}
                                                  onChange={this.handleChange} name={"premium_t_price"}
+                                    />
+                                </td>
+                                <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.nb_sm_premium}
+                                                 onChange={this.handleChange} name={"nb_tables_premium"}
                                     />
                                 </td>
                                 <td>
@@ -83,13 +92,18 @@ class Festival extends Component {
                             <tr>
                                 <td>Standard</td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.nb_tables_standard}
+                                    <FormControl as={"input"} type={"text"} value={this.state.nb_t_standard}
                                                  onChange={this.handleChange} name={"nb_tables_standard"}
                                     />
                                 </td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.standard_t_price}
                                                  onChange={this.handleChange} name={"standard_t_price"}
+                                    />
+                                </td>
+                                <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.nb_sm_standard}
+                                                 onChange={this.handleChange} name={"nb_tables_standard"}
                                     />
                                 </td>
                                 <td>
@@ -102,13 +116,19 @@ class Festival extends Component {
                             <tr>
                                 <td>Low</td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.nb_tables_low}
+                                    <FormControl as={"input"} type={"text"} value={this.state.nb_t_low}
                                                  onChange={this.handleChange} name={"nb_tables_low"}
                                     />
                                 </td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.low_t_price}
                                                  onChange={this.handleChange} name={"low_t_price"}
+                                    />
+                                </td>
+
+                                <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.nb_sm_low}
+                                                 onChange={this.handleChange} name={"nb_tables_low"}
                                     />
                                 </td>
                                 <td>
@@ -120,9 +140,9 @@ class Festival extends Component {
                             </tbody>
                         </Table>
                     </Card.Text>
-                    <Button variant="success" type={"button"} onClick={this.submit}>Modifier</Button>
-                    <Button variant="danger" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
-                    <Button variant="primary" onClick={this.setCurrent}>Sélectionner</Button>
+                    <Button variant="primary" type={"button"} onClick={this.submit}>Sauvegarder</Button>
+                    <Button variant="warning" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
+                    <Button variant="primary">set current/ Navigation vers resa</Button>
                 </Card.Body>
             </>
         )

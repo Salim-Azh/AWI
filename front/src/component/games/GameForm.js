@@ -10,7 +10,7 @@ class GameForm extends Component {
             min_yearold: "",
             category: "",
             duration: "",
-            editor: "",
+            editor: "603fc7c15552f9c6ae78e660",
             zone: "",
             countPlayer: "",
             prototype: "",
@@ -85,10 +85,8 @@ class GameForm extends Component {
                     <FormControl as={"select"} name="category" onChange={this.handleChange}>
                         <option value="">---</option>
                         <option value="enfant">enfant</option>
-                        <option value="cat2">cat2</option>
-                        <option value="cat3">cat3</option>
-                        <option value="cat4">cat4</option>
-                        <option value="cat5">cat5</option>
+                        <option value="ambiance">ambiance</option>
+                        <option value="famille">famille</option>
                     </FormControl>
                 </FormGroup>
 
