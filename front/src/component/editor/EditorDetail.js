@@ -2,10 +2,9 @@ import {Component} from "react"
 import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import GameTable from "../games/GameTable";
+import EditorGamesTable from "./EditorGamesTable";
 const EditorHandler = require("./EditorHandler")
 
-// TODO faire le bouton delete game ^pour un jeu de l'editeur
 class EditorDetail extends Component {
     constructor(props) {
         super(props);
