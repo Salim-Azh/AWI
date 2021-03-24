@@ -19,14 +19,14 @@ class ReservationTable extends Component {
             rows = ReservationHandler.filterReservationByName(this.props.reservations, this.props.filterText.toLowerCase())
         }
 
-        if(this.props.needVolunteer) {
-            rows = ReservationHandler.filterEditorByVolunteer(this.props.editors)
+        if(this.props.need_volunteer) {
+            rows = ReservationHandler.filterEditorByVolunteer(this.props.reservations)
         }
         if(this.props.isEditorHere) {
-            rows = ReservationHandler.filterEditorByEditorPresent(this.props.editors)
+            rows = ReservationHandler.filterEditorByEditorPresent(this.props.reservations)
         }
         if(this.props.reportSent) {
-            rows = ReservationHandler.filterEditorByReportSent(this.props.editors)
+            rows = ReservationHandler.filterEditorByReportSent(this.props.reservations)
         }
 
         return (
@@ -35,12 +35,9 @@ class ReservationTable extends Component {
                 <tr>
                     <th>Nom</th>
                     <th>Commentaire</th>
-                    <th>1er contact</th>
-                    <th>2ème contact</th>
-                    <th>3ème Contact</th>
                     <th>état</th>
                     <th>Besoin de bénévoles ?</th>
-                    <th>Présent ?</th>
+                    <th>Editeur présent ?</th>
                     <th>CR envoyé ?</th>
                     <th>table</th>
                     <th>m²</th>

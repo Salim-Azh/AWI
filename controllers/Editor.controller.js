@@ -4,9 +4,11 @@ const EditorsModel = require("../models/editors.model")
 const GamesModel = require("../models/games.model")
 
 module.exports.getListOfEditors = async(req,res) => {
+    const {fields} = req.body
+    console.log(fields)
 
     try {
-        const editors = await EditorsModel.find()
+        const editors = await EditorsModel.find().select(fields)
         res.status(201).json({editors: editors})
     } catch (error) {
         res.status(400).send({error})

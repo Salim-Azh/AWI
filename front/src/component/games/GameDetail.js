@@ -33,7 +33,7 @@ class GameDetail extends Component {
                 zone: game.zone,
                 recieved: game.recieved,
                 date: game.date,
-                editor: "603fc7c15552f9c6ae78e660"
+                editor: game.editor._id
             }))
     }
 
@@ -49,12 +49,12 @@ class GameDetail extends Component {
 
     submit() {
         GamesHandler.updateGame(this.state)
-            .then(() => this.setState({redirect: true}))
+            .then(() => this.setState({redirect: "/nav/jeux"}))
     }
 
     render() {
         if(this.state.redirect) {
-            return <Redirect to={"/jeux"}/>
+            return <Redirect to={this.state.redirect}/>
         }
 
         return (

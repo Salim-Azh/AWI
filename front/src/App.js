@@ -23,7 +23,7 @@ import GameDetail from "./component/games/GameDetail";
 function App() {
   return (
       <Router>
-        
+
         <div className="App">
           <Route path="/nav">
           <Navbar expand="lg" bg="dark" variant="dark">
@@ -31,17 +31,16 @@ function App() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="/festivals">Festivals</Nav.Link>
-                <Nav.Link href="/jeux">Jeux</Nav.Link>
+                <Nav.Link href="/nav/festivals">Festivals</Nav.Link>
+                <Nav.Link href="/nav/jeux">Jeux</Nav.Link>
 
-                <Nav.Link href="/editeurs">Éditeur</Nav.Link>
-                <Nav.Link href="/reservations">Réservations</Nav.Link>
-                <Nav.Link href="/factures">Factures</Nav.Link>
+                <Nav.Link href="/nav/editeurs">Éditeur</Nav.Link>
+                <Nav.Link href="/nav/reservations">Réservations</Nav.Link>
+                <Nav.Link href="/nav/factures">Factures</Nav.Link>
               </Nav>
               <Nav>
 
-                <Nav.Link href="/connexion">Connexion</Nav.Link>
-                <Nav.Link href="/inscription">Inscription</Nav.Link>
+                <Nav.Link href="/nav/inscription">Inscription</Nav.Link>
 
               </Nav>
             </Navbar.Collapse>

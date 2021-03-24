@@ -61,7 +61,7 @@ class EditorDetail extends Component {
 
     submit() {
         EditorHandler.updateEditor(this.state)
-            .then(() => this.setState({redirect: "/editeurs"}))
+            .then(() => this.setState({redirect: "/nav/editeurs"}))
     }
 
     addGames() {

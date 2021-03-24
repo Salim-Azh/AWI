@@ -1,17 +1,14 @@
 function Reservation(props) {
     return (
         <tr id={props._id}>
-            <td>{props.exhibitor}</td>
-            <td>{props.comment}</td>
-            <td>{props.first_contact}</td>
-            <td>{props.second_contact}</td>
-            <td>{props.third_contact}</td>
-            <td>{props.state}</td>
-            <td><input type={"checkbox"} checked={props.need_volunteer}/></td>
-            <td><input type={"checkbox"} checked={props.isEditorHere}/></td>
-            <td><input type={"checkbox"} checked={props.reportSent}/></td>
-            <td>{props.tableReserved}</td>
-            <td>{props.m2Reserved}</td>
+            <td>{props.exhibitor.name}</td>
+            <td>{props.reservation.comment}</td>
+            <td>{props.reservation.state}</td>
+            <td><input type={"checkbox"} checked={props.reservation.need_volunteer} readOnly/></td>
+            <td><input type={"checkbox"} checked={props.reservation.isEditorHere} readOnly/></td>
+            <td><input type={"checkbox"} checked={props.reservation.reportSent} readOnly/></td>
+            <td>{props.reservation.nb_t_premium + props.reservation.nb_t_standard + props.reservation.nb_t_low}</td>
+            <td>{props.reservation.nb_sm_premium + props.reservation.nb_sm_standard + props.reservation.nb_sm_low}</td>
             <td>{props.bill}</td>
             <td>{props.total} €</td>
         </tr>
@@ -19,3 +16,12 @@ function Reservation(props) {
 }
 
 export default Reservation
+/*
+0:En discussions,
+1:Presence confirme,
+2:Pas de reponse,
+3:considere absent,
+5:absent,
+6:liste des jeux demande
+7:liste des jeux recu
+ */

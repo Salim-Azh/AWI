@@ -3,10 +3,12 @@ const mongoose = require('mongoose')
 const talk = new mongoose.Schema(
     {
         contact: {
-            type: String
+            type: String,
+            required: false
         },
         date: {
-            type: Date
+            type: Date,
+            required: false
         }
     }
 )
@@ -26,10 +28,12 @@ const gamesBooked = new mongoose.Schema(
             required: true
         },
         state: {
-            type: Number
+            type: Number,
+            required: false
         },
-        prototype: {
-            type: Boolean
+        proto: {
+            type: Boolean,
+            required: false
         }
     }
 )
@@ -37,16 +41,16 @@ const gamesBooked = new mongoose.Schema(
 const schema = new mongoose.Schema(
     {
         _id: {
-            type: mongoose.ObjectId,
+            type: mongoose.Types.ObjectId,
             required: true
         },
         festival:{
-            type: mongoose.ObjectId,
+            type: mongoose.Types.ObjectId,
             required: true,
             trim: true
         },
         exhibitor: {
-            type: mongoose.ObjectId,
+            type: mongoose.Types.ObjectId,
             required: true,
             trim: true
         },
