@@ -6,7 +6,8 @@ import {Navbar, Nav, NavItem} from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 
 
@@ -22,7 +23,9 @@ import GameDetail from "./component/games/GameDetail";
 function App() {
   return (
       <Router>
+        
         <div className="App">
+          <Route path="/nav">
           <Navbar expand="lg" bg="dark" variant="dark">
             <Navbar.Brand href="/festivals">Le festival des jeux</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
@@ -43,43 +46,41 @@ function App() {
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-
+          </Route>
           <Switch>
-            <Route path="/festivals">
+            <Route exact path="/">
+              <Redirect to= "/login"/>
+            </Route>
+            <Route path="/login" component={FormSignIn}/>
+
+            <Route path="/nav/festivals">
               <FilteredFestivalsTable/>
             </Route>
-            <Route path="/editeurs">
+
+            <Route path="/nav/editeurs">
               <EditorTabs/>
             </Route>
-            <Route path="/editeur/:id">
+
+            <Route path="/nav/editeur/:id">
               <EditorDetail/>
             </Route>
 
-            <Route path="/jeux">
+            <Route path="/nav/jeux">
               <FilteredGamesTable/>
             </Route>
 
-            <Route path="/jeu/:id">
+            <Route path="/nav/jeu/:id">
               <GameDetail/>
             </Route>
 
-            <Route path="/reservations">
+            <Route path="/nav/reservations">
               <TabsReservations/>
             </Route>
 
-            <Route path="/factures">
+            <Route path="/nav/factures">
               <FilteredBillsTable/>
             </Route>
-
-            <Route path="/connexion">
-
-            </Route>
-            <Route path="/inscription">
-              <FormSignIn/>
-            </Route>
-
           </Switch>
-
         </div>
       </Router>
   );
