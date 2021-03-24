@@ -16,6 +16,8 @@ import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable
 import FilteredBillsTable from "./component/bills/FilteredBillsTable"
 import EditorTabs from "./component/editor/EditorTabs"
 import TabsReservations from "./component/reservations/TabsReservations";
+import EditorDetail from "./component/editor/EditorDetail";
+import GameDetail from "./component/games/GameDetail";
 
 function App() {
   return (
@@ -49,9 +51,16 @@ function App() {
             <Route path="/editeurs">
               <EditorTabs/>
             </Route>
+            <Route path="/editeur/:id">
+              <EditorDetail/>
+            </Route>
 
             <Route path="/jeux">
               <FilteredGamesTable/>
+            </Route>
+
+            <Route path="/jeu/:id">
+              <GameDetail/>
             </Route>
 
             <Route path="/reservations">

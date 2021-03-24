@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const schema = new mongoose.Schema(
     {
         _id: {
-            type: mongoose.ObjectId,
+            type: mongoose.Types.ObjectId,
             required: true
         },
         name: {
@@ -15,6 +15,10 @@ const schema = new mongoose.Schema(
             type: [String],
             required: true,
             trim: true
+        },
+        games: {
+            type: [String],
+            required: false
         },
         isEditor: {
             type: Boolean,

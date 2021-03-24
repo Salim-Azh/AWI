@@ -1,11 +1,24 @@
 import Editor from "./Editor";
 const apiUrl = require("../../public/urlApi")
+const errorHandler = require("../error/errorHandler")
 
 export function getEditorsFromDB() {
     return fetch(apiUrl.Editors)
         .then(r => r.json())
         .then(response => {
             return response.editors
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
+
+export function getEditorFromDB(id) {
+    return fetch(apiUrl.Editors + "/" + id)
+        .then(r => r.json())
+        .then(response => {
+            return response.editor
         })
         .catch(e => {
             console.log(e.stack)
@@ -24,7 +37,7 @@ function createEditor(editor) {
             isExhibitor={editor.isExhibitor}
             isPotential={editor.isPotential}
             deleteEditor={deleteEditor}
-            handleEditor={updateEditor}
+            handleEditor={updateEditorState}
         />
     )
 }
@@ -103,7 +116,7 @@ export function setHandleUpdate(handler) {
     _handleUpdate = handler
 }
 
-export function updateEditor(event) {
+export function updateEditorState(event) {
     const editorId = event.target.id
     const checked = event.target.checked
     const name = event.target.name
@@ -111,10 +124,33 @@ export function updateEditor(event) {
     const body = {[name]: checked}
     const param = {
         headers: {'Content-Type': 'application/json'},
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(body)
     }
 
-    fetch(apiUrl.Editors + "/" + editorId, param)
+    return fetch(apiUrl.Editors + "/" + editorId, param)
         .then(() => _handleUpdate(editorId, name, checked))
+}
+
+export function updateEditor(editor) {
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "PUT",
+        body: JSON.stringify(editor)
+    }
+
+    return fetch(apiUrl.Editors + "/" + editor._id, param)
+        .then(r => errorHandler.handleResponse(r, "Modification de l'éditeur"))
+}
+
+export function getGamesFromEditor(editorId) {
+    return fetch(apiUrl.Editors + "/" + editorId + "/games/")
+        .then(r => r.json())
+        .then(response => {
+            return response.games
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
 }

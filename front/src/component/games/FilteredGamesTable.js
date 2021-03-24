@@ -4,7 +4,7 @@ import GameTable from "./GameTable"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
-import FormContainer from "./FormContainer"
+import FormContainer from "../Modal/FormContainer"
 
 const GameHandler = require("./GamesHandler")
 
@@ -48,7 +48,6 @@ class FilterableGamesTable extends Component {
         })
     }
 
-    // TODO verifier la catégorie avant l'ajout
     handleAddGames(game) {
         GameHandler.addGames(game)
             .then(response => response.json())
@@ -59,7 +58,7 @@ class FilterableGamesTable extends Component {
 
     handleDelete(gameId) {
         this.setState({
-            games: this.state.games.filter((game) => {
+            games: this.state.games.filter(game => {
                 return game._id !== gameId
             })
         })
@@ -75,7 +74,8 @@ class FilterableGamesTable extends Component {
                             <Filter
                                 filters={[
                                     {english: "name", french: "nom"},
-                                    {english: "category", french: "catégorie"}
+                                    {english: "category", french: "catégorie"},
+                                    {english: "editor", french: "éditeur"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
                             />
@@ -91,10 +91,13 @@ class FilterableGamesTable extends Component {
                     </tbody>
                 </Table>
                 <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddGames}/>
+                    <FormContainer
+                        title={"Ajouter un jeu"}
+                        component={"GameForm"}
+                        handleClick={this.handleAddGames}/>
                 </Card>
                 <GameTable
-                    games={this.state.games}
+                    response={this.state.games}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />

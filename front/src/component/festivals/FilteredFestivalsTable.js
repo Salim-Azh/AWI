@@ -4,7 +4,7 @@ import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import FestivalTable from "./FestivalTable";
-import FormContainer from "./FormContainer";
+import FormContainer from "../Modal/FormContainer";
 const FestivalHandler = require("./FestivalHandler")
 
 
@@ -66,7 +66,7 @@ class FilterableFestivalsTable extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 <Table striped bordered hover>
                     <tbody>
                     <tr>
@@ -90,14 +90,17 @@ class FilterableFestivalsTable extends Component {
                     </tbody>
                 </Table>
                 <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddFestival}/>
+                    <FormContainer
+                        title={"Ajouter un festival"}
+                        component={"FestivalForm"}
+                        handleClick={this.handleAddFestival}/>
                 </Card>
                 <FestivalTable
                     festivals={this.state.festivals}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
-            </div>
+            </>
         )
     }
 }

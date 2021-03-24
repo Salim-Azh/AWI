@@ -1,7 +1,10 @@
 import {Button, Modal} from "react-bootstrap";
-import img from "../../img/addFiles.svg"
-import "./css/FormContainer.css"
-import ReservationForm from "./ReservationForm";
+import img from "../../public/img/addFiles.svg"
+import "../editor/css/FormContainer.css"
+import EditorForm from "../editor/EditorForm";
+import GameForm from "../games/GameForm";
+import FestivalForm from "../festivals/FestivalForm";
+import ReservationForm from "../reservations/ReservationForm";
 
 const {useState} = require("react");
 
@@ -11,6 +14,17 @@ function FormContainer(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    let form
+    if(props.component === "EditorForm") {
+        form = <EditorForm handleClick={props.handleClick}/>
+    } else if(props.component === "GameForm") {
+        form = <GameForm handleClick={props.handleClick}/>
+    } else if(props.component === "FestivalForm") {
+        form = <FestivalForm handleClick={props.handleClick}/>
+    } else if(props.component === "ReservationForm") {
+        form = <ReservationForm handleClick={props.handleClick}/>
+    }
+    // TODO faire le component ajouter un jeu a un editeur ici aussi
     // TODO faire en sorte d'appeler le submit du GameForm dans le bouton ajouter
     return (
         <>
@@ -25,15 +39,12 @@ function FormContainer(props) {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Ajouter un éditeur/exposant</Modal.Title>
+                    <Modal.Title>{props.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ReservationForm handleClick={props.handleClick}/>
+                    {form}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
                     <Button variant="primary" onClick={handleClose}>OK</Button>
                 </Modal.Footer>
             </Modal>

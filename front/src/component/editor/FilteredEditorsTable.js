@@ -4,8 +4,9 @@ import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import EditorTable from "./EditorTable";
-import FormContainer from "./FormContainer";
+import FormContainer from "../Modal/FormContainer";
 import ExhibitorTable from "./exhibitor/ExhibitorTable";
+import EditorForm from "./EditorForm";
 
 class FilterableEditorsTable extends Component {
     constructor(props) {
@@ -44,7 +45,11 @@ class FilterableEditorsTable extends Component {
         if(this.props.showForm) {
             cardForm = (
                 <Card style={{width: '4rem'}}>
-                    <FormContainer handleClick={this.handleAddEditor}/>
+                    <FormContainer
+                        title={"Ajouter un éditeur/exposant"}
+                        handleClick={this.handleAddEditor}
+                        component={"EditorForm"}
+                    />
                 </Card>
             )
         }
