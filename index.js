@@ -1,18 +1,34 @@
 const express = require('express')
-//const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser') deprecated
+const cookieParser = require('cookie-parser')
 const cors = require("cors")
 const path = require("path");
-const app = express()
+require('dotenv').config({path: './config/.env'})
+require('./config/db')
+
 const usersRoutes = require("./routes/users.routes")
 const gamesRoutes = require("./routes/games.routes")
 const editorsRoutes = require("./routes/editor.routes")
 const festivalsRoutes = require("./routes/festivals.routes")
-require('dotenv').config({path: './config/.env'})
-require('./config/db')
 
+const {checkUser, requireAuth} = require("./middleware/auth.middleware")
+
+const app = express()
+
+//jwt
+/*
+app.get("*", checkUser)
+app.get("/jwtid", requireAuth, (req,res) => {
+    res.status(200).send(res.locals.user._id)
+})*/
+
+//middleware
+app.use(cookieParser()) //cookie
 app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.json()) //body
+app.use(express.urlencoded({extended: true})) //url
+
+
 
 //routes
 app.use("/api/users", usersRoutes)
