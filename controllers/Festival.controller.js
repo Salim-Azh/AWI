@@ -1,6 +1,4 @@
 const FestivalsModel = require("../models/festivals.model")
-const ReservationsModel = require("../models/reservations.model")
-const EditorModel = require("../models/editors.model")
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports.getListOfFestivals = async(req,res) => {
@@ -87,46 +85,5 @@ module.exports.setCurrent = async(req, res) => {
     } catch(e) {
         console.log(e)
         res.status(400).send({e})
-    }
-}
-
-module.exports.getFestivalReservations = async(req, res) => {
-    const response = [{
-        exhibitor: "",
-        reservation: ""
-    }]
-    try {
-        const festival = await FestivalsModel.findOne({is_current: true})
-        //console.log(festival)
-        const reservations = await ReservationsModel.find({festival: festival._id}).select("-games")
-
-        for (let i = 0; i < reservations.length; i++) {
-            const element = reservations[i]
-            const exhibitor = await EditorModel.findById({_id: element.exhibitor}).select("-games")
-            response[i].exhibitor = exhibitor
-            response[i].reservation = element
-        }
-
-        console.log(reservations)
-
-        //console.log(exhibitor)
-
-        /*
-        const reservations = await ReservationsModel.find()
-        for(let i = 0; i < reservations.length; i++) {
-            const festival = await FestivalModel.findOne({
-                _id: mongoose.Types.ObjectId(reservations[i].festival)
-            }).select('is_current')
-            if(festival.is_current) {
-                response[i].exhibitor = await EditorModel.findOne({
-                    _id: mongoose.Types.ObjectId(reservations[i].exhibitor)
-                }).select('name')
-                response[i].reservation = reservations[i]
-            }
-        }*/
-        res.status(201).json({reservations: response})
-    } catch (error) {
-        console.log(error)
-        res.status(400).send({error})
     }
 }
