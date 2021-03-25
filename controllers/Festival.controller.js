@@ -60,9 +60,11 @@ module.exports.deleteFestival = async(req, res) => {
 }
 
 module.exports.updateFestival = async(req, res) => {
+    console.log("hey")
+
     const idFestival = req.params.id
     const mongooseId = ObjectId(idFestival)
-
+    
     try {
         FestivalsModel.updateOne({_id: mongooseId}, req.body)
             .then(() => res.status(201).send())
@@ -74,11 +76,11 @@ module.exports.updateFestival = async(req, res) => {
 }
 
 module.exports.setCurrent = async(req, res) => {
-    const idFestival = req.params.id
-    const mongooseId = ObjectId(idFestival)
+    const {festival} = req.body
+    const mongooseId = ObjectId(festival)
 
     try {
-        FestivalsModel.updateOne({is_current: true}, {is_current: false})
+        await FestivalsModel.findOneAndUpdate({is_current: true}, {is_current: false})
         FestivalsModel.updateOne({_id: mongooseId}, {is_current: true})
             .then(() => res.status(201).send())
 
