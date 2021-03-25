@@ -4,7 +4,7 @@ import {Nav} from "react-bootstrap"
 function Game(props) {
     return (
         <tr id={props._id}>
-            <td><Nav.Link href={"/jeu/" + props._id}>{props.name}</Nav.Link></td>
+            <td><Nav.Link href={"/nav/jeu/" + props._id}>{props.name}</Nav.Link></td>
             <td>{props.editorName}</td>
             <td>{props.category}</td>
             <td>{props.duration}</td>
