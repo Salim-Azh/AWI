@@ -13,19 +13,6 @@ export function getReservationsFromDB() {
         })
 }
 
-export function getExhibitorsFromDB() {
-    return fetch(apiUrl.Exhibitors)
-        .then(r => r.json())
-        .then(response => {
-            return response.exhibitors
-        })
-        .catch(e => {
-            console.log(e.stack)
-            console.log(e.message)
-        })
-}
-
-
 function createReservation(response) {
     return (
         <Reservation
