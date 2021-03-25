@@ -1,5 +1,5 @@
 import {Component} from "react"
-import {Card, FormControl, Table} from "react-bootstrap";
+import {Card, Col, FormControl, Row, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 // Faire le set current ou la nav vers reservation
@@ -50,10 +50,9 @@ class Festival extends Component {
     setCurrent() {
         this.props.handleUpdateCurrent({
             _id: this.state._id,
-            is_current: !this.state.is_current
+            is_current: true
         })
-        //this.setState({is_current: !this.state.is_current})
-        console.log(this.state.is_current)
+        this.setState({is_current: true})
     }
 
     render() {
@@ -61,6 +60,10 @@ class Festival extends Component {
             <>
                 <Card.Body>
                     <Card.Header>
+                        <Button
+                            variant={"warning"} type={"button"}
+                            onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
+
                         <Card.Title>{this.props.festival.name} - {this.props.festival.year}</Card.Title>
                     </Card.Header>
                     <Card.Text>
@@ -152,10 +155,9 @@ class Festival extends Component {
                         </Table>
                     </Card.Text>
                     <Button variant="primary" type={"button"} onClick={this.submit}>Sauvegarder</Button>
-                    <Button variant="warning" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
                     <Button variant="primary" type={"button"}
                             onClick={this.setCurrent}
-                            disabled={this.state.is_current}
+                            //disabled={this.state.is_current}
                     >Set courant</Button>
                 </Card.Body>
             </>
