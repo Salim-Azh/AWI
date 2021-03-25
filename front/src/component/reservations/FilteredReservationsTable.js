@@ -62,17 +62,12 @@ class FilterableReservationsTable extends Component {
 
         if(name === "need_volunteer"){
             this.state.need_volunteer = value
-            console.log(this.state.need_volunteer)
         } else if(name === "reportSent") {
             this.state.reportSent = value
         } else {
             this.state.isEditorHere = value
-            console.log(this.state.isEditorHere)
         }
         this.setState({[name]: value})
-        this.setState({
-            [name]: value
-        })
     }
 
     handleAddReservation(reservation) {
@@ -142,7 +137,9 @@ class FilterableReservationsTable extends Component {
                     <FormContainer
                         title={"Créer une réservation"}
                         component={"ReservationForm"}
-                        handleClick={this.handleAddReservation}/>
+                        exhibitors={this.props.exhibitors}
+                        handleClick={this.handleAddReservation}
+                    />
                 </Card>
                 <ReservationTable
                     reservations={this.state.reservations}

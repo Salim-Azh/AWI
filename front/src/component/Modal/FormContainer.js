@@ -22,7 +22,7 @@ function FormContainer(props) {
     } else if(props.component === "FestivalForm") {
         form = <FestivalForm handleClick={props.handleClick}/>
     } else if(props.component === "ReservationForm") {
-        form = <ReservationForm handleClick={props.handleClick}/>
+        form = <ReservationForm exhibitors={props.exhibitors} handleClick={props.handleClick}/>
     }
     // TODO faire le component ajouter un jeu a un editeur ici aussi
     // TODO faire en sorte d'appeler le submit du GameForm dans le bouton ajouter
@@ -45,7 +45,7 @@ function FormContainer(props) {
                     {form}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>OK</Button>
+                    <Button variant="primary" onClick={handleClose}>Retour</Button>
                 </Modal.Footer>
             </Modal>
         </>
