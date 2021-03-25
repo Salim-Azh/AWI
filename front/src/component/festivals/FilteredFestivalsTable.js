@@ -23,6 +23,7 @@ class FilterableFestivalsTable extends Component {
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleAddFestival = this.handleAddFestival.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
     }
 
     componentDidMount() {
@@ -33,6 +34,7 @@ class FilterableFestivalsTable extends Component {
                 })
             })
         FestivalHandler.setHandleDelete(this.handleDelete)
+        FestivalHandler.setHandleUpdate(this.handleUpdate)
     }
 
     handleFilterTextChange(filterText) {
@@ -62,6 +64,14 @@ class FilterableFestivalsTable extends Component {
                 return festival._id !== festivalId
             })
         })
+    }
+
+    handleUpdate(festivalId, checked) {
+        const festival = this.state.festivals.filter(festival => {
+            return festival._id === festivalId
+        })
+        festival[0].is_current = checked
+        this.setState({festivals: this.state.festivals})
     }
 
     render() {

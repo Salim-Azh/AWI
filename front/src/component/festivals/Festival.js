@@ -20,7 +20,8 @@ class Festival extends Component {
             low_t_price: props.low_t_price,
             premium_sm_price: props.premium_sm_price,
             standard_sm_price: props.standard_sm_price,
-            low_sm_price: props.low_sm_price
+            low_sm_price: props.low_sm_price,
+            is_current: props.is_current
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -36,14 +37,21 @@ class Festival extends Component {
         this.setState({
             [name]: value
         })
+
+        if(name === "") {
+            this.setCurrent()
+        }
     }
 
     submit() {
-        this.props.handleSubmit(this.state)
+        this.props.handleUpdate(this.state)
     }
 
     setCurrent() {
-        // TODO ajouter ce festoche en festoche courant
+        this.props.handleUpdate({
+            _id: this.state._id,
+            is_current: !this.state.is_current
+        })
     }
 
     render() {
@@ -143,7 +151,7 @@ class Festival extends Component {
                     </Card.Text>
                     <Button variant="primary" type={"button"} onClick={this.submit}>Sauvegarder</Button>
                     <Button variant="warning" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
-                    <Button variant="primary">set current/ Navigation vers resa</Button>
+                    <Button variant="primary" type={"button"} onClick={this.setCurrent}>Set courant</Button>
                 </Card.Body>
             </>
         )

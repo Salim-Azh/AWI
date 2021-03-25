@@ -40,8 +40,9 @@ function createFestival(festival) {
                 premium_sm_price={festival.premium_sm_price}
                 standard_sm_price={festival.standard_sm_price}
                 low_sm_price={festival.low_sm_price}
+                is_current={festival.is_current}
                 deleteFestival={deleteFestival}
-                handleSubmit={updateFestival}
+                handleUpdate={updateFestival}
             />
         </Card>
         </Col>
@@ -93,6 +94,11 @@ export function deleteFestival(event) {
         .then(() => _handleDelete(festivalId))
 }
 
+let _handleUpdate
+export function setHandleUpdate(handler) {
+    _handleUpdate = handler
+}
+
 export function updateFestival(festival) {
     const param = {
         headers: {'Content-Type': 'application/json'},
@@ -102,4 +108,16 @@ export function updateFestival(festival) {
 
     fetch(apiUrl.Festivals + "/" + festival._id, param)
         .then(r => errorHandler.handleResponse(r, "Modification du festival"))
+}
+
+export function updateCurrent(festival) {
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "PUT",
+        body: JSON.stringify(festival)
+    }
+
+    fetch(apiUrl.Festivals + "/" + festival._id, param)
+        .then(r => errorHandler.handleResponse(r, "Modification du festival"))
+        .then(r => _handleUpdate(festival._id, festival.is_current))
 }

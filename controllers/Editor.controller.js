@@ -57,35 +57,12 @@ module.exports.deleteEditor = async(req, res) => {
     }
 }
 
-module.exports.updateEditorState = async(req, res) => {
-    const idEditor = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idEditor)
-
-    try {
-        EditorsModel.updateOne({_id: mongooseId}, req.body)
-            .then(() => res.status(201).send("success"))
-
-    } catch(e) {
-        console.log(e)
-        res.status(400).send({e})
-    }
-}
-
 module.exports.updateEditor = async(req, res) => {
     const idEditor = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idEditor)
 
-    const {name, contacts, isEditor, isExhibitor, isPotential} = req.body
-    const update = {
-        name: name,
-        contacts: contacts,
-        isEditor: isEditor,
-        isExhibitor: isExhibitor,
-        isPotential: isPotential
-    }
-
     try {
-        EditorModel.updateOne({_id: mongooseId}, update)
+        EditorModel.updateOne({_id: mongooseId}, req.body)
             .then(() => res.status(201).send("success"))
 
     } catch(e) {

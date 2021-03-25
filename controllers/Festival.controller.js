@@ -2,7 +2,6 @@ const FestivalsModel = require("../models/festivals.model")
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports.getListOfFestivals = async(req,res) => {
-
     try {
         const festivals = await FestivalsModel.find()
         res.status(201).json({festivals: festivals})
@@ -22,7 +21,7 @@ module.exports.addFestival = async(req, res) => {
     try {
 
         const festival = await FestivalsModel.create({
-            _id: mongoose.Types.ObjectId(),
+            _id: ObjectId(),
             name: name,
             year: year,
             nb_t_premium: nb_t_premium,
@@ -47,8 +46,8 @@ module.exports.addFestival = async(req, res) => {
 }
 
 module.exports.deleteFestival = async(req, res) => {
-    const idFestival = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idFestival)
+    const idFestival = req.params.id
+    const mongooseId = ObjectId(idFestival)
 
     try {
         FestivalsModel.deleteOne({_id: mongooseId})
@@ -61,29 +60,26 @@ module.exports.deleteFestival = async(req, res) => {
 }
 
 module.exports.updateFestival = async(req, res) => {
-    const idFestival = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idFestival)
-
-    const {
-        nb_tables_premium, nb_tables_standard, nb_tables_low,
-        premium_t_price, standard_t_price, low_t_price,
-        premium_sm_price, standard_sm_price, low_sm_price
-    } = req.body
-
-    const update = {
-        nb_tables_premium: nb_tables_premium,
-        nb_tables_standard: nb_tables_standard,
-        nb_tables_low: nb_tables_low,
-        premium_t_price: premium_t_price,
-        standard_t_price: standard_t_price,
-        low_t_price: low_t_price,
-        premium_sm_price: premium_sm_price,
-        standard_sm_price: standard_sm_price,
-        low_sm_price: low_sm_price
-    }
+    const idFestival = req.params.id
+    const mongooseId = ObjectId(idFestival)
 
     try {
-        FestivalsModel.updateOne({_id: mongooseId}, update)
+        FestivalsModel.updateOne({_id: mongooseId}, req.body)
+            .then(() => res.status(201).send())
+
+    } catch(e) {
+        console.log(e)
+        res.status(400).send({e})
+    }
+}
+
+module.exports.setCurrent = async(req, res) => {
+    const idFestival = req.params.id
+    const mongooseId = ObjectId(idFestival)
+
+    try {
+        FestivalsModel.updateOne({is_current: true}, {is_current: false})
+        FestivalsModel.updateOne({_id: mongooseId}, {is_current: true})
             .then(() => res.status(201).send())
 
     } catch(e) {
