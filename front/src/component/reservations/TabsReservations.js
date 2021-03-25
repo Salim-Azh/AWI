@@ -3,7 +3,7 @@ import {Tab, Tabs} from "react-bootstrap";
 import FilteredReservationsTable from "./FilteredReservationsTable";
 import FilteredEditorsTable from "../editor/FilteredEditorsTable";
 
-const ReservationHandler = require("./ReservationHandler")
+const ExhibitorHandler = require("../editor/exhibitor/ExhibitorHandler")
 
 class TabsReservations extends Component {
 
@@ -15,7 +15,7 @@ class TabsReservations extends Component {
     }
 
     componentDidMount() {
-        ReservationHandler.getExhibitorsFromDB()
+        ExhibitorHandler.getExhibitorsFromDB()
             .then(exhibitors =>
                 this.setState({exhibitors: exhibitors})
             )
@@ -32,7 +32,7 @@ class TabsReservations extends Component {
                     />
                 </Tab>
                 <Tab eventKey="reservation" title="Suivi réservations">
-                    <FilteredReservationsTable/>
+                    <FilteredReservationsTable exhibitors={this.state.exhibitors}/>
                 </Tab>
             </Tabs>
         )

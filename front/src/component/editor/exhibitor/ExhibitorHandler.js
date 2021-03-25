@@ -1,4 +1,17 @@
 import Exhibitor from "./Exhibitor";
+const apiUrl = require("../../../public/urlApi")
+
+export function getExhibitorsFromDB() {
+    return fetch(apiUrl.Exhibitors)
+        .then(r => r.json())
+        .then(response => {
+            return response.exhibitors
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
 
 function createExhibitor(exhibitor) {
     return (
