@@ -13,9 +13,12 @@ class FilterableReservationsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            reservations: "",
+            reservations: [{}],
             editors: "",
             filterText: "",
+            need_volunteer: false,
+            reportSent: false,
+            isEditorHere: false,
             filterEnglish: "name",
             filterFrench: "nom"
         }
@@ -50,16 +53,31 @@ class FilterableReservationsTable extends Component {
         })
     }
 
-    handleFilterCheckedChange(filterName, value) {
+    handleFilterCheckedChange(event) {
+        const target = event.target
+        const name = target.name
+        const value = target.checked
+
+        if(name === "need_volunteer"){
+            this.state.need_volunteer = value
+            console.log(this.state.need_volunteer)
+        } else if(name === "reportSent") {
+            this.state.reportSent = value
+            console.log(this.state.reportSent)
+        } else {
+            this.state.isEditorHere = value
+            console.log(this.state.isEditorHere)
+        }
+        this.setState({[name]: value})
         this.setState({
-            [filterName]: value
+            [name]: value
         })
     }
 
     handleAddReservation(reservation) {
         ReservationHandler.addReservation(reservation)
             .then(response => response.json())
-            .then(response => reservation._id = response.reservationId)
+            .then(response => reservation._id = response._id)
             .then(() => this.state.reservations.push(reservation))
             .then(() => this.setState({reservations: this.state.reservations}))
     }
@@ -95,16 +113,12 @@ class FilterableReservationsTable extends Component {
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <FilterCheck
-                                filters={[
-                                    {english: "needVolunteer", french: "Besoins de bénévoles ?"},
-                                    {english: "isEditorHere", french: "Editeur présent ?"},
-                                    {english: "reportSent", french: "CR envoyé ?"}
-                                ]}
-                                onChecked={this.handleFilterCheckedChange}
+                        <FilterCheck
+                            onChecked={this.handleFilterCheckedChange}
+                            need_volunteer={this.state.need_volunteer}
+                            reportSent={this.state.reportSent}
+                            isEditorHere={this.state.isEditorHere}
                             />
-                        </td>
                     </tr>
                     </tbody>
                 </Table>
@@ -116,6 +130,9 @@ class FilterableReservationsTable extends Component {
                 </Card>
                 <ReservationTable
                     reservations={this.state.reservations}
+                    need_volunteer={this.state.need_volunteer}
+                    reportSent={this.state.reportSent}
+                    isEditorHere={this.state.isEditorHere}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />

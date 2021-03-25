@@ -26,13 +26,12 @@ export function getExhibitorsFromDB() {
 }
 
 
-function createReservation(reservation) {
+function createReservation(response) {
     return (
         <Reservation
-            key={reservation._id}
-            _id={reservation._id}
-            name={reservation.name}
-
+            key={response._id}
+            exhibitor={response.exhibitor}
+            reservation={response.reservation}
             deleteReservation={deleteReservation}
         />
     )
@@ -42,45 +41,54 @@ export function filterReservationByName(reservations, filterText) {
     let rows = []
     if(reservations) {
         reservations.map(reservation => {
-            if (reservation && (reservation.name.toLowerCase().includes(filterText))) {
-                rows.push(createReservation(reservation))
+            if(reservation.exhibitor) {
+                if (reservation && (reservation.exhibitor.name.toLowerCase().includes(filterText))) {
+                    rows.push(createReservation(reservation))
+                }
             }
         })
         return rows
     }
 }
 
-export function filterEditorByVolunteer(editors) {
-    console.log(editors)
+export function filterEditorByVolunteer(reservations) {
     let rows = []
-    if(editors) {
-        editors.map(editor => {
-            if (editor && (editor.needVolunteer)) {
-                rows.push(createReservation(editor))
+    if(reservations) {
+        reservations.map(reservation => {
+            if(reservation.reservation) {
+                if (reservation && (reservation.reservation.need_volunteer)) {
+                    rows.push(createReservation(reservation))
+                }
             }
         })
         return rows
     }
 }
 
-export function filterEditorByEditorPresent(editors) {
+export function filterEditorByEditorPresent(reservations) {
     let rows = []
-    if(editors) {
-        editors.map(editor => {
-            if (editor && (editor.isEditorHere)) {
-                rows.push(createReservation(editor))
+    if(reservations) {
+        reservations.map(reservation => {
+            if(reservation.reservation) {
+                console.log(reservation.reservation.isEditorHere)
+                if (reservation && (reservation.reservation.isEditorHere)) {
+                    rows.push(createReservation(reservation))
+                }
             }
         })
+        console.log(rows)
         return rows
     }
 }
 
-export function filterEditorByReportSent(editors) {
+export function filterEditorByReportSent(reservations) {
     let rows = []
-    if(editors) {
-        editors.map(editor => {
-            if (editor && (editor.reportSent)) {
-                rows.push(createReservation(editor))
+    if(reservations) {
+        reservations.map(reservation => {
+            if(reservation.reservation) {
+                if (reservation && (reservation.reservation.reportSent)) {
+                    rows.push(createReservation(reservation))
+                }
             }
         })
         return rows

@@ -1,32 +1,38 @@
 import {Component} from "react";
-import {Form, FormControl} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 class FilterCheck extends Component {
     constructor(props) {
         super(props);
-
-        this.handleCheckChange = this.handleCheckChange.bind(this)
-
-        this.state = {
-            listFilter: this.props.filters.map(filter =>
-                <td key={filter.english}>
-                    <Form.Check name={filter.english} label={filter.french}
-                                onChange={this.handleCheckChange}
-                    />
-                </td>
-            )
-        }
-    }
-
-    handleCheckChange(e) {
-        this.props.onChecked(e.target.name, e.target.checked)
-        // toggle les autres
     }
 
     render() {
         return (
             <>
-                {this.state.listFilter}
+                <td>
+                    <Form.Label>
+                        Besoins de bénévoles ?
+                    <Form.Check name={"need_volunteer"}
+                                onChange={this.props.onChecked} checked={this.props.need_volunteer}
+                    />
+                    </Form.Label>
+                </td>
+                <td>
+                    <Form.Label>
+                        Editeur présent ?
+                    <Form.Check name={"isEditorHere"}
+                                onChange={this.props.onChecked} checked={this.props.isEditorHere}
+                    />
+                    </Form.Label>
+                </td>
+                <td>
+                    <Form.Label>
+                        CR envoyé ?
+                    <Form.Check name={"reportSent"}
+                                onChange={this.props.onChecked} checked={this.props.reportSent}
+                    />
+                    </Form.Label>
+                </td>
             </>
         )
     }
