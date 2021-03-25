@@ -4,11 +4,8 @@ const EditorsModel = require("../models/editors.model")
 const GamesModel = require("../models/games.model")
 
 module.exports.getListOfEditors = async(req,res) => {
-    const {fields} = req.body
-    console.log(fields)
-
     try {
-        const editors = await EditorsModel.find().select(fields)
+        const editors = await EditorsModel.find()
         res.status(201).json({editors: editors})
     } catch (error) {
         res.status(400).send({error})
@@ -63,7 +60,6 @@ module.exports.deleteEditor = async(req, res) => {
 module.exports.updateEditorState = async(req, res) => {
     const idEditor = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idEditor)
-    console.log(mongooseId)
 
     try {
         EditorsModel.updateOne({_id: mongooseId}, req.body)
