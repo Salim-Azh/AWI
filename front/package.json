@@ -9,6 +9,7 @@
     "@trendmicro/react-sidenav": "^0.5.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "js-cookie": "^2.2.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
@@ -40,5 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
