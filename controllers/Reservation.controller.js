@@ -28,36 +28,15 @@ module.exports.getFestivalReservations = async(req, res) => {
 
 // TODO faire correspondre avec le model
 module.exports.addReservation = async(req, res) => {
-
     const {exhibitor} = req.body
-
-    /*const {name, year,
-        nb_tables_premium, nb_tables_standard, nb_tables_low,
-        premium_t_price, standard_t_price, low_t_price,
-        premium_sm_price, standard_sm_price, low_sm_price} = req.body
-
     try {
-
-        const reservation = await ReservationsModel.create({
-            _id: mongoose.Types.ObjectId(),
-            name: name,
-            year: year,
-            nb_tables_premium: nb_tables_premium,
-            nb_tables_standard: nb_tables_standard,
-            nb_tables_low: nb_tables_low,
-            premium_t_price: premium_t_price,
-            standard_t_price: standard_t_price,
-            low_t_price: low_t_price,
-            premium_sm_price: premium_sm_price,
-            standard_sm_price: standard_sm_price,
-            low_sm_price: low_sm_price,
-            is_current: true
-        })
-        res.status(201).json({resverationId: reservation._id})
-
+        const festival = await FestivalModel.findOne({is_current: true})
+        const reservation = await ReservationsModel.create({festival: festival._id, exhibitor: exhibitor}) 
+        console.log(reservation)
+        res.status(201).json({reservation: reservation._id})
     } catch (error) {
         res.status(400).send({error})
-    }*/
+    }
 }
 
 module.exports.deleteReservation = async(req, res) => {
