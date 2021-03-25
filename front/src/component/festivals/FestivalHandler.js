@@ -25,24 +25,10 @@ function createFestival(festival) {
         <Col style={{margin: '1em'}} key={festival._id}>
         <Card bg={color}>
             <Festival
-                _id={festival._id}
-                name={festival.name}
-                year={festival.year}
-                nb_t_premium={festival.nb_t_premium}
-                nb_t_standard={festival.nb_t_standard}
-                nb_t_low={festival.nb_t_low}
-                nb_sm_premium={festival.nb_sm_premium}
-                nb_sm_standard={festival.nb_sm_standard}
-                nb_sm_low={festival.nb_sm_low}
-                premium_t_price={festival.premium_t_price}
-                standard_t_price={festival.standard_t_price}
-                low_t_price={festival.low_t_price}
-                premium_sm_price={festival.premium_sm_price}
-                standard_sm_price={festival.standard_sm_price}
-                low_sm_price={festival.low_sm_price}
-                is_current={festival.is_current}
+                festival={festival}
                 deleteFestival={deleteFestival}
                 handleUpdate={updateFestival}
+                handleUpdateCurrent={updateCurrent}
             />
         </Card>
         </Col>
@@ -116,8 +102,7 @@ export function updateCurrent(festival) {
         method: "PUT",
         body: JSON.stringify(festival)
     }
-
-    fetch(apiUrl.Festivals + "/" + festival._id, param)
+    fetch(apiUrl.Festivals + "/" + festival._id + "/current", param)
         .then(r => errorHandler.handleResponse(r, "Modification du festival"))
         .then(r => _handleUpdate(festival._id, festival.is_current))
 }

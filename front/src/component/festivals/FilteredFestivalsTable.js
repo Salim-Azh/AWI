@@ -67,10 +67,20 @@ class FilterableFestivalsTable extends Component {
     }
 
     handleUpdate(festivalId, checked) {
+        // UnCheck current to passive
+        const festivalChecked = this.state.festivals.filter(festival => {
+            return festival._id !== festivalId
+        })
+        festivalChecked.map(festival =>
+            festival.is_current = false
+        )
+
+        // Check to current
         const festival = this.state.festivals.filter(festival => {
             return festival._id === festivalId
         })
         festival[0].is_current = checked
+
         this.setState({festivals: this.state.festivals})
     }
 
