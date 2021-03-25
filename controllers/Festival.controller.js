@@ -46,7 +46,7 @@ module.exports.addFestival = async(req, res) => {
 }
 
 module.exports.deleteFestival = async(req, res) => {
-    const idFestival = req.url.split("/")[1]
+    const idFestival = req.params.id
     const mongooseId = ObjectId(idFestival)
 
     try {
@@ -60,7 +60,7 @@ module.exports.deleteFestival = async(req, res) => {
 }
 
 module.exports.updateFestival = async(req, res) => {
-    const idFestival = req.url.split("/")[1]
+    const idFestival = req.params.id
     const mongooseId = ObjectId(idFestival)
 
     try {
@@ -74,7 +74,7 @@ module.exports.updateFestival = async(req, res) => {
 }
 
 module.exports.setCurrent = async(req, res) => {
-    const idFestival = req.url.split("/")[1]
+    const idFestival = req.params.id
     const mongooseId = ObjectId(idFestival)
 
     try {
