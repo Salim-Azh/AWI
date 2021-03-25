@@ -9,4 +9,7 @@ router.post("/", festivalController.addFestival)
 router.delete("/:id", festivalController.deleteFestival)
 router.put("/:id", festivalController.updateFestival)
 
+
+router.get("/reservations", festivalController.getFestivalReservations)
+
 module.exports = router

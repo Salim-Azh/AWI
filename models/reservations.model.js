@@ -38,12 +38,8 @@ const gamesBooked = new mongoose.Schema(
     }
 )
 
-const schema = new mongoose.Schema(
+const bookingSchema = new mongoose.Schema(
     {
-        _id: {
-            type: mongoose.Types.ObjectId,
-            required: true
-        },
         festival:{
             type: mongoose.Types.ObjectId,
             required: true,
@@ -125,5 +121,5 @@ const schema = new mongoose.Schema(
     }
 )
 
-const ReservationsModel = mongoose.model('bookings', schema)
+const ReservationsModel = mongoose.model('bookings', bookingSchema)
 module.exports = ReservationsModel

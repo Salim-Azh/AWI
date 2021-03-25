@@ -4,32 +4,6 @@ const EditorModel = require("../models/editors.model")
 
 const mongoose = require("mongoose")
 
-// TODO ajouter requ sur la bill
-module.exports.getListOfReservations = async(req,res) => {
-    const response = [{
-        exhibitor: "",
-        reservation: ""
-    }]
-    try {
-        const reservations = await ReservationsModel.find()
-        for(let i = 0; i < reservations.length; i++) {
-            const festival = await FestivalModel.findOne({
-                _id: mongoose.Types.ObjectId(reservations[i].festival)
-            }).select('is_current')
-            if(festival.is_current) {
-                response[i].exhibitor = await EditorModel.findOne({
-                    _id: mongoose.Types.ObjectId(reservations[i].exhibitor)
-                }).select('name')
-                response[i].reservation = reservations[i]
-            }
-        }
-        res.status(201).json({reservations: response})
-    } catch (error) {
-        console.log(error)
-        res.status(400).send({error})
-    }
-}
-
 // TODO faire correspondre avec le model
 module.exports.addReservation = async(req, res) => {
 
