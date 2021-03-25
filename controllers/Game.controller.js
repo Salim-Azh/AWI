@@ -1,6 +1,6 @@
 const GameModel = require("../models/games.model")
 const mongoose = require("mongoose")
-const EditorsModel = require("../models/editors.model");
+const EditorModel = require("../models/editors.model");
 
 module.exports.getListOfGames = async(req,res) => {
     const response = []
@@ -8,7 +8,7 @@ module.exports.getListOfGames = async(req,res) => {
     try {
         const games = await GameModel.find()
         for(let i = 0; i < games.length; i++) {
-            const editor = await EditorsModel.findOne({games: games[i]._id})
+            const editor = await EditorModel.findOne({games: games[i]._id})
 
             const res = {
                 _id: games[i]._id,
@@ -50,7 +50,7 @@ module.exports.addGame = async(req, res) => {
             duration: duration
         })
         const update = {$addToSet: {games: game._id.toString()}}
-        await EditorsModel.updateOne({_id: mongoose.Types.ObjectId(editor._id)}, update)
+        await EditorModel.updateOne({_id: mongoose.Types.ObjectId(editor._id)}, update)
         res.status(201).json({gameId: game._id})
 
     } catch (error) {
@@ -65,7 +65,7 @@ module.exports.deleteGame = async(req, res) => {
 
     try {
         GameModel.deleteOne({_id: mongooseId})
-            .then(() => EditorsModel.updateOne({games: idGame}, {$pull: {games: idGame}}))
+            .then(() => EditorModel.updateOne({games: idGame}, {$pull: {games: idGame}}))
             .then(() => res.status(201).send())
 
     } catch(e) {

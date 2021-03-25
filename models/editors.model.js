@@ -35,5 +35,5 @@ const schema = new mongoose.Schema(
     }
 )
 
-const EditorsModel = mongoose.model('editors', schema)
-module.exports = EditorsModel
+const EditorModel = mongoose.model('editors', schema)
+module.exports = EditorModel
