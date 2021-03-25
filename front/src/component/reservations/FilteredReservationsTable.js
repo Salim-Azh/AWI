@@ -28,6 +28,7 @@ class FilterableReservationsTable extends Component {
         this.handleFilterCheckedChange = this.handleFilterCheckedChange.bind(this)
         this.handleAddReservation = this.handleAddReservation.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
     }
 
     componentDidMount() {
@@ -38,6 +39,7 @@ class FilterableReservationsTable extends Component {
                 })
             })
         ReservationHandler.setHandleDelete(this.handleDelete)
+        ReservationHandler.setUpdateHandler(this.handleUpdate)
     }
 
     handleFilterTextChange(filterText) {
@@ -63,7 +65,6 @@ class FilterableReservationsTable extends Component {
             console.log(this.state.need_volunteer)
         } else if(name === "reportSent") {
             this.state.reportSent = value
-            console.log(this.state.reportSent)
         } else {
             this.state.isEditorHere = value
             console.log(this.state.isEditorHere)
@@ -88,6 +89,21 @@ class FilterableReservationsTable extends Component {
                 return reservation._id !== reservationId
             })
         })
+    }
+
+    handleUpdate(reservationId, attribute, checked) {
+        const reservation = this.state.reservations.filter((reservation) => {
+            return reservation.reservation._id === reservationId
+        })
+
+        if(attribute === "need_volunteer") {
+            reservation[0].reservation.need_volunteer = checked
+        } else if(attribute === "reportSent") {
+            reservation[0].reservation.reportSent = checked
+        } else {
+            reservation[0].reservation.isEditorHere = checked
+        }
+        this.setState({reservations: this.state.reservations})
     }
 
     render() {

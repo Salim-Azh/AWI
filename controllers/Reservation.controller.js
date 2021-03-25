@@ -51,6 +51,7 @@ module.exports.deleteReservation = async(req, res) => {
 }
 
 // TODO faire correspondre avec le model
+// sansles champs checkbox
 module.exports.updateReservation = async(req, res) => {
     const idReservation = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idReservation)
@@ -76,6 +77,20 @@ module.exports.updateReservation = async(req, res) => {
     try {
         FestivalsModel.updateOne({_id: mongooseId}, update)
             .then(() => res.status(201).send())
+
+    } catch(e) {
+        console.log(e)
+        res.status(400).send({e})
+    }
+}
+
+module.exports.updateReservationCheckBox = async(req, res) => {
+    const idReservation = req.url.split("/")[1]
+    const mongooseId = mongoose.Types.ObjectId(idReservation)
+
+    try {
+        ReservationsModel.updateOne({_id: mongooseId}, req.body)
+            .then(() => res.status(201).send("success"))
 
     } catch(e) {
         console.log(e)

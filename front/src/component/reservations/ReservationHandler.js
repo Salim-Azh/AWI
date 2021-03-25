@@ -29,10 +29,11 @@ export function getExhibitorsFromDB() {
 function createReservation(response) {
     return (
         <Reservation
-            key={response._id}
+            key={response.reservation._id}
             exhibitor={response.exhibitor}
             reservation={response.reservation}
             deleteReservation={deleteReservation}
+            handleChange={updateReservation}
         />
     )
 }
@@ -114,4 +115,24 @@ export function deleteReservation(event) {
 
     fetch(apiUrl.Reservations + "/" + reservationId, { method: 'DELETE' })
         .then(() => _handleDelete(reservationId))
+}
+
+let _handleUpdate
+export function setUpdateHandler(handler) {
+    _handleUpdate = handler
+}
+
+function updateReservation(event) {
+    const reservationId = event.target.id
+    const checked = event.target.checked
+    const name = event.target.name
+
+    const body = {[name]: checked}
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "POST",
+        body: JSON.stringify(body)
+    }
+    return fetch(apiUrl.Reservations + "/" + reservationId, param)
+        .then(() => _handleUpdate(reservationId, name, checked))
 }

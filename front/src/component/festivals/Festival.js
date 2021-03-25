@@ -60,6 +60,7 @@ class Festival extends Component {
                                 <th/>
                                 <th>Tables</th>
                                 <th>prix/table</th>
+                                <th>m²</th>
                                 <th>prix/m²</th>
                             </tr>
                             </thead>
