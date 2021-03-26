@@ -139,7 +139,7 @@ class EditorDetail extends Component {
         }
 
         return (
-            <Form>
+            <Form style={{margin: '1em'}}>
                 <FormGroup>
                     <Form.Label>Nom de l'entreprise</Form.Label>
                     <FormControl

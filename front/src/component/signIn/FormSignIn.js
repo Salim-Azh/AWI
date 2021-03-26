@@ -12,7 +12,7 @@ class FormSignIn extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this)
-        this.submit = this.submit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
 
     }
 
@@ -33,8 +33,7 @@ class FormSignIn extends Component {
         )
     }
 
-    submit() {
-        // Todo add user to db
+    handleSubmit() {
         if (this.formIsUnchanged()) {
             return
         }
@@ -44,10 +43,10 @@ class FormSignIn extends Component {
             body: JSON.stringify(this.state)
         }
         fetch(urlApi.login, params)
-            .then(res => res.headers)
+            .then(res => res.json())
             .then((res) => {
-                console.log(Cookies.get())
-                return res
+                console.log(res.token)
+                document.cookie = "token" + ":" + res.token
             })
             .catch(e => {
                 console.log(e.stack)
@@ -61,7 +60,7 @@ class FormSignIn extends Component {
 
     render() {
         return (
-            <Form noValidate onSubmit={this.handleSubmit}>
+            <Form style={{margin: '1em'}}>
                 <FormLabel>Email</FormLabel>
                 <FormControl
                     type={"text"}
@@ -79,7 +78,7 @@ class FormSignIn extends Component {
                     placeholder={"Mot de passe"}
                     onChange={this.handleChange}
                 />
-                <Button onClick={this.submit}> Connexion</Button>
+                <Button onClick={this.handleSubmit}> Connexion</Button>
             </Form>
         )
     }

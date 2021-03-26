@@ -84,49 +84,47 @@ class GameDetail extends Component {
             <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>
         )
         return (
-            <Card>
-                <Form>
-                    <FormGroup>
-                        <Form.Label>Nom du jeu</Form.Label>
-                        <FormControl
-                            as={"input"} value={this.state.name} type={"text"}
-                            onChange={this.handleChange} name={"name"}/>
-                    </FormGroup>
+            <Form style={{margin: '1em'}}>
+                <FormGroup>
+                    <Form.Label>Nom du jeu</Form.Label>
+                    <FormControl
+                        as={"input"} value={this.state.name} type={"text"}
+                        onChange={this.handleChange} name={"name"}/>
+                </FormGroup>
 
-                    <FormGroup>
-                        <Form.Label>Editeur</Form.Label>
-                        <FormControl as={"select"} onChange={this.handleEditorChange}>
-                            {rows}
-                        </FormControl>
-                    </FormGroup>
+                <FormGroup>
+                    <Form.Label>Editeur</Form.Label>
+                    <FormControl as={"select"} onChange={this.handleEditorChange}>
+                        {rows}
+                    </FormControl>
+                </FormGroup>
 
-                    <FormGroup>
-                        <Form.Label>Catégorie</Form.Label>
-                        <FormControl as={"select"} name="category" onChange={this.handleChange}>
-                            <option value="">---</option>
-                            <option value="enfant">enfant</option>
-                            <option value="ambiance">ambiance</option>
-                            <option value="famille">famille</option>
-                        </FormControl>
-                    </FormGroup>
+                <FormGroup>
+                    <Form.Label>Catégorie</Form.Label>
+                    <FormControl as={"select"} name="category" onChange={this.handleChange}>
+                        <option value="">---</option>
+                        <option value="enfant">enfant</option>
+                        <option value="ambiance">ambiance</option>
+                        <option value="famille">famille</option>
+                    </FormControl>
+                </FormGroup>
 
-                    <FormGroup>
-                        <Form.Label>Durée</Form.Label>
-                        <FormControl
-                            as={"input"} value={this.state.duration} type={"number"} min={0}
-                            onChange={this.handleChange} name={"duration"}/>
-                    </FormGroup>
+                <FormGroup>
+                    <Form.Label>Durée</Form.Label>
+                    <FormControl
+                        as={"input"} value={this.state.duration} type={"number"} min={0}
+                        onChange={this.handleChange} name={"duration"}/>
+                </FormGroup>
 
-                    <FormGroup>
-                        <Form.Label>âge requis</Form.Label>
-                        <FormControl
-                            as={"input"} value={this.state.min_yearold} type={"number"} min={0}
-                            onChange={this.handleChange} name={"min_yearold"}/>
-                    </FormGroup>
+                <FormGroup>
+                    <Form.Label>âge requis</Form.Label>
+                    <FormControl
+                        as={"input"} value={this.state.min_yearold} type={"number"} min={0}
+                        onChange={this.handleChange} name={"min_yearold"}/>
+                </FormGroup>
 
-                    <Button onClick={this.submit} variant={"outline-success"}>Sauvegarder</Button>
-                </Form>
-            </Card>
+                <Button onClick={this.submit} variant={"outline-success"}>Sauvegarder</Button>
+            </Form>
         )
     }
 }
