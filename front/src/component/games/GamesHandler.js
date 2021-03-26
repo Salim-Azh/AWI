@@ -87,7 +87,6 @@ export function filterGamesByEditor(games, filterText) {
     }
 }
 
-// TODO ajouter dans le front l'envoie de l'editor id
 export function addGames(game) {
     const param = {
         headers: {'Content-Type': 'application/json'},
