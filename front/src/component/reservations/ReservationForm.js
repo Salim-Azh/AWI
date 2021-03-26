@@ -9,13 +9,24 @@ class ReservationForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            festival: "",
             exhibitor: {_id: "", name: ""}
         }
 
         this.submit = this.submit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleExhibitorChange = this.handleExhibitorChange.bind(this)
+    }
+
+    componentDidMount() {
+        ExhibitorHandler.getExhibitorsFromDB()
+            .then(exhibitors => exhibitors.map(exhibitor => {
+            if (exhibitor && (exhibitor.isPotential)) {
+                this.state.exhibitors.push(exhibitor)
+            }
+            }))
+            .then(() => this.setState({
+                exhibitors: this.state.exhibitors
+            }))
     }
 
     handleChange(event) {
@@ -31,6 +42,7 @@ class ReservationForm extends Component {
     handleExhibitorChange(event) {
         const target = event.target;
         const value = target.value;
+        console.log(value)
 
         this.state.exhibitor = {
             _id: value.split(',')[0],
@@ -43,7 +55,6 @@ class ReservationForm extends Component {
 
     formIsUnchanged() {
         return (
-            this.state.festival === "" ||
             this.state.exhibitor._id === "" ||
             this.state.exhibitor.name === ""
         )
@@ -51,6 +62,7 @@ class ReservationForm extends Component {
 
     submit() {
         // TODO faire un retour utilisateur
+        console.log(this.formIsUnchanged())
         if (this.formIsUnchanged()) {
             return
         }
@@ -70,7 +82,7 @@ class ReservationForm extends Component {
             <Form>
                 <FormGroup>
                     <Form.Label>Exposant</Form.Label>
-                    <FormControl as={"select"} name="exhibitor" onChange={this.handleEditorChange}>
+                    <FormControl as={"select"} name="exhibitor" onChange={this.handleExhibitorChange}>
                         <option value={""}>---</option>
                         {rows}
                     </FormControl>

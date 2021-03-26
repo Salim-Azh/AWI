@@ -1,6 +1,6 @@
 import Exhibitor from "./Exhibitor";
 const apiUrl = require("../../../public/urlApi")
-const errorHandler = require("../../error/errorHandler")
+const ReservationHandler = require("../../reservations/ReservationHandler")
 
 export function getExhibitorsFromDB() {
     return fetch(apiUrl.Exhibitors)
@@ -21,7 +21,7 @@ function createExhibitor(exhibitor) {
             _id={exhibitor._id}
             name={exhibitor.name}
             contacts={exhibitor.contacts}
-            createReservation={createReservation}
+            addReservation={ReservationHandler.addReservation}
         />
     )
 }
@@ -50,13 +50,7 @@ export function filterEditorByPotentialOnly(exhibitors) {
     }
 }
 
-function createReservation(event) {
-    const exhibitor = {exhibitor: event.target.name}
-    const param = {
-        headers: {'Content-Type': 'application/json'},
-        method: "POST",
-        body: JSON.stringify(exhibitor)
-    }
-    fetch(apiUrl.Reservations, param)
-        .then(r => errorHandler.handleResponse(r, "Ajout d'une réservation"))
+let _handleUpdate
+export function setHandleUpdate(handler) {
+    _handleUpdate = handler
 }

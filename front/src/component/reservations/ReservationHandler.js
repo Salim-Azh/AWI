@@ -1,5 +1,6 @@
 import Reservation from "./Reservation";
 const apiUrl = require("../../public/urlApi")
+const errorHandler = require("../error/errorHandler")
 
 export function getReservationsFromDB() {
     return fetch(apiUrl.Reservations)
@@ -64,7 +65,6 @@ export function filterEditorByEditorPresent(reservations) {
                 }
             }
         })
-        console.log(rows)
         return rows
     }
 }
