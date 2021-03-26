@@ -25,8 +25,8 @@ module.exports.getFestivalReservations = async(req, res) => {
     }
 }
 
-// TODO faire correspondre avec le model
 module.exports.addReservation = async(req, res) => {
+    console.log(req.body)
     const {exhibitor} = req.body
     try {
         const festival = await FestivalModel.findOne({is_current: true})
@@ -101,6 +101,6 @@ module.exports.updateReservationCheckBox = async(req, res) => {
 }
 
 module.exports.getReservation = async(req, res) => {
-    
+
 }
 
