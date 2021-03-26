@@ -14,13 +14,10 @@ class GameDetail extends Component {
             name: "",
             category: "",
             duration: "",
-            min_yearold: "",
-            editor: {_id: "", name: ""},
-            editors: []
+            min_yearold: ""
         }
         this.handleChange = this.handleChange.bind(this)
         this.submit = this.submit.bind(this)
-        this.handleEditorChange = this.handleEditorChange.bind(this)
     }
 
     componentDidMount() {
@@ -32,16 +29,6 @@ class GameDetail extends Component {
                 duration: res.game.duration,
                 min_yearold: res.game.min_yearold,
                 editor: res.editor
-            }))
-
-        EditorHandler.getEditorsFromDB()
-            .then(editors => editors.map(editor => {
-                if (editor && (editor.isEditor && editor.isPotential)) {
-                    this.state.editors.push(editor)
-                }
-            }))
-            .then(() => this.setState({
-                editors: this.state.editors
             }))
     }
 
@@ -55,21 +42,7 @@ class GameDetail extends Component {
         })
     }
 
-    handleEditorChange(event) {
-        const target = event.target;
-        const value = target.value;
-
-        this.state.editor = {
-            _id: value.split(',')[0],
-            name: value.split(',')[1]
-        }
-        this.setState({
-            editor: this.state.editor
-        })
-    }
-
     submit() {
-        this.state.editors = undefined
         GamesHandler.updateGame(this.state)
             .then(() => this.setState({redirect: "/nav/jeux"}))
     }
@@ -79,10 +52,6 @@ class GameDetail extends Component {
             return <Redirect to={this.state.redirect}/>
         }
 
-        let rows //= <option value={this.state.editor._id + "," + this.state.editor.name}>{this.state.editor.name}</option>
-        rows = this.state.editors.map(editor =>
-            <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>
-        )
         return (
             <Form style={{margin: '1em'}}>
                 <FormGroup>
@@ -90,13 +59,6 @@ class GameDetail extends Component {
                     <FormControl
                         as={"input"} value={this.state.name} type={"text"}
                         onChange={this.handleChange} name={"name"}/>
-                </FormGroup>
-
-                <FormGroup>
-                    <Form.Label>Editeur</Form.Label>
-                    <FormControl as={"select"} onChange={this.handleEditorChange}>
-                        {rows}
-                    </FormControl>
                 </FormGroup>
 
                 <FormGroup>

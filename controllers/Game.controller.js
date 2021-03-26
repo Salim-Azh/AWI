@@ -83,11 +83,9 @@ module.exports.deleteGame = async(req, res) => {
     }
 }
 
-// TODO dans req body on a mtn un editor c'est le nouvel editeur qu'il faut donc changer
 module.exports.updateGame = async(req, res) => {
     const idGame = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idGame)
-    console.log(req.body)
 
     try {
         GameModel.updateOne({_id: mongooseId}, req.body)
