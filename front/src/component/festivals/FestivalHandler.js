@@ -104,5 +104,5 @@ export function updateCurrent(festival) {
     }
     fetch(apiUrl.Festivals + "/" + festival._id + "/current", param)
         .then(r => errorHandler.handleResponse(r, "Modification du festival"))
-        .then(r => _handleUpdate(festival._id, festival.is_current))
+        .then(() => _handleUpdate(festival._id, festival.is_current))
 }

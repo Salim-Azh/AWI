@@ -1,7 +1,6 @@
 const router = require("express").Router()
 const authController = require("../controllers/auth.controller")
 const userController = require("../controllers/user.controller")
-const { use } = require("./games.routes")
 
 //auth
 router.post("/register", authController.signUp)

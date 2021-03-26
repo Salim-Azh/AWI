@@ -1,8 +1,6 @@
 const UserModel = require('../models/user.model')
 const jwt = require('jsonwebtoken')
-const Cookies = require("cookies")
 
-const exp = '1h'
 const createToken = (id) => {
     return jwt.sign({
         id

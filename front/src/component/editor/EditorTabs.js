@@ -2,7 +2,6 @@ import {Component} from "react"
 
 import {Tab, Tabs} from "react-bootstrap";
 import FilteredEditorsTable from "./FilteredEditorsTable";
-import {handleResponse} from "./EditorHandler";
 
 const EditorHandler = require("./EditorHandler")
 

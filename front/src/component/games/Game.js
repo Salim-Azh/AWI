@@ -1,6 +1,5 @@
 import {Nav} from "react-bootstrap"
 
-// TODO faire le model et le validator mongo valide
 function Game(props) {
     return (
         <tr id={props.game._id}>

@@ -7,17 +7,27 @@ function Reservation(props) {
 
     let sumSquareMeters = props.reservation.nb_sm_premium + props.reservation.nb_sm_standard + props.reservation.nb_sm_low
     if(!sumSquareMeters) {sumSquareMeters = 0}
+
     return (
         <tr id={props.reservation._id}>
             <td><Nav.Link href={"/nav/reservation/" + props.reservation._id}>{props.exhibitor.name}</Nav.Link></td>
             <td>{props.reservation.comment}</td>
             <td>{props.reservation.state}</td>
+
             <td><input type={"checkbox"} checked={props.reservation.need_volunteer}
-                       onChange={props.handleChange} id={props.reservation._id} name={"need_volunteer"}/></td>
+                       onChange={props.handleChange} id={props.reservation._id} name={"need_volunteer"}/>
+            </td>
+
             <td><input type={"checkbox"} checked={props.reservation.isEditorHere}
-                       onChange={props.handleChange} id={props.reservation._id} name={"isEditorHere"}/></td>
+                       onChange={props.handleChange} id={props.reservation._id}
+                       name={"isEditorHere"}/>
+            </td>
+
             <td><input type={"checkbox"} checked={props.reservation.reportSent}
-                       onChange={props.handleChange} id={props.reservation._id} name={"reportSent"}/></td>
+                       onChange={props.handleChange} id={props.reservation._id}
+                       name={"reportSent"}/>
+            </td>
+
             <td>{sumTable}</td>
             <td>{sumSquareMeters}</td>
             <td>{props.bill}</td>

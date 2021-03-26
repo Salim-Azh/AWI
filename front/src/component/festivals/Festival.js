@@ -1,5 +1,5 @@
 import {Component} from "react"
-import {Card, Col, FormControl, Row, Table} from "react-bootstrap";
+import {Card, FormControl, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 // Faire le set current ou la nav vers reservation

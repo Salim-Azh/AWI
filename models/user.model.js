@@ -2,9 +2,7 @@ const mongoose = require("mongoose")
 const {isEmail} = require("validator")
 const bcrypt = require("bcrypt")
 
-const {Schema} = mongoose
-
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
     {
         email:{
             type: String,
@@ -52,7 +50,7 @@ userSchema.pre("save", async function(next){
 
 userSchema.statics.login = async function(email, pwd){
     const user = await this.findOne({email})
-    
+
     if (user) {
         const auth = await bcrypt.compare(pwd, user.pwd)
         if (auth) {

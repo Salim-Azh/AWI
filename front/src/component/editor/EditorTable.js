@@ -2,9 +2,6 @@ import {Component} from "react"
 import React from "react"
 
 import {Table} from "react-bootstrap";
-import {
-    BrowserRouter as Router,
-} from "react-router-dom";
 
 const EditorHandler = require("./EditorHandler")
 
