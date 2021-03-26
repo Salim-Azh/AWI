@@ -1,6 +1,7 @@
 const ReservationsModel = require("../models/reservations.model")
 const FestivalModel = require('../models/festivals.model')
 const EditorModel = require("../models/editors.model")
+const ObjectId = require('mongoose').Types.ObjectId
 
 const mongoose = require("mongoose")
 
@@ -104,9 +105,9 @@ module.exports.getReservation = async(req, res) => {
     if(!ObjectId.isValid(req.params.id)){
         return res.status(400).send("Unknown id : " + req.params.id)
     }
-
     ReservationsModel.findById(req.params.id, (err,data)=>{
-        
+        if(!err) res.send(data)
+        else res.status(500).json({ message: error })
     })
 }
 
