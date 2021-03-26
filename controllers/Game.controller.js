@@ -83,10 +83,11 @@ module.exports.deleteGame = async(req, res) => {
     }
 }
 
-// TODO si le champs n'existe pas dans la base le update ne créera pas le champs
+// TODO si dans req body on trouve un editor c'est le nouvel editeur qu'il faut donc changer
 module.exports.updateGame = async(req, res) => {
     const idGame = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idGame)
+    console.log(req.body)
 
     try {
         GameModel.updateOne({_id: mongooseId}, req.body)

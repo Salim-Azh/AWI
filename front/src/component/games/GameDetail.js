@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 const GamesHandler = require("./GamesHandler")
 const EditorHandler = require("../editor/EditorHandler")
 
-// TODO faire la liste déroulante de tous les éditeurs avec par défault le vrai editeur
 class GameDetail extends Component {
     constructor(props) {
         super(props);
@@ -21,6 +20,7 @@ class GameDetail extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.submit = this.submit.bind(this)
+        this.handleEditorChange = this.handleEditorChange.bind(this)
     }
 
     componentDidMount() {
@@ -69,6 +69,7 @@ class GameDetail extends Component {
     }
 
     submit() {
+        this.state.editors = undefined
         GamesHandler.updateGame(this.state)
             .then(() => this.setState({redirect: "/nav/jeux"}))
     }
