@@ -1,6 +1,5 @@
 import {Component} from "react"
 import {Form, FormControl, Button, FormLabel} from "react-bootstrap";
-import Cookies from 'js-cookie'
 const urlApi = require('../../public/urlApi')
 
 class FormSignIn extends Component {
@@ -46,7 +45,9 @@ class FormSignIn extends Component {
             .then(res => res.json())
             .then((res) => {
                 console.log(res.token)
-                document.cookie = "token" + ":" + res.token
+                let d = new Date()
+                d.setTime(d.getTime() + (24 * 60 * 60 * 1000))
+                document.cookie = "token" + "=" + res.token + ";" + "expires" + "=" + d.toUTCString()// + ";" + "Secure; HttpOnly"
             })
             .catch(e => {
                 console.log(e.stack)
