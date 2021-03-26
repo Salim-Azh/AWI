@@ -5,19 +5,18 @@ const EditorModel = require("../models/editors.model")
 const mongoose = require("mongoose")
 
 module.exports.getFestivalReservations = async(req, res) => {
-    const response = [{
-        exhibitor: "",
-        reservation: ""
-    }]
+    const response = []
     try {
         const festival = await FestivalModel.findOne({is_current: true})
         const reservations = await ReservationsModel.find({festival: festival._id}).select("-games")
 
         for (let i = 0; i < reservations.length; i++) {
             const element = reservations[i]
-            const exhibitor = await EditorModel.findById({_id: element.exhibitor}).select("-games") 
-            response[i].exhibitor = exhibitor
-            response[i].reservation = element
+            const exhibitor = await EditorModel.findById({_id: element.exhibitor}).select("-games")
+            response.push({
+                exhibitor: exhibitor,
+                reservation: element
+            })
         }
         res.status(201).json({reservations: response})
     } catch (error) {
@@ -31,7 +30,7 @@ module.exports.addReservation = async(req, res) => {
     const {exhibitor} = req.body
     try {
         const festival = await FestivalModel.findOne({is_current: true})
-        const reservation = await ReservationsModel.create({festival: festival._id, exhibitor: exhibitor}) 
+        const reservation = await ReservationsModel.create({festival: festival._id, exhibitor: exhibitor})
         console.log(reservation)
         res.status(201).json({reservation: reservation._id})
     } catch (error) {
