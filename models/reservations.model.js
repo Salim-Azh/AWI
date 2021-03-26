@@ -19,22 +19,42 @@ const gamesBooked = new mongoose.Schema(
             type: String,
             required: true
         },
-        qte: {
+        total_qte: {
             type: Number,
             required: true
         },
-        recieved: {
+        exposed_qte:{
+            type: Number,
+            required: true
+        },
+        received: {
             type: Boolean,
             required: true
         },
-        state: {
-            type: Number,
-            required: false
+        bring_by_exhibitor: {
+            type: Boolean,
+            required: true
         },
         proto: {
             type: Boolean,
-            required: false
+            required: true
+        },
+        returned: {
+            type: Boolean,
+            required: true
         }
+        /*
+        STATES CAN BE CALCULATED
+        state: {
+            type: String,
+            enum: [
+                "en_attente_de_reception",//received=false;bring_by_exhibitor=false;
+                "recu",//received=true;bring_by_exhibitor=false;
+                "apporte_par_exposant",//received=false;bring_by_exhibitor=true;
+                "a_renvoyer",//proto=true; received=true
+                "renvoye"//received=true;bring_by_exhibitor=false;proto=true;returned=true
+            ]
+        }*/
     }
 )
 
@@ -80,9 +100,18 @@ const bookingSchema = new mongoose.Schema(
             required: false,
             min: 0
         },
-        date: {
-            type: Date,
-            required: false
+        state:{
+            type: String,
+            enum: [
+                "En_discussion",
+                "Pas_de_reponse",//Talk without answer
+                "Considere_absent",//All talks without answer
+                "Annule",
+                "Confirme",
+                "Liste_jeux_demande",
+                "Liste_jeux_confirme"
+            ],
+            default: "En_discussion"
         },
         comment: {
             type: String,
@@ -97,9 +126,6 @@ const bookingSchema = new mongoose.Schema(
         third_contact: {
             type: talk
         },
-        state: {
-            type: Number
-        },
         negociated_price: {
             type: Number
         },
@@ -109,7 +135,7 @@ const bookingSchema = new mongoose.Schema(
         need_volunteer: {
             type: Boolean
         },
-        isEditorHere: {
+        isPresent: {
             type: Boolean
         },
         reportSent: {
