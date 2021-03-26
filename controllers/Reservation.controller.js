@@ -102,6 +102,12 @@ module.exports.updateReservationCheckBox = async(req, res) => {
 }
 
 module.exports.getReservation = async(req, res) => {
-    
+    if(!ObjectId.isValid(req.params.id)){
+        return res.status(400).send("Unknown id : " + req.params.id)
+    }
+
+    ReservationsModel.findById(req.params.id, (err,data)=>{
+        
+    })
 }
 
