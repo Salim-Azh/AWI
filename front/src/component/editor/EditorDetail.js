@@ -9,7 +9,6 @@ import FormContainer from "../Modal/FormContainer";
 const EditorHandler = require("./EditorHandler")
 const GameHandler = require("../games/GamesHandler")
 
-// TODO ajouter un contact
 class EditorDetail extends Component {
     constructor(props) {
         super(props);
