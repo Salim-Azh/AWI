@@ -22,7 +22,8 @@ const userSchema = new Schema(
         },
         right:{
             type: Number,
-            enum: [0,1]//0: consultant; 1:admin;
+            enum: [0,1],//0: consultant; 1:admin;
+            default: 0
         }
     },
     {
