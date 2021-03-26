@@ -51,7 +51,7 @@ export function filterEditorByPotentialOnly(exhibitors) {
 }
 
 function createReservation(event) {
-    const exhibitor = event.target.name
+    const exhibitor = {exhibitor: event.target.name}
     const param = {
         headers: {'Content-Type': 'application/json'},
         method: "POST",
