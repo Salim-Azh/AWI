@@ -13,7 +13,7 @@ class FilterableReservationsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            reservations: [{}],
+            reservations: props.reservations,
             editors: "",
             filterText: "",
             need_volunteer: false,
@@ -26,18 +26,11 @@ class FilterableReservationsTable extends Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleFilterCheckedChange = this.handleFilterCheckedChange.bind(this)
-        this.handleAddReservation = this.handleAddReservation.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)
     }
 
     componentDidMount() {
-        ReservationHandler.getReservationsFromDB()
-            .then(reservations => {
-                this.setState({
-                    reservations: reservations
-                })
-            })
         ReservationHandler.setHandleDelete(this.handleDelete)
         ReservationHandler.setUpdateHandler(this.handleUpdate)
     }
@@ -70,14 +63,6 @@ class FilterableReservationsTable extends Component {
         this.setState({[name]: value})
     }
 
-    handleAddReservation(reservation) {
-        ReservationHandler.addReservation(reservation)
-            .then(response => response.json())
-            .then(response => reservation._id = response._id)
-            .then(() => this.state.reservations.push(reservation))
-            .then(() => this.setState({reservations: this.state.reservations}))
-    }
-
     handleDelete(reservationId) {
         this.setState({
             reservations: this.state.reservations.filter((reservation) => {
@@ -87,7 +72,8 @@ class FilterableReservationsTable extends Component {
     }
 
     handleUpdate(reservationId, attribute, checked) {
-        const reservation = this.state.reservations.filter((reservation) => {
+        const reservation = this.props.reservations.filter((reservation) => {
+            console.log(reservation)
             return reservation.reservation._id === reservationId
         })
 
@@ -138,11 +124,11 @@ class FilterableReservationsTable extends Component {
                         title={"Créer une réservation"}
                         component={"ReservationForm"}
                         exhibitors={this.props.exhibitors}
-                        handleClick={this.handleAddReservation}
+                        handleClick={this.props.handleAddReservation}
                     />
                 </Card>
                 <ReservationTable
-                    reservations={this.state.reservations}
+                    reservations={this.props.reservations}
                     need_volunteer={this.state.need_volunteer}
                     reportSent={this.state.reportSent}
                     isEditorHere={this.state.isEditorHere}

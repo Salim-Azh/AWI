@@ -42,7 +42,6 @@ class ReservationForm extends Component {
     handleExhibitorChange(event) {
         const target = event.target;
         const value = target.value;
-        console.log(value)
 
         this.state.exhibitor = {
             _id: value.split(',')[0],
@@ -62,15 +61,11 @@ class ReservationForm extends Component {
 
     submit() {
         // TODO faire un retour utilisateur
-        console.log(this.formIsUnchanged())
         if (this.formIsUnchanged()) {
             return
         }
+        this.state.exhibitors = undefined
         this.props.handleClick(this.state)
-        this.setState({
-            festival: "",
-            exhibitor: {_id: "", name: ""}
-        })
     }
 
     render() {

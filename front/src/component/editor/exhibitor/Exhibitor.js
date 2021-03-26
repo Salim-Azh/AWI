@@ -10,7 +10,12 @@ class Exhibitor extends Component {
     }
 
     handleAddReservation(event) {
-        this.props.addReservation({exhibitor: event.target.name})
+        this.props.addReservation({
+            exhibitor: {
+                _id: event.target.name.split(",")[0],
+                name: event.target.name.split(",")[1]
+            }
+        }, true)
     }
 
     render() {
@@ -18,7 +23,8 @@ class Exhibitor extends Component {
             <tr id={this.props._id}>
                 <td><Nav.Link href={"/nav/editeur/" + this.props._id}>{this.props.name}</Nav.Link></td>
                 <td>{this.props.contacts[0]}</td>
-                <td><Button variant={"primary"} onClick={this.handleAddReservation} name={this.props._id}>Créer une réservation</Button></td>
+                <td><Button variant={"primary"} onClick={this.handleAddReservation}
+                            name={this.props._id + "," + this.props.name}>Créer une réservation</Button></td>
             </tr>
         )
     }

@@ -6,7 +6,7 @@ export function getReservationsFromDB() {
     return fetch(apiUrl.Reservations)
         .then(r => r.json())
         .then((response) => {
-            return response.reservations
+            return response.response
         })
         .catch(e => {
             console.log(e.stack)
@@ -83,11 +83,20 @@ export function filterEditorByReportSent(reservations) {
     }
 }
 
-export function addReservation(reservation) {
+let _addHandler
+export function setAddHandler(handler) {
+    _addHandler = handler
+}
+
+export function addReservation(reservation, doUpdate) {
     const param = {
         headers: {'Content-Type': 'application/json'},
         method: "POST",
         body: JSON.stringify(reservation)
+    }
+    if(doUpdate) {
+        return fetch(apiUrl.Reservations, param)
+            .then(() => _addHandler(reservation))
     }
     return fetch(apiUrl.Reservations, param)
 }

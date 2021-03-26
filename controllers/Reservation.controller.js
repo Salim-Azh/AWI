@@ -19,7 +19,7 @@ module.exports.getFestivalReservations = async(req, res) => {
                 reservation: element
             })
         }
-        res.status(201).json({reservations: response})
+        res.status(201).json({response: response})
     } catch (error) {
         console.log(error)
         res.status(400).send({error})
@@ -31,8 +31,7 @@ module.exports.addReservation = async(req, res) => {
     try {
         const festival = await FestivalModel.findOne({is_current: true})
         const reservation = await ReservationsModel.create({festival: festival._id, exhibitor: exhibitor})
-        console.log(reservation)
-        res.status(201).json({reservation: reservation._id})
+        res.status(201).json({response: {reservation: reservation, exhibitor: exhibitor}})
     } catch (error) {
         res.status(400).send({error})
     }
