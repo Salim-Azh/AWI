@@ -4,33 +4,35 @@ const EditorModel = require("../models/editors.model")
 
 const mongoose = require("mongoose")
 
+module.exports.getFestivalReservations = async(req, res) => {
+    const response = []
+    try {
+        const festival = await FestivalModel.findOne({is_current: true})
+        const reservations = await ReservationsModel.find({festival: festival._id}).select("-games")
+
+        for (let i = 0; i < reservations.length; i++) {
+            const element = reservations[i]
+            const exhibitor = await EditorModel.findById({_id: element.exhibitor}).select("-games")
+            response.push({
+                exhibitor: exhibitor,
+                reservation: element
+            })
+        }
+        res.status(201).json({reservations: response})
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({error})
+    }
+}
+
 // TODO faire correspondre avec le model
 module.exports.addReservation = async(req, res) => {
-
-    const {name, year,
-        nb_tables_premium, nb_tables_standard, nb_tables_low,
-        premium_t_price, standard_t_price, low_t_price,
-        premium_sm_price, standard_sm_price, low_sm_price} = req.body
-
+    const {exhibitor} = req.body
     try {
-
-        const reservation = await ReservationsModel.create({
-            _id: mongoose.Types.ObjectId(),
-            name: name,
-            year: year,
-            nb_tables_premium: nb_tables_premium,
-            nb_tables_standard: nb_tables_standard,
-            nb_tables_low: nb_tables_low,
-            premium_t_price: premium_t_price,
-            standard_t_price: standard_t_price,
-            low_t_price: low_t_price,
-            premium_sm_price: premium_sm_price,
-            standard_sm_price: standard_sm_price,
-            low_sm_price: low_sm_price,
-            is_current: true
-        })
-        res.status(201).json({resverationId: reservation._id})
-
+        const festival = await FestivalModel.findOne({is_current: true})
+        const reservation = await ReservationsModel.create({festival: festival._id, exhibitor: exhibitor})
+        console.log(reservation)
+        res.status(201).json({reservation: reservation._id})
     } catch (error) {
         res.status(400).send({error})
     }

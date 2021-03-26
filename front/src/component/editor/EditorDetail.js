@@ -24,7 +24,7 @@ class EditorDetail extends Component {
     }
 
     componentDidMount() {
-        EditorHandler.getEditorFromDB(window.location.href.split('/')[4])
+        EditorHandler.getEditorFromDB(window.location.href.split('/')[5])
             .then(editor => this.setState({
                 _id: editor._id,
                 name: editor.name,

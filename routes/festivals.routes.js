@@ -3,13 +3,17 @@ const router = express.Router()
 
 // Controllers
 const festivalController = require("../controllers/Festival.controller")
+const reservationController = require("../controllers/Reservation.controller")
 
 router.get("/", festivalController.getListOfFestivals)
+router.get("/reservations", reservationController.getFestivalReservations)
+
 router.post("/", festivalController.addFestival)
-router.delete("/:id", festivalController.deleteFestival)
+router.post("/reservations", reservationController.addReservation)
+
 router.put("/:id", festivalController.updateFestival)
+router.put("/:id/current", festivalController.setCurrent)
 
-
-router.get("/reservations", festivalController.getFestivalReservations)
+router.delete("/:id", festivalController.deleteFestival)
 
 module.exports = router

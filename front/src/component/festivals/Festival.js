@@ -1,5 +1,5 @@
 import {Component} from "react"
-import {Card, FormControl, Table} from "react-bootstrap";
+import {Card, Col, FormControl, Row, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 // Faire le set current ou la nav vers reservation
@@ -8,19 +8,20 @@ class Festival extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            _id: props._id,
-            nb_t_premium: props.nb_t_premium,
-            nb_t_standard: props.nb_t_standard,
-            nb_t_low: props.nb_t_low,
-            nb_sm_premium: props.nb_sm_premium,
-            nb_sm_standard: props.nb_sm_standard,
-            nb_sm_low: props.nb_sm_low,
-            premium_t_price: props.premium_t_price,
-            standard_t_price: props.standard_t_price,
-            low_t_price: props.low_t_price,
-            premium_sm_price: props.premium_sm_price,
-            standard_sm_price: props.standard_sm_price,
-            low_sm_price: props.low_sm_price
+            _id: props.festival._id,
+            nb_t_premium: props.festival.nb_t_premium,
+            nb_t_standard: props.festival.nb_t_standard,
+            nb_t_low: props.festival.nb_t_low,
+            nb_sm_premium: props.festival.nb_sm_premium,
+            nb_sm_standard: props.festival.nb_sm_standard,
+            nb_sm_low: props.festival.nb_sm_low,
+            premium_t_price: props.festival.premium_t_price,
+            standard_t_price: props.festival.standard_t_price,
+            low_t_price: props.festival.low_t_price,
+            premium_sm_price: props.festival.premium_sm_price,
+            standard_sm_price: props.festival.standard_sm_price,
+            low_sm_price: props.festival.low_sm_price,
+            is_current: props.festival.is_current
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -36,14 +37,22 @@ class Festival extends Component {
         this.setState({
             [name]: value
         })
+
+        if(name === "") {
+            this.setCurrent()
+        }
     }
 
     submit() {
-        this.props.handleSubmit(this.state)
+        this.props.handleUpdate(this.state)
     }
 
     setCurrent() {
-        // TODO ajouter ce festoche en festoche courant
+        this.props.handleUpdateCurrent({
+            _id: this.state._id,
+            is_current: true
+        })
+        this.setState({is_current: true})
     }
 
     render() {
@@ -51,7 +60,11 @@ class Festival extends Component {
             <>
                 <Card.Body>
                     <Card.Header>
-                        <Card.Title>{this.props.name} - {this.props.year}</Card.Title>
+                        <Button
+                            variant={"warning"} type={"button"}
+                            onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
+
+                        <Card.Title>{this.props.festival.name} - {this.props.festival.year}</Card.Title>
                     </Card.Header>
                     <Card.Text>
                         <Table>
@@ -142,8 +155,10 @@ class Festival extends Component {
                         </Table>
                     </Card.Text>
                     <Button variant="primary" type={"button"} onClick={this.submit}>Sauvegarder</Button>
-                    <Button variant="warning" type={"button"} onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
-                    <Button variant="primary">set current/ Navigation vers resa</Button>
+                    <Button variant="primary" type={"button"}
+                            onClick={this.setCurrent}
+                            //disabled={this.state.is_current}
+                    >Set courant</Button>
                 </Card.Body>
             </>
         )

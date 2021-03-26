@@ -99,7 +99,8 @@ class GameForm extends Component {
 
     render() {
         const rows = this.state.editors.map(editor =>
-            <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>)
+            <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>
+        )
         return (
             <Form>
                 <FormGroup>

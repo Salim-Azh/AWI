@@ -78,16 +78,8 @@ module.exports.updateGame = async(req, res) => {
     const idGame = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idGame)
 
-    const {name, duration, min_yearold, category} = req.body
-    const update = {
-        name: name,
-        duration: duration,
-        min_yearold: min_yearold,
-        category: category
-    }
-
     try {
-        GameModel.updateOne({_id: mongooseId}, update)
+        GameModel.updateOne({_id: mongooseId}, req.body)
             .then(() => res.status(201).send("success"))
 
     } catch(e) {

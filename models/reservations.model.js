@@ -118,6 +118,9 @@ const bookingSchema = new mongoose.Schema(
         bill: {
             type: mongoose.Types.ObjectId
         }
+    },
+    {
+        timestamps: true,
     }
 )
 
