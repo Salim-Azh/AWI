@@ -40,13 +40,9 @@ module.exports.addReservation = async(req, res) => {
 }
 
 module.exports.deleteReservation = async(req, res) => {
-    const idReservation = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idReservation)
-
     try {
-        ReservationsModel.deleteOne({_id: mongooseId})
-            .then(() => res.status(201).send())
-
+        ReservationsModel.deleteOne({_id: req.params.id})
+            .then(() => res.status(201).send("Deleted"))
     } catch(e) {
         console.log(e)
         res.status(400).send({e})

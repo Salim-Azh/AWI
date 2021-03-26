@@ -17,5 +17,6 @@ router.post("/reservations", reservationController.addReservation)
 
 router.get("/reservations/:id", reservationController.getReservation)
 router.put("/reservations/:id", reservationController.updateReservation)
+router.delete("/reservations/:id", reservationController.deleteReservation)
 
 module.exports = router
