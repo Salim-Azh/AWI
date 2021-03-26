@@ -39,64 +39,22 @@ module.exports.addReservation = async(req, res) => {
 }
 
 module.exports.deleteReservation = async(req, res) => {
-    const idReservation = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idReservation)
-
     try {
-        ReservationsModel.deleteOne({_id: mongooseId})
-            .then(() => res.status(201).send())
-
+        ReservationsModel.deleteOne({_id: req.params.id})
+            .then(() => res.status(201).send("Deleted"))
     } catch(e) {
         console.log(e)
         res.status(400).send({e})
     }
 }
 
-// TODO faire correspondre avec le model
-// sansles champs checkbox
 module.exports.updateReservation = async(req, res) => {
-    const idReservation = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idReservation)
-
-    const {
-        nb_tables_premium, nb_tables_standard, nb_tables_low,
-        premium_t_price, standard_t_price, low_t_price,
-        premium_sm_price, standard_sm_price, low_sm_price
-    } = req.body
-
-    const update = {
-        nb_tables_premium: nb_tables_premium,
-        nb_tables_standard: nb_tables_standard,
-        nb_tables_low: nb_tables_low,
-        premium_t_price: premium_t_price,
-        standard_t_price: standard_t_price,
-        low_t_price: low_t_price,
-        premium_sm_price: premium_sm_price,
-        standard_sm_price: standard_sm_price,
-        low_sm_price: low_sm_price
-    }
-
     try {
-        FestivalsModel.updateOne({_id: mongooseId}, update)
-            .then(() => res.status(201).send())
-
-    } catch(e) {
-        console.log(e)
-        res.status(400).send({e})
-    }
-}
-
-module.exports.updateReservationCheckBox = async(req, res) => {
-    const idReservation = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idReservation)
-
-    try {
-        ReservationsModel.updateOne({_id: mongooseId}, req.body)
+        ReservationsModel.updateOne({_id: req.params.id}, req.body)
             .then(() => res.status(201).send("success"))
 
-    } catch(e) {
-        console.log(e)
-        res.status(400).send({e})
+    } catch(error) {
+        res.status(400).send({error})
     }
 }
 

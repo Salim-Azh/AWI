@@ -41,11 +41,11 @@ const gamesBooked = new mongoose.Schema(
         state: {
             type: String,
             enum: [
-                "en_attente_de_reception",//received=false;bring_by_exhibitor=false;
-                "recu",//received=true;bring_by_exhibitor=false;
-                "apporte_par_exposant",//received=false;bring_by_exhibitor=true;
-                "a_renvoyer",//proto=true; received=true
-                "renvoye"//received=true;bring_by_exhibitor=false;proto=true;returned=true
+                "en attente de réception",//received=false;bring_by_exhibitor=false;
+                "reçu",//received=true;bring_by_exhibitor=false;
+                "apporté par exposant",//received=false;bring_by_exhibitor=true;
+                "à renvoyer",//proto=true; received=true
+                "renvoyé"//received=true;bring_by_exhibitor=false;proto=true;returned=true
             ]
         }
     }
@@ -96,15 +96,15 @@ const bookingSchema = new mongoose.Schema(
         state:{
             type: String,
             enum: [
-                "En_discussion",
-                "Pas_de_reponse",
-                "Considere_absent",
-                "Annule",
-                "Confirme",
-                "Liste_jeux_demande",
-                "Liste_jeux_confirme"
+                "En discussion",
+                "Pas de réponse",
+                "Considéré absent",
+                "Annulé",
+                "Confirmé",
+                "Liste_jeux_demandé",
+                "Liste_jeux_confirmé"
             ],
-            default: "En_discussion"
+            default: "En discussion"
         },
         comment: {
             type: String,

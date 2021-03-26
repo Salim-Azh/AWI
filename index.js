@@ -10,7 +10,6 @@ const usersRoutes = require("./routes/users.routes")
 const gamesRoutes = require("./routes/games.routes")
 const editorsRoutes = require("./routes/editor.routes")
 const festivalsRoutes = require("./routes/festivals.routes")
-const reservationRoutes = require("./routes/reservation.routes")
 const exhibitorsRoutes = require("./routes/exhibitors.routes")
 
 const {checkUser, requireAuth} = require("./middleware/auth.middleware")
@@ -37,7 +36,6 @@ app.use("/api/users", usersRoutes)
 app.use("/api/games", gamesRoutes)
 app.use("/api/editors", editorsRoutes)
 app.use("/api/festivals", festivalsRoutes)
-app.use('/api/reservations', reservationRoutes)
 app.use('/api/exhibitors', exhibitorsRoutes)
 
 // Serve front
