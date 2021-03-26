@@ -49,7 +49,7 @@ export function filterEditorByPotentialOnly(exhibitors) {
     }
 }
 
-// TODO faire la résa a partie de l'exposant
+// TODO faire la résa a partir de l'exposant
 function createReservation(event) {
 
 }
