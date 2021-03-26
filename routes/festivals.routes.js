@@ -14,6 +14,7 @@ router.put("/:id/current", festivalController.setCurrent)
 
 router.get("/reservations", reservationController.getFestivalReservations)
 router.post("/reservations", reservationController.addReservation)
+router.post("/reservations/:id", reservationController.updateReservation)
 
 router.get("/reservations/:id", reservationController.getReservation)
 router.put("/reservations/:id", reservationController.updateReservation)

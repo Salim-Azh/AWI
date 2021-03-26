@@ -7,13 +7,11 @@ import ReservationTable from "./ReservationTable";
 import FormContainer from "../Modal/FormContainer";
 import FilterCheck from "../search/FilterCheck";
 const ReservationHandler = require("./ReservationHandler")
-const EditorHandler = require("../editor/EditorHandler")
 
 class FilterableReservationsTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            reservations: props.reservations,
             editors: "",
             filterText: "",
             need_volunteer: false,
@@ -26,12 +24,10 @@ class FilterableReservationsTable extends Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleFilterCheckedChange = this.handleFilterCheckedChange.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)
     }
 
     componentDidMount() {
-        ReservationHandler.setHandleDelete(this.handleDelete)
         ReservationHandler.setUpdateHandler(this.handleUpdate)
     }
 
@@ -63,17 +59,8 @@ class FilterableReservationsTable extends Component {
         this.setState({[name]: value})
     }
 
-    handleDelete(reservationId) {
-        this.setState({
-            reservations: this.state.reservations.filter((reservation) => {
-                return reservation._id !== reservationId
-            })
-        })
-    }
-
     handleUpdate(reservationId, attribute, checked) {
         const reservation = this.props.reservations.filter((reservation) => {
-            console.log(reservation)
             return reservation.reservation._id === reservationId
         })
 
@@ -97,6 +84,7 @@ class FilterableReservationsTable extends Component {
                             <Filter
                                 filters={[
                                     {english: "name", french: "nom"},
+                                    {english: "state", french: "état"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
                             />

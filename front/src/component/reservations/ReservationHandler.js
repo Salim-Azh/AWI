@@ -1,6 +1,5 @@
 import Reservation from "./Reservation";
 const apiUrl = require("../../public/urlApi")
-const errorHandler = require("../error/errorHandler")
 
 export function getReservationsFromDB() {
     return fetch(apiUrl.Reservations)
@@ -22,6 +21,7 @@ function createReservation(response) {
             reservation={response.reservation}
             deleteReservation={deleteReservation}
             handleChange={updateReservation}
+            handleDelete={deleteReservation}
         />
     )
 }
@@ -32,7 +32,21 @@ export function filterReservationByName(reservations, filterText) {
         reservations.map(reservation => {
             if(reservation.exhibitor) {
                 if (reservation && (reservation.exhibitor.name.toLowerCase().includes(filterText))) {
-                    rows.push(createReservation(reservation))
+                    rows.push(reservation)
+                }
+            }
+        })
+        return rows
+    }
+}
+
+export function filterReservationByState(reservations, filterText) {
+    let rows = []
+    if(reservations) {
+        reservations.map(reservation => {
+            if(reservation.exhibitor) {
+                if (reservation && (reservation.reservation.state.toLowerCase().includes(filterText))) {
+                    rows.push(reservation)
                 }
             }
         })
@@ -46,7 +60,7 @@ export function filterEditorByVolunteer(reservations) {
         reservations.map(reservation => {
             if(reservation.reservation) {
                 if (reservation && (reservation.reservation.need_volunteer)) {
-                    rows.push(createReservation(reservation))
+                    rows.push(reservation)
                 }
             }
         })
@@ -59,9 +73,8 @@ export function filterEditorByEditorPresent(reservations) {
     if(reservations) {
         reservations.map(reservation => {
             if(reservation.reservation) {
-                console.log(reservation.reservation.isEditorHere)
                 if (reservation && (reservation.reservation.isEditorHere)) {
-                    rows.push(createReservation(reservation))
+                    rows.push(reservation)
                 }
             }
         })
@@ -75,12 +88,16 @@ export function filterEditorByReportSent(reservations) {
         reservations.map(reservation => {
             if(reservation.reservation) {
                 if (reservation && (reservation.reservation.reportSent)) {
-                    rows.push(createReservation(reservation))
+                    rows.push(reservation)
                 }
             }
         })
         return rows
     }
+}
+
+export function mapCreateReservation(reservations) {
+    return reservations.map(reservation => createReservation(reservation))
 }
 
 let _addHandler

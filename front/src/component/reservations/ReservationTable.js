@@ -17,17 +17,21 @@ class ReservationTable extends Component {
         let rows
         if(this.props.filter === "name") {
             rows = ReservationHandler.filterReservationByName(this.props.reservations, this.props.filterText.toLowerCase())
+        } else {
+            rows = ReservationHandler.filterReservationByState(this.props.reservations, this.props.filterText.toLowerCase())
         }
 
         if(this.props.need_volunteer) {
-            rows = ReservationHandler.filterEditorByVolunteer(this.props.reservations)
+            rows = ReservationHandler.filterEditorByVolunteer(rows)
         }
         if(this.props.isEditorHere) {
-            rows = ReservationHandler.filterEditorByEditorPresent(this.props.reservations)
+            rows = ReservationHandler.filterEditorByEditorPresent(rows)
         }
         if(this.props.reportSent) {
-            rows = ReservationHandler.filterEditorByReportSent(this.props.reservations)
+            rows = ReservationHandler.filterEditorByReportSent(rows)
         }
+
+        rows = ReservationHandler.mapCreateReservation(rows)
 
         return (
             <Table striped bordered hover size={"sm"}>
@@ -43,6 +47,7 @@ class ReservationTable extends Component {
                     <th>m²</th>
                     <th>Facture</th>
                     <th>Total</th>
+                    <th/>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>

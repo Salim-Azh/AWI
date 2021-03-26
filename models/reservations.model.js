@@ -101,8 +101,8 @@ const bookingSchema = new mongoose.Schema(
                 "Considéré absent",
                 "Annulé",
                 "Confirmé",
-                "Liste_jeux_demandé",
-                "Liste_jeux_confirmé"
+                "Liste jeux demandé",
+                "Liste jeux confirmé"
             ],
             default: "En discussion"
         },

@@ -1,4 +1,11 @@
+import {Button} from "react-bootstrap";
+
 function Reservation(props) {
+    let sumTable = props.reservation.nb_t_premium + props.reservation.nb_t_standard + props.reservation.nb_t_low
+    if(!sumTable) {sumTable = 0}
+
+    let sumSquareMeters = props.reservation.nb_sm_premium + props.reservation.nb_sm_standard + props.reservation.nb_sm_low
+    if(!sumSquareMeters) {sumSquareMeters = 0}
     return (
         <tr id={props.reservation._id}>
             <td>{props.exhibitor.name}</td>
@@ -10,10 +17,12 @@ function Reservation(props) {
                        onChange={props.handleChange} id={props.reservation._id} name={"isEditorHere"}/></td>
             <td><input type={"checkbox"} checked={props.reservation.reportSent}
                        onChange={props.handleChange} id={props.reservation._id} name={"reportSent"}/></td>
-            <td>{props.reservation.nb_t_premium + props.reservation.nb_t_standard + props.reservation.nb_t_low}</td>
-            <td>{props.reservation.nb_sm_premium + props.reservation.nb_sm_standard + props.reservation.nb_sm_low}</td>
+            <td>{sumTable}</td>
+            <td>{sumSquareMeters}</td>
             <td>{props.bill}</td>
             <td>{props.total} €</td>
+            <td><Button variant={"warning"}
+                onClick={props.handleDelete} name={props.reservation._id}>🗑</Button></td>
         </tr>
     )
 }

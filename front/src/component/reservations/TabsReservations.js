@@ -15,6 +15,7 @@ class TabsReservations extends Component {
             reservations: [{}]
         }
         this.handleAddReservation = this.handleAddReservation.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -29,10 +30,10 @@ class TabsReservations extends Component {
                 })
             })
         ReservationHandler.setAddHandler(this.handleAddReservation)
+        ReservationHandler.setHandleDelete(this.handleDelete)
     }
 
     handleAddReservation(reservation) {
-        console.log(reservation)
         ReservationHandler.addReservation(reservation)
             .then(response => response.json())
             .then(res => res.response)
@@ -41,6 +42,14 @@ class TabsReservations extends Component {
                 exhibitor: res.exhibitor
             }))
             .then(() => this.setState({reservations: this.state.reservations}))
+    }
+
+    handleDelete(reservationId) {
+        this.setState({
+            reservations: this.state.reservations.filter((reservation) => {
+                return reservation.reservation._id !== reservationId
+            })
+        })
     }
 
     render() {
