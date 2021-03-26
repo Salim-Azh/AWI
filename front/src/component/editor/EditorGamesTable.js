@@ -25,6 +25,7 @@ class EditorGamesTable extends Component {
                     <th>Nom du jeu</th>
                     <th>Catégorie</th>
                     <th>Durée en minutes</th>
+                    <th>Âge requis</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>

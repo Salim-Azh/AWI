@@ -2,17 +2,12 @@ import {Nav} from "react-bootstrap"
 
 function EditorGame(props) {
     return (
-        <tr id={props._id}>
-            <td><Nav.Link href={"/jeu/" + props._id}>{props.name}</Nav.Link></td>
-            <td>{props.category}</td>
-            <td>{props.duration}</td>
-            <td>{props.zone}</td>
-            <td>{props.countPlayer}</td>
-            <td>{props.min_yearold}</td>
-            <td>{props.recieved}</td>
-            <td>{props.prototype}</td>
-            <td>{props.date}</td>
-            <td><input type={"button"} onClick={props.deleteGame} name={props._id} value={"🗑"}/></td>
+        <tr id={props.game._id}>
+            <td><Nav.Link href={"/jeu/" + props.game._id}>{props.game.name}</Nav.Link></td>
+            <td>{props.game.category}</td>
+            <td>{props.game.duration}</td>
+            <td>{props.game.min_yearold}</td>
+            <td><input type={"button"} onClick={props.deleteGame} name={props.game._id} value={"🗑"}/></td>
         </tr>
     )
 }

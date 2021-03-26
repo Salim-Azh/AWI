@@ -42,10 +42,7 @@ export function createGameFromEditor(game) {
     return (
         <EditorGame
             key={game._id}
-            _id={game._id}
-            name={game.name}
-            category={game.category}
-            duration={game.duration}
+            game={game}
             deleteGame={deleteGame}
         />
     )
