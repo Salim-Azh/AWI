@@ -8,13 +8,14 @@ module.exports.getListOfGames = async(req,res) => {
     try {
         const games = await GameModel.find()
         for(let i = 0; i < games.length; i++) {
-            const editor = await EditorModel.findOne({games: games[i]._id})
+            const editor = await EditorModel.findOne({games: games[i]._id}).select("name")
 
             const res = {
                 _id: games[i]._id,
                 name: games[i].name,
                 category: games[i].category,
                 duration: games[i].duration,
+                min_yearold: games[i].min_yearold,
                 editor: editor
             }
             response.push(res)
@@ -32,8 +33,16 @@ module.exports.getGame = async(req,res) => {
 
     try {
         const game = await GameModel.findOne({_id: mongooseId})
-        res.status(201).json({game: game})
+        const editor = await EditorModel.findOne({games: idGame}).select("name")
+
+        const response = {
+            game,
+            editor
+        }
+
+        res.status(201).json({response: response})
     } catch (error) {
+        console.log(error)
         res.status(400).send({error})
     }
 }

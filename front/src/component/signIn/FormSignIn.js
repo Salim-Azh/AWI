@@ -1,6 +1,6 @@
 import {Component} from "react"
 import {Form, FormControl, Button, FormLabel} from "react-bootstrap";
-import Cookies from 'js-cookie'
+import {Redirect} from "react-router-dom";
 const urlApi = require('../../public/urlApi')
 
 class FormSignIn extends Component {
@@ -12,7 +12,7 @@ class FormSignIn extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this)
-        this.submit = this.submit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
 
     }
 
@@ -33,8 +33,7 @@ class FormSignIn extends Component {
         )
     }
 
-    submit() {
-        // Todo add user to db
+    handleSubmit() {
         if (this.formIsUnchanged()) {
             return
         }
@@ -44,15 +43,17 @@ class FormSignIn extends Component {
             body: JSON.stringify(this.state)
         }
         fetch(urlApi.login, params)
-            .then(res => res.headers)
+            .then(res => res.json())
             .then((res) => {
-                console.log(Cookies.get())
-                return res
+                let d = new Date()
+                d.setTime(d.getTime() + (24 * 60 * 60 * 1000))
+                document.cookie = "bearer" + " " + res.token + ";" + "expires" + "=" + d.toUTCString()// + ";" + "Secure; HttpOnly"
             })
             .catch(e => {
                 console.log(e.stack)
                 console.log(e.message)
             })
+            .then(() => this.setState({redirect: "/nav/festivals"}))
         this.setState({
             email: "",
             pwd: ""
@@ -60,8 +61,11 @@ class FormSignIn extends Component {
     }
 
     render() {
+        if(this.state.redirect) {
+            return <Redirect to={this.state.redirect}/>
+        }
         return (
-            <Form noValidate onSubmit={this.handleSubmit}>
+            <Form style={{margin: '1em'}}>
                 <FormLabel>Email</FormLabel>
                 <FormControl
                     type={"text"}
@@ -79,7 +83,7 @@ class FormSignIn extends Component {
                     placeholder={"Mot de passe"}
                     onChange={this.handleChange}
                 />
-                <Button onClick={this.submit}> Connexion</Button>
+                <Button onClick={this.handleSubmit}> Connexion</Button>
             </Form>
         )
     }

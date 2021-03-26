@@ -7,13 +7,18 @@ class GameForm extends Component {
 
     constructor(props) {
         super(props)
+        let editorId = "", editorName = ""
+        if(props.editorId) {
+            editorId = props.editorId
+            editorName = props.editorName
+        }
         this.state = {
             editors: [],
             name: "",
             min_yearold: "",
             category: "",
             duration: "",
-            editor: {_id: "", name: ""},
+            editor: {_id: editorId, name: editorName},
             zone: "",
             countPlayer: "",
             prototype: "",
@@ -28,15 +33,17 @@ class GameForm extends Component {
         this.handleEditorChange = this.handleEditorChange.bind(this)
     }
     componentDidMount() {
-        EditorHandler.getEditorsFromDB()
-            .then(editors => editors.map(editor => {
-                if (editor && (editor.isEditor && editor.isPotential)) {
-                    this.state.editors.push(editor)
-                }
-            }))
-            .then(() => this.setState({
-                editors: this.state.editors
-            }))
+        if(!this.props.editorId){
+            EditorHandler.getEditorsFromDB()
+                .then(editors => editors.map(editor => {
+                    if (editor && (editor.isEditor && editor.isPotential)) {
+                        this.state.editors.push(editor)
+                    }
+                }))
+                .then(() => this.setState({
+                    editors: this.state.editors
+                }))
+        }
     }
 
     handleChange(event) {
@@ -79,7 +86,7 @@ class GameForm extends Component {
             return
         }
         const editors = this.state.editors
-        this.state.editors = []
+        this.state.editors = undefined
         this.props.handleClick(this.state)
         this.setState({
             editors: editors,
@@ -98,15 +105,22 @@ class GameForm extends Component {
     }
 
     render() {
-        const rows = this.state.editors.map(editor =>
-            <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>
-        )
+        let rows, firstRow
+        if(this.props.editorId !== undefined) {
+            rows = <option key={this.props.editorId} value={this.props.editorId + "," + this.props.editorName}>
+                {this.props.editorName}</option>
+        } else {
+            firstRow = <option value={""}>---</option>
+            rows = this.state.editors.map(editor =>
+                <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>
+            )
+        }
         return (
             <Form>
                 <FormGroup>
                     <Form.Label>Editeur</Form.Label>
-                    <FormControl as={"select"} name="editor" onChange={this.handleEditorChange}>
-                        <option value={""}>---</option>
+                    <FormControl as={"select"} onChange={this.handleEditorChange}>
+                        {firstRow}
                         {rows}
                     </FormControl>
                 </FormGroup>

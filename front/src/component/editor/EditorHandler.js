@@ -124,7 +124,7 @@ export function updateEditorState(event) {
     const body = {[name]: checked}
     const param = {
         headers: {'Content-Type': 'application/json'},
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify(body)
     }
 

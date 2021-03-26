@@ -19,7 +19,7 @@ export function getGameFromDB(gameId) {
     return fetch(apiUrl.Games + "/" + gameId)
         .then(r => r.json())
         .then((response) => {
-            return response.game
+            return response.response
         })
         .catch(e => {
             console.log(e.stack)
@@ -31,11 +31,8 @@ export function createGame(game) {
     return (
         <Game
             key={game._id}
-            _id={game._id}
-            name={game.name}
-            editorName={game.editor.name}
-            category={game.category}
-            duration={game.duration}
+            game={game}
+            editor={game.editor}
             deleteGame={deleteGame}
         />
     )
@@ -45,10 +42,7 @@ export function createGameFromEditor(game) {
     return (
         <EditorGame
             key={game._id}
-            _id={game._id}
-            name={game.name}
-            category={game.category}
-            duration={game.duration}
+            game={game}
             deleteGame={deleteGame}
         />
     )
@@ -90,7 +84,6 @@ export function filterGamesByEditor(games, filterText) {
     }
 }
 
-// TODO ajouter dans le front l'envoie de l'editor id
 export function addGames(game) {
     const param = {
         headers: {'Content-Type': 'application/json'},
