@@ -27,11 +27,6 @@ module.exports.getListOfGames = async(req,res) => {
     }
 }
 
-// TODO aller chercher l'editeur du jeu
-// Json : {game: {
-//     ....gamesinfo tout
-//     editor: {_id: _id, name: name} uniquement name et _id
-// }
 module.exports.getGame = async(req,res) => {
     const idGame = req.url.split("/")[1]
     const mongooseId = mongoose.Types.ObjectId(idGame)
@@ -42,7 +37,7 @@ module.exports.getGame = async(req,res) => {
 
         const response = {
             game,
-            editor: editor
+            editor
         }
 
         res.status(201).json({response: response})
