@@ -10,6 +10,7 @@ const EditorHandler = require("./EditorHandler")
 const GameHandler = require("../games/GamesHandler")
 
 class EditorDetail extends Component {
+    state;
     constructor(props) {
         super(props);
 
@@ -28,7 +29,6 @@ class EditorDetail extends Component {
         this.submit = this.submit.bind(this)
         this.handleAddGame = this.handleAddGame.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
-        this.renderRows = this.renderRows.bind(this)
         this.addContact = this.addContact.bind(this)
         this.removeContacts = this.removeContacts.bind(this)
     }
@@ -91,16 +91,6 @@ class EditorDetail extends Component {
         })
     }
 
-    renderRows() {
-        return this.state.contacts.map((contact, index) => {
-            return <>
-            <FormControl
-                as={"input"} type={"text"} value={contact} key={index}
-                onChange={this.handleContactsChange} name={index}/>
-            </>
-        })
-    }
-
     addContact() {
         this.state.contacts.push("")
         this.setState({contacts: this.state.contacts})
@@ -115,7 +105,15 @@ class EditorDetail extends Component {
         if(this.state.redirect) {
             return <Redirect to={this.state.redirect}/>
         }
-        const rows = this.renderRows(this.state.contacts)
+        const rows = this.state.contacts.map((contact, index) => {
+            return (
+                <>
+                    <FormControl
+                        as={"input"} type={"text"} value={contact} key={index}
+                        onChange={this.handleContactsChange} name={index}/>
+                </>
+            )
+        })
 
         let games
         if(this.state.isEditor) {

@@ -2,7 +2,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Navbar, Nav, NavItem} from "react-bootstrap";
+import {Navbar, Nav} from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,6 +19,7 @@ import EditorTabs from "./component/editor/EditorTabs"
 import TabsReservations from "./component/reservations/TabsReservations";
 import EditorDetail from "./component/editor/EditorDetail";
 import GameDetail from "./component/games/GameDetail";
+import ReservationDetail from "./component/reservations/ReservationDetail";
 
 function App() {
   return (
@@ -70,6 +71,10 @@ function App() {
 
             <Route path="/nav/reservations">
               <TabsReservations/>
+            </Route>
+
+            <Route path="/nav/reservation/:id">
+              <ReservationDetail/>
             </Route>
 
             <Route path="/nav/factures">

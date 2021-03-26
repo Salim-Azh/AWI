@@ -1,4 +1,5 @@
-import {Button} from "react-bootstrap";
+import {Button, Nav} from "react-bootstrap";
+
 
 function Reservation(props) {
     let sumTable = props.reservation.nb_t_premium + props.reservation.nb_t_standard + props.reservation.nb_t_low
@@ -8,7 +9,7 @@ function Reservation(props) {
     if(!sumSquareMeters) {sumSquareMeters = 0}
     return (
         <tr id={props.reservation._id}>
-            <td>{props.exhibitor.name}</td>
+            <td><Nav.Link href={"/nav/reservation/" + props.reservation._id}>{props.exhibitor.name}</Nav.Link></td>
             <td>{props.reservation.comment}</td>
             <td>{props.reservation.state}</td>
             <td><input type={"checkbox"} checked={props.reservation.need_volunteer}

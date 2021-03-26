@@ -13,6 +13,18 @@ export function getReservationsFromDB() {
         })
 }
 
+export function getReservationFromDB(reservationId) {
+    return fetch(apiUrl.Reservations + "/" + reservationId)
+        .then(r => r.json())
+        .then((response) => {
+            return response.response
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
+
 function createReservation(response) {
     return (
         <Reservation
@@ -20,7 +32,7 @@ function createReservation(response) {
             exhibitor={response.exhibitor}
             reservation={response.reservation}
             deleteReservation={deleteReservation}
-            handleChange={updateReservation}
+            handleChange={updateReservationCheck}
             handleDelete={deleteReservation}
         />
     )
@@ -135,7 +147,7 @@ export function setUpdateHandler(handler) {
     _handleUpdate = handler
 }
 
-function updateReservation(event) {
+function updateReservationCheck(event) {
     const reservationId = event.target.id
     const checked = event.target.checked
     const name = event.target.name
@@ -148,4 +160,8 @@ function updateReservation(event) {
     }
     return fetch(apiUrl.Reservations + "/" + reservationId, param)
         .then(() => _handleUpdate(reservationId, name, checked))
+}
+
+export function updateReservation(state) {
+
 }

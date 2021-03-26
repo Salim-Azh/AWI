@@ -1,10 +1,9 @@
 import {Component} from "react"
 import {Redirect} from "react-router-dom"
-import {Card, Form, FormControl, FormGroup} from "react-bootstrap";
+import {Form, FormControl, FormGroup} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 const GamesHandler = require("./GamesHandler")
-const EditorHandler = require("../editor/EditorHandler")
 
 class GameDetail extends Component {
     constructor(props) {
