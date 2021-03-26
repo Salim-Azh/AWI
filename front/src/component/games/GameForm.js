@@ -86,7 +86,7 @@ class GameForm extends Component {
             return
         }
         const editors = this.state.editors
-        this.state.editors = []
+        this.state.editors = undefined
         this.props.handleClick(this.state)
         this.setState({
             editors: editors,
