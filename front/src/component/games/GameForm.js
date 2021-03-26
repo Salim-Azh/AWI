@@ -105,13 +105,13 @@ class GameForm extends Component {
     }
 
     render() {
-        let rows
-        if(this.props.editorId) {
+        let rows, firstRow
+        if(this.props.editorId !== undefined) {
             rows = <option key={this.props.editorId} value={this.props.editorId + "," + this.props.editorName}>
                 {this.props.editorName}</option>
         } else {
-            rows = <option value={""}>---</option>
-            rows += this.state.editors.map(editor =>
+            firstRow = <option value={""}>---</option>
+            rows = this.state.editors.map(editor =>
                 <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>
             )
         }
@@ -119,7 +119,8 @@ class GameForm extends Component {
             <Form>
                 <FormGroup>
                     <Form.Label>Editeur</Form.Label>
-                    <FormControl as={"select"} name="editor" onChange={this.handleEditorChange}>
+                    <FormControl as={"select"} onChange={this.handleEditorChange}>
+                        {firstRow}
                         {rows}
                     </FormControl>
                 </FormGroup>

@@ -31,6 +31,7 @@ class GameTable extends Component {
                     <th>Editeur</th>
                     <th>Catégorie</th>
                     <th>Durée en minutes</th>
+                    <th>Âge requis</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>
