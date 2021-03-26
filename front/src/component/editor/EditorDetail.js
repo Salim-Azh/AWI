@@ -3,7 +3,11 @@ import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import EditorGamesTable from "./EditorGamesTable";
+import GameForm from "../games/GameForm";
+import FormContainer from "../Modal/FormContainer";
+
 const EditorHandler = require("./EditorHandler")
+const GameHandler = require("../games/GamesHandler")
 
 class EditorDetail extends Component {
     constructor(props) {
@@ -21,6 +25,8 @@ class EditorDetail extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleContactsChange = this.handleContactsChange.bind(this)
         this.submit = this.submit.bind(this)
+        this.handleAddGame = this.handleAddGame.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -36,6 +42,7 @@ class EditorDetail extends Component {
             .then(() => EditorHandler.getGamesFromEditor(this.state._id)
                 .then(games => this.setState({games: games}))
             )
+            .then(() => GameHandler.setHandleDelete(this.handleDelete))
     }
 
     handleChange(event) {
@@ -64,8 +71,20 @@ class EditorDetail extends Component {
             .then(() => this.setState({redirect: "/nav/editeurs"}))
     }
 
-    addGames() {
+    handleAddGame(game) {
+        GameHandler.addGames(game)
+            .then(response => response.json())
+            .then(response => game._id = response.gameId)
+            .then(() => this.state.games.push(game))
+            .then(() => this.setState({games: this.state.games}))
+    }
 
+    handleDelete(gameId) {
+        this.setState({
+            games: this.state.games.filter(game => {
+                return game._id !== gameId
+            })
+        })
     }
 
     render() {
@@ -83,6 +102,15 @@ class EditorDetail extends Component {
             games = (
                 <>
                 <Form.Label>Jeux de l'éditeur</Form.Label>
+                    <Card style={{width: '4rem'}}>
+                    <FormContainer
+                        title={"Ajouter un jeu à l'éditeur"}
+                        component={"GameForm"}
+                        handleClick={this.handleAddGame}
+                        editorId={this.state._id}
+                        editorName={this.state.name}
+                    />
+                    </Card>
                 <EditorGamesTable
                     editor={this.state}
                 />

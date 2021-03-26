@@ -18,7 +18,11 @@ function FormContainer(props) {
     if(props.component === "EditorForm") {
         form = <EditorForm handleClick={props.handleClick}/>
     } else if(props.component === "GameForm") {
-        form = <GameForm handleClick={props.handleClick}/>
+        form = <GameForm
+            handleClick={props.handleClick}
+            editorId={props.editorId}
+            editorName={props.editorName}
+        />
     } else if(props.component === "FestivalForm") {
         form = <FestivalForm handleClick={props.handleClick}/>
     } else if(props.component === "ReservationForm") {
