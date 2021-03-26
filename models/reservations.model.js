@@ -27,27 +27,17 @@ const gamesBooked = new mongoose.Schema(
             type: Number,
             required: true
         },
-        received: {
-            type: Boolean,
-            required: true
-        },
-        bring_by_exhibitor: {
-            type: Boolean,
-            required: true
-        },
         proto: {
-            type: Boolean,
-            required: true
-        },
-        returned: {
             type: Boolean,
             required: true
         },
         zone: {
             type: mongoose.Types.ObjectId
-        }
+        },
         /*
         STATES CAN BE CALCULATED
+        "place"//if zone exist in the document
+        "a_place"//if zone doesn't exist in the document*/
         state: {
             type: String,
             enum: [
@@ -56,10 +46,8 @@ const gamesBooked = new mongoose.Schema(
                 "apporte_par_exposant",//received=false;bring_by_exhibitor=true;
                 "a_renvoyer",//proto=true; received=true
                 "renvoye"//received=true;bring_by_exhibitor=false;proto=true;returned=true
-                "place"//if zone exist in the document
-                "a_place"//if zone doesn't exist in the document
             ]
-        }*/
+        }
     }
 )
 
