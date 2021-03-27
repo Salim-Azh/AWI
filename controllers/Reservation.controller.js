@@ -55,6 +55,7 @@ module.exports.updateReservation = async(req, res) => {
     }
 }
 
+// TODO faire une requete sur games pour avoir son nom
 module.exports.getReservation = async(req, res) => {
     if(!ObjectId.isValid(req.params.id)){
         return res.status(400).send("Unknown id : " + req.params.id)
