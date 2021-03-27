@@ -62,7 +62,13 @@ module.exports.getReservation = async(req, res) => {
     try {
         const reservation = await ReservationsModel.findById(req.params.id)
         const exhibitor = await EditorModel.findById(reservation.exhibitor)
-        res.status(201).json({reservation: reservation, exhibitor: exhibitor })
+        const festival = await FestivalModel.findOne({is_current: true}).select("-name -year -is_current")
+        let editor = null
+        if (reservation.games[0]) {
+            const gameId = reservation.games[0].game
+            editor = await EditorModel.findOne({"games": gameId}).select("_id name contacts")
+        }
+        res.status(201).json({reservation: reservation, exhibitor: exhibitor, festival: festival, editor: editor})
     } catch (error) {
         return res.status(500).send("message : " + error)
     }

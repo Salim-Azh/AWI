@@ -32,7 +32,7 @@ const gamesBooked = new mongoose.Schema(
             required: true
         },
         zone: {
-            type: mongoose.Types.ObjectId
+            type: String
         },
         /*
         STATES CAN BE CALCULATED
