@@ -6,6 +6,10 @@ class EditorForm extends Component {
 
     constructor(props) {
         super(props)
+
+        if(props.editor) {
+
+        }
         this.state = {
             name: "",
             contacts: {

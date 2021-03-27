@@ -2,18 +2,36 @@ import {Component} from "react"
 import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import GamesBookedTable from "./gamesBooked/GamesBookedTable";
+import FormContainer from "../Modal/FormContainer";
 const ReservationHandler = require('./ReservationHandler')
 const EditorHandler = require('../editor/EditorHandler')
+const GameHandler = require("../games/GamesHandler")
 
 class ReservationDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
             _id: "",
+            festival: {
+                _id: "",
+                premium_t_price: "",
+                nb_t_premium: "",
+                standard_t_price: "",
+                nb_t_standard: "",
+                low_t_price: "",
+                nb_t_low: "",
+                premium_sm_price: "",
+                nb_sm_premium: "",
+                standard_sm_price: "",
+                nb_sm_standard: "",
+                low_sm_price: "",
+                nb_sm_low: ""
+            },
             exhibitor: {
                 _id: "",
                 name: "",
-                contacts: ["", ""]
+                contacts: []
             },
             comment: "",
             state: "",
@@ -27,6 +45,8 @@ class ReservationDetail extends Component {
             nb_sm_standard: "",
             nb_sm_low: "",
             games: [],
+            editors: [],
+            editor: {_id: "", name: ""},
             calculatedPrice: "",
             price: ""
         }
@@ -35,26 +55,63 @@ class ReservationDetail extends Component {
         this.addContact =this.addContact.bind(this)
         this.removeContacts = this.removeContacts.bind(this)
         this.handleContactsChange = this.handleContactsChange.bind(this)
+        this.calculatePrice = this.calculatePrice.bind(this)
+        this.handleAddGame = this.handleAddGame.bind(this)
     }
 
     componentDidMount() {
         ReservationHandler.getReservationFromDB(window.location.href.split('/')[5])
             .then(res => this.setState({
-                _id: res._id,
-                exhibitor: {_id: res.exhibitor._id, name: res.exhibitor.name},
-                comment: res.comment,
-                state: res.state,
-                need_volunteer: res.need_volunteer,
-                isEditorHere: res.isEditorHere,
-                reportSent: res.reportSent,
-                nb_t_premium: res.nb_t_premium,
-                nb_t_standard: res.nb_t_standard,
-                nb_t_low: res.nb_t_low,
-                nb_sm_premium: res.nb_sm_premium,
-                nb_sm_standard: res.nb_sm_standard,
-                nb_sm_low: res.nb_sm_low,
-                games: res.games
+                _id: res.reservation._id,
+                exhibitor: {
+                    _id: res.exhibitor._id,
+                    name: res.exhibitor.name,
+                    contacts: res.exhibitor.contacts
+                },
+                /*
+                editor: {_id: res.editor._id, name: res.editor.name},
+                festival: {
+                    _id: res.festival._id,
+                    premium_t_price: res.festival.premium_t_price,
+                    nb_t_premium: res.festival.nb_t_premium,
+                    standard_t_price: res.festival.standard_t_price,
+                    nb_t_standard: res.festival.nb_t_standard,
+                    low_t_price: res.festival.low_t_price,
+                    nb_t_low: res.festival.nb_t_low,
+                    premium_sm_price: res.festival.premium_sm_price,
+                    nb_sm_premium: res.festival.nb_sm_premium,
+                    standard_sm_price: res.festival.standard_sm_price,
+                    nb_sm_standard: res.festival.nb_sm_standard,
+                    low_sm_price: res.festival.low_sm_price,
+                    nb_sm_low: res.festival.nb_t_low,
+                },
+                 */
+                comment: res.reservation.comment,
+                state: res.reservation.state,
+                need_volunteer: res.reservation.need_volunteer,
+                isEditorHere: res.reservation.isEditorHere,
+                reportSent: res.reservation.reportSent,
+                nb_t_premium: res.reservation.nb_t_premium,
+                nb_t_standard: res.reservation.nb_t_standard,
+                nb_t_low: res.reservation.nb_t_low,
+                nb_sm_premium: res.reservation.nb_sm_premium,
+                nb_sm_standard: res.reservation.nb_sm_standard,
+                nb_sm_low: res.reservation.nb_sm_low,
+                games: res.reservation.games,
+                calculatedPrice: this.calculatePrice()
             }))
+        // TODO requete sur editors,
+    }
+
+    calculatePrice() {
+        return (
+            this.state.nb_t_premium * this.state.festival.premium_t_price *
+            this.state.nb_t_standard * this.state.festival.standard_t_price *
+            this.state.nb_t_low * this.state.festival.low_t_price *
+            this.state.nb_sm_premium * this.state.festival.premium_sm_price *
+            this.state.nb_sm_standard * this.state.festival.standard_sm_price *
+            this.state.nb_sm_low * this.state.festival.low_sm_price
+        )
     }
 
     addContact() {
@@ -88,11 +145,20 @@ class ReservationDetail extends Component {
         this.setState({exhibitor: {contacts: contacts}})
     }
 
+    handleAddGame(game) {
+        GameHandler.addGames(game)
+            .then(response => response.json())
+            .then(response => game._id = response.gameId)
+            .then(() => this.state.games.push(game))
+            .then(() => this.setState({games: this.state.games}))
+    }
+
     submit() {
+        this.state.editors = undefined
         ReservationHandler.updateReservation(this.state)
             .then()
         EditorHandler.updateEditor(this.state.exhibitor)
-            .then()
+            .then(() => this.setState({redirect: "/nav/reservations"}))
     }
 
     render() {
@@ -123,13 +189,19 @@ class ReservationDetail extends Component {
             )
         })
 
+        const editorsState = this.state.editors.map(editor => {
+            return (
+                <option value={editor}>{editor}</option>
+            )
+        })
+
         return (
             <Form style={{margin: '2em'}}>
                 <Row className="justify-content-md-center">
                     <Col lg md xs>
                         <Card bg={"info"}>
                             <Card.Header>
-                                <Card.Title>Editeur</Card.Title>
+                                <Card.Title>Exposant</Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Col>
@@ -217,20 +289,49 @@ class ReservationDetail extends Component {
                     </Card>
                 </Row>
 
-                <Card
-                    bg={"success"}
+                <Row
                     style={{marginTop: "2em"}}
                 >
+                    <Col lg={6} md={8} xs={9}>
+                        <Card
+                            bg={"light"}
+                        >
 
-                    <Card.Header>
-                        <Card.Title>Jeux réservés</Card.Title>
-                    </Card.Header>
+                            <Card.Header>
+                                <Card.Title>Jeux de l'éditeur {this.state.editor.name}</Card.Title>
+                                <Card style={{width: '4rem'}}>
+                                <FormContainer
+                                    title={"Ajouter un jeu à l'editeur"}
+                                    editorId={this.state.editor._id}
+                                    editorName={this.state.editor.name}
+                                    component={"GameForm"}
+                                    handleClick={this.handleAddGame}
+                                />
+                                </Card>
+                            </Card.Header>
 
-                    <Card.Body>
+                            <Card.Body>
+                                <GamesBookedTable game={this.state.games}/>
+                            </Card.Body>
+                        </Card>
+                    </Col>
 
-                    </Card.Body>
+                    <Col>
+                        <Card bg={"info"}>
+                            <Card.Header>
+                                <Card.Title>Changer d'éditeur :</Card.Title>
+                            </Card.Header>
 
-                </Card>
+                            <Card.Body>
+                                <FormControl
+                                    as={"select"} value={this.state.editor}
+                                    onChange={this.handleChange} name={"editor"}>
+                                    {editorsState}
+                                </FormControl>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
 
                 <Card
                     bg={"dark"}
@@ -247,6 +348,7 @@ class ReservationDetail extends Component {
                                     <Form.Label>Nombre de tables premium réservé</Form.Label>
                                     <FormControl
                                         as={"input"} value={this.state.nb_t_premium}
+                                        max={this.state.festival.nb_t_premium}
                                         name={"nb_t_premium"} onChange={this.handleChange}/>
                                 </FormGroup>
                             </Col>
@@ -257,6 +359,7 @@ class ReservationDetail extends Component {
                                     <Form.Label>Nombre de tables standard réservé</Form.Label>
                                     <FormControl
                                         as={"input"} value={this.state.nb_t_standard}
+                                        max={this.state.festival.nb_t_standard}
                                         name={"nb_t_standard"} onChange={this.handleChange}/>
                                 </FormGroup>
                             </Col>
@@ -267,6 +370,7 @@ class ReservationDetail extends Component {
                                     <Form.Label>Nombre de tables low réservé</Form.Label>
                                     <FormControl
                                         as={"input"} value={this.state.nb_t_low}
+                                        max={this.state.festival.nb_t_low}
                                         name={"nb_t_low"} onChange={this.handleChange}/>
                                 </FormGroup>
                             </Col>
@@ -278,6 +382,7 @@ class ReservationDetail extends Component {
                                     <Form.Label>Nombre de m² premium réservé</Form.Label>
                                     <FormControl
                                         as={"input"} value={this.state.nb_sm_premium}
+                                        max={this.state.festival.nb_sm_premium}
                                         name={"nb_sm_premium"} onChange={this.handleChange}/>
                                 </FormGroup>
                             </Col>
@@ -288,6 +393,7 @@ class ReservationDetail extends Component {
                                     <Form.Label>Nombre de m² standards réservé</Form.Label>
                                     <FormControl
                                         as={"input"} value={this.state.nb_sm_standard}
+                                        max={this.state.festival.nb_sm_standard}
                                         name={"nb_sm_standard"} onChange={this.handleChange}/>
                                 </FormGroup>
                             </Col>
@@ -298,6 +404,7 @@ class ReservationDetail extends Component {
                                     <Form.Label>Nombre de m² low réservé</Form.Label>
                                     <FormControl
                                         as={"input"} value={this.state.nb_sm_low}
+                                        max={this.state.festival.nb_sm_low}
                                         name={"nb_sm_low"} onChange={this.handleChange}/>
                                 </FormGroup>
                             </Col>

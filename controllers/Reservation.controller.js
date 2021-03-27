@@ -17,7 +17,7 @@ module.exports.getFestivalReservations = async(req, res) => {
                 reservation: element
             })
         }
-        res.status(201).json({response: response})
+        res.status(201).json(response)
     } catch (error) {
         console.log(error)
         res.status(400).send({error})

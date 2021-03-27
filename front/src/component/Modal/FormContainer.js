@@ -17,6 +17,7 @@ function FormContainer(props) {
     let form
     if(props.component === "EditorForm") {
         form = <EditorForm handleClick={props.handleClick}/>
+
     } else if(props.component === "GameForm") {
         form = <GameForm
             handleClick={props.handleClick}
