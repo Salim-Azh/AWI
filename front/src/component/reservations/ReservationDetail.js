@@ -4,7 +4,7 @@ import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import GamesBookedTable from "./gamesBooked/GamesBookedTable";
 import FormContainer from "../Modal/FormContainer";
-import {BsTextarea} from "react-icons/all";
+
 const ReservationHandler = require('./ReservationHandler')
 const EditorHandler = require('../editor/EditorHandler')
 const GameHandler = require("../games/GamesHandler")
@@ -59,6 +59,8 @@ class ReservationDetail extends Component {
         this.calculatePrice = this.calculatePrice.bind(this)
         this.handleAddGame = this.handleAddGame.bind(this)
     }
+
+    // TODO ajouter les talks
 
     componentDidMount() {
         ReservationHandler.getReservationFromDB(window.location.href.split('/')[5])
@@ -237,12 +239,10 @@ class ReservationDetail extends Component {
                                 <Col>
                                     <FormGroup>
                                         <Form.Label>Commentaire</Form.Label>
-                                        <br/>
-                                        <textarea
-                                            value={this.state.comment} placeholder={"commentaire"}
+                                        <FormControl
+                                            as={"textarea"} value={this.state.comment}
                                             onChange={this.handleChange} name={"comment"}
-                                            rows="5" cols="75"
-                                        > name</textarea>
+                                            rows={4}/>
                                     </FormGroup>
                                 </Col>
                             </Card.Body>
@@ -442,9 +442,3 @@ class ReservationDetail extends Component {
 }
 
 export default ReservationDetail
-
-/*
-<FormControl
-                                            as={"input"} value={this.state.comment} type={"textarea"}
-                                            onChange={this.handleChange} name={"comment"}/>
- */
