@@ -99,12 +99,24 @@ class ReservationDetail extends Component {
                 nb_sm_standard: res.reservation.nb_sm_standard,
                 nb_sm_low: res.reservation.nb_sm_low,
                 games: res.reservation.games,
-                calculatedPrice: this.calculatePrice()
             }))
-        // TODO requete sur editors,
+            .then(() => this.setState({calculatedPrice: this.calculatePrice()}))
+/*
+        EditorHandler.getEditorsFromDB()
+            .then(editors => editors.map(editor => {
+                if (editor && (editor.isEditor && editor.isPotential)) {
+                    this.state.editors.push(editor)
+                }
+            }))
+            .then(() => console.log(this.state.editors))
+            .then(() => this.setState({
+                editors: this.state.editors
+            }))
+ */
     }
 
     calculatePrice() {
+        console.log(this.state.nb_t_premium)
         return (
             this.state.nb_t_premium * this.state.festival.premium_t_price *
             this.state.nb_t_standard * this.state.festival.standard_t_price *
