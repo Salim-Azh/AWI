@@ -18,9 +18,8 @@ export function getReservationsFromDB() {
 export function getReservationFromDB(reservationId) {
     return fetch(apiUrl.Reservations + "/" + reservationId)
         .then(r => r.json())
-        .then(r => r.response)
         .then((response) => {
-            return response.response
+            return response
         })
         .catch(e => {
             console.log(e.stack)

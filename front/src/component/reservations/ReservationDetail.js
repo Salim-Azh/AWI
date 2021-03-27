@@ -40,7 +40,7 @@ class ReservationDetail extends Component {
     componentDidMount() {
         ReservationHandler.getReservationFromDB(window.location.href.split('/')[5])
             .then(res => this.setState({
-                _id: res.reservation._id,
+                _id: res._id,
                 exhibitor: {_id: res.exhibitor._id, name: res.exhibitor.name},
                 comment: res.comment,
                 state: res.state,
