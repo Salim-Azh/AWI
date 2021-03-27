@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const gamesBooked = new mongoose.Schema(
     {
-        _id: {
-            type: mongoose.Types.ObjectId,
+        game: {
+            type: String,
             required: true
         },
         total_qte: {
