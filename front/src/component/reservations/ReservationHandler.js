@@ -1,11 +1,12 @@
 import Reservation from "./Reservation";
 const apiUrl = require("../../public/urlApi")
+const errorHandler = require("../error/errorHandler")
 
 export function getReservationsFromDB() {
     return fetch(apiUrl.Reservations)
         .then(r => r.json())
         .then((response) => {
-            return response.response
+            return response
         })
         .catch(e => {
             console.log(e.stack)
@@ -142,9 +143,9 @@ export function deleteReservation(event) {
         .then(() => _handleDelete(reservationId))
 }
 
-let _handleUpdate
-export function setUpdateHandler(handler) {
-    _handleUpdate = handler
+let _handleUpdateCheck
+export function setUpdateHandlerCheck(handler) {
+    _handleUpdateCheck = handler
 }
 
 function updateReservationCheck(event) {
@@ -159,9 +160,16 @@ function updateReservationCheck(event) {
         body: JSON.stringify(body)
     }
     return fetch(apiUrl.Reservations + "/" + reservationId, param)
-        .then(() => _handleUpdate(reservationId, name, checked))
+        .then(() => _handleUpdateCheck(reservationId, name, checked))
 }
 
 export function updateReservation(state) {
-
+    const reservationId = state._id
+    const param = {
+        headers: {'Content-Type': 'application/json'},
+        method: "POST",
+        body: JSON.stringify(state)
+    }
+    return fetch(apiUrl.Reservations + "/" + reservationId, param)
+        .then(r => errorHandler.handleResponse(r, "Modification de la réservation"))
 }

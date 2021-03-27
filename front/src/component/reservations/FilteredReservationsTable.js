@@ -24,11 +24,11 @@ class FilterableReservationsTable extends Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleFilterCheckedChange = this.handleFilterCheckedChange.bind(this)
-        this.handleUpdate = this.handleUpdate.bind(this)
+        this.handleUpdateCheck = this.handleUpdateCheck.bind(this)
     }
 
     componentDidMount() {
-        ReservationHandler.setUpdateHandler(this.handleUpdate)
+        ReservationHandler.setUpdateHandlerCheck(this.handleUpdateCheck)
     }
 
     handleFilterTextChange(filterText) {
@@ -59,7 +59,7 @@ class FilterableReservationsTable extends Component {
         this.setState({[name]: value})
     }
 
-    handleUpdate(reservationId, attribute, checked) {
+    handleUpdateCheck(reservationId, attribute, checked) {
         const reservation = this.props.reservations.filter((reservation) => {
             return reservation.reservation._id === reservationId
         })

@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom"
 import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 const ReservationHandler = require('./ReservationHandler')
-
+const EditorHandler = require('../editor/EditorHandler')
 
 class ReservationDetail extends Component {
     constructor(props) {
@@ -26,6 +26,7 @@ class ReservationDetail extends Component {
             nb_sm_premium: "",
             nb_sm_standard: "",
             nb_sm_low: "",
+            games: [],
             calculatedPrice: "",
             price: ""
         }
@@ -90,18 +91,15 @@ class ReservationDetail extends Component {
 
     submit() {
         ReservationHandler.updateReservation(this.state)
-            .then(() => this.setState({redirect: "/nav/reservations"}))
+            .then()
+        EditorHandler.updateEditor(this.state.exhibitor)
+            .then()
     }
 
     render() {
         if(this.state.redirect) {
             return <Redirect to={this.state.redirect}/>
         }
-        /*
-        Nom	Commentaire
-        état	Besoin de bénévoles ?	Editeur présent ?	CR envoyé ?
-        table	m²
-         */
         const options = [
             "En discussion",
             "Pas de réponse",

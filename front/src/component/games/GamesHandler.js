@@ -7,7 +7,7 @@ export function getGamesFromDB() {
     return fetch(apiUrl.Games)
         .then(r => r.json())
         .then((response) => {
-            return response.response
+            return response
         })
         .catch(e => {
             console.log(e.stack)
@@ -19,7 +19,7 @@ export function getGameFromDB(gameId) {
     return fetch(apiUrl.Games + "/" + gameId)
         .then(r => r.json())
         .then((response) => {
-            return response.response
+            return response
         })
         .catch(e => {
             console.log(e.stack)
@@ -111,7 +111,6 @@ export function updateGame(game) {
         method: "PUT",
         body: JSON.stringify(game)
     }
-    console.log(game._id)
 
     return fetch(apiUrl.Games + "/" + game._id, param)
         .then(r => errorHandler.handleResponse(r, "Modification du jeu"))

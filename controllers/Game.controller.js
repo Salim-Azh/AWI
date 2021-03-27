@@ -20,7 +20,7 @@ module.exports.getListOfGames = async(req,res) => {
             }
             response.push(res)
         }
-        res.status(201).json({response: response})
+        res.status(201).json(response)
     } catch (error) {
         console.log(error)
         res.status(400).send({error})
@@ -40,7 +40,7 @@ module.exports.getGame = async(req,res) => {
             editor
         }
 
-        res.status(201).json({response: response})
+        res.status(201).json(response)
     } catch (error) {
         console.log(error)
         res.status(400).send({error})

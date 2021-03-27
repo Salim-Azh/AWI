@@ -50,6 +50,14 @@ class GameDetail extends Component {
         if(this.state.redirect) {
             return <Redirect to={this.state.redirect}/>
         }
+        const gameTypes = [
+            "ambiance",
+            "enfant",
+            "famille"
+        ]
+        const gameTypesState = gameTypes.map(option =>
+            <option value={option}>{option}</option>
+        )
 
         return (
             <Form style={{margin: '1em'}}>
@@ -62,11 +70,8 @@ class GameDetail extends Component {
 
                 <FormGroup>
                     <Form.Label>Catégorie</Form.Label>
-                    <FormControl as={"select"} name="category" onChange={this.handleChange}>
-                        <option value="">---</option>
-                        <option value="enfant">enfant</option>
-                        <option value="ambiance">ambiance</option>
-                        <option value="famille">famille</option>
+                    <FormControl as={"select"} name="category" value={this.state.category} onChange={this.handleChange}>
+                        {gameTypesState}
                     </FormControl>
                 </FormGroup>
 
