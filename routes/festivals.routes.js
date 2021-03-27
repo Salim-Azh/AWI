@@ -20,4 +20,11 @@ router.get("/reservations/:id", reservationController.getReservation)
 router.put("/reservations/:id", reservationController.updateReservation)
 router.delete("/reservations/:id", reservationController.deleteReservation)
 
+/*router.get("/zones", zoneController.getZones)
+router.post("/zones", zoneController.addZone)
+
+router.get("/zones/:id", zoneController.getZone)
+router.put("/zones/:id", zoneController.updateZone)
+router.delete("/zones/:id", zoneController.deleteZone)*/
+
 module.exports = router
