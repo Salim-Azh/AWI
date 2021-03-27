@@ -1,35 +1,19 @@
 const mongoose = require('mongoose')
 
-const talk = new mongoose.Schema(
-    {
-        contact: {
-            type: String,
-            required: false
-        },
-        date: {
-            type: Date,
-            required: false
-        }
-    }
-)
-
 const gamesBooked = new mongoose.Schema(
     {
-        game: {
-            type: String,
+        _id: {
+            type: mongoose.Types.ObjectId,
             required: true
         },
         total_qte: {
-            type: Number,
-            required: true
+            type: Number
         },
         exposed_qte:{
-            type: Number,
-            required: true
+            type: Number
         },
         proto: {
-            type: Boolean,
-            required: true
+            type: Boolean
         },
         zone: {
             type: String
@@ -110,14 +94,8 @@ const bookingSchema = new mongoose.Schema(
             type: String,
             required: false
         },
-        first_contact: {
-            type: talk
-        },
-        second_contact: {
-            type: talk
-        },
-        third_contact: {
-            type: talk
+        talks: {
+            type: [Date]
         },
         negociated_price: {
             type: Number
