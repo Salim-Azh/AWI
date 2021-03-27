@@ -55,16 +55,16 @@ module.exports.updateReservation = async(req, res) => {
     }
 }
 
-// TODO il me faut le nom de l'exposant
-// TODO sous la forme :
-// {response: {reservation: ..., exhibitor: {_id: ..., name: ..., contacts: [...]}}}
 module.exports.getReservation = async(req, res) => {
     if(!ObjectId.isValid(req.params.id)){
         return res.status(400).send("Unknown id : " + req.params.id)
     }
-    ReservationsModel.findById(req.params.id, (err,data)=>{
-        if(!err) res.send(data)
-        else res.status(500).json({ message: err })
-    })
+    try {
+        const reservation = await ReservationsModel.findById(req.params.id)
+        const exhibitor = await EditorModel.findById(reservation.exhibitor)
+        res.status(201).json({reservation: reservation, exhibitor: exhibitor })
+    } catch (error) {
+        return res.status(500).send("message : " + error)
+    }
 }
 
