@@ -5,6 +5,7 @@ const errorHandler = require("../error/errorHandler")
 export function getReservationsFromDB() {
     return fetch(apiUrl.Reservations)
         .then(r => r.json())
+        .then(r => r.response)
         .then((response) => {
             return response
         })
@@ -17,6 +18,7 @@ export function getReservationsFromDB() {
 export function getReservationFromDB(reservationId) {
     return fetch(apiUrl.Reservations + "/" + reservationId)
         .then(r => r.json())
+        .then(r => r.response)
         .then((response) => {
             return response.response
         })

@@ -38,24 +38,23 @@ class ReservationDetail extends Component {
     }
 
     componentDidMount() {
-        /*
         ReservationHandler.getReservationFromDB(window.location.href.split('/')[5])
             .then(res => this.setState({
                 _id: res.reservation._id,
                 exhibitor: {_id: res.exhibitor._id, name: res.exhibitor.name},
-                comment: res.reservation.comment,
-                state: res.reservation.state,
-                need_volunteer: res.reservation.need_volunteer,
-                isEditorHere: res.reservation.isEditorHere,
-                reportSent: res.reservation.reportSent,
-                nb_t_premium: res.reservation.nb_t_premium,
-                nb_t_standard: res.reservation.nb_t_standard,
-                nb_t_low: res.reservation.nb_t_low,
-                nb_sm_premium: res.reservation.nb_sm_premium,
-                nb_sm_standard: res.reservation.nb_sm_standard,
-                nb_sm_low: res.reservation.nb_sm_low,
+                comment: res.comment,
+                state: res.state,
+                need_volunteer: res.need_volunteer,
+                isEditorHere: res.isEditorHere,
+                reportSent: res.reportSent,
+                nb_t_premium: res.nb_t_premium,
+                nb_t_standard: res.nb_t_standard,
+                nb_t_low: res.nb_t_low,
+                nb_sm_premium: res.nb_sm_premium,
+                nb_sm_standard: res.nb_sm_standard,
+                nb_sm_low: res.nb_sm_low,
+                games: res.games
             }))
-         */
     }
 
     addContact() {
