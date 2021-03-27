@@ -71,7 +71,7 @@ class ReservationDetail extends Component {
                     name: res.exhibitor.name,
                     contacts: res.exhibitor.contacts
                 },
-                editor: {_id: res.editor._id, name: res.editor.name},
+                editor: res.editor? {_id: res.editor._id, name: res.editor.name}: "",
                 festival: {
                     _id: res.festival._id,
                     premium_t_price: res.festival.premium_t_price,
