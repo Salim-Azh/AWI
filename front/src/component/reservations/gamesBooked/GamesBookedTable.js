@@ -1,7 +1,10 @@
-import {Component} from "react"
-import {Nav, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
+import GamesBooked from "./GamesBooked";
 
 function GameTable(props){
+    const games = props.games.map(game =>
+        <GamesBooked game={game}/>
+    )
     return (
         <Table striped bordered hover size={"sm"}>
             <thead>
@@ -13,7 +16,7 @@ function GameTable(props){
                 <th>état</th>
             </tr>
             </thead>
-            <tbody>{props.games}</tbody>
+            <tbody>{games}</tbody>
         </Table>
         )
 }

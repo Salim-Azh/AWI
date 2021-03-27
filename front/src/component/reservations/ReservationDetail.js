@@ -4,6 +4,7 @@ import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import GamesBookedTable from "./gamesBooked/GamesBookedTable";
 import FormContainer from "../Modal/FormContainer";
+import {BsTextarea} from "react-icons/all";
 const ReservationHandler = require('./ReservationHandler')
 const EditorHandler = require('../editor/EditorHandler')
 const GameHandler = require("../games/GamesHandler")
@@ -68,7 +69,6 @@ class ReservationDetail extends Component {
                     name: res.exhibitor.name,
                     contacts: res.exhibitor.contacts
                 },
-                /*
                 editor: {_id: res.editor._id, name: res.editor.name},
                 festival: {
                     _id: res.festival._id,
@@ -85,7 +85,6 @@ class ReservationDetail extends Component {
                     low_sm_price: res.festival.low_sm_price,
                     nb_sm_low: res.festival.nb_t_low,
                 },
-                 */
                 comment: res.reservation.comment,
                 state: res.reservation.state,
                 need_volunteer: res.reservation.need_volunteer,
@@ -194,6 +193,7 @@ class ReservationDetail extends Component {
                 <option value={editor}>{editor}</option>
             )
         })
+        // TODO liste déroulante pour contact
 
         return (
             <Form style={{margin: '2em'}}>
@@ -201,18 +201,9 @@ class ReservationDetail extends Component {
                     <Col lg md xs>
                         <Card bg={"info"}>
                             <Card.Header>
-                                <Card.Title>Exposant</Card.Title>
+                                <Card.Title>Exposant : {this.state.exhibitor.name}</Card.Title>
                             </Card.Header>
                             <Card.Body>
-                                <Col>
-                                    <FormGroup>
-                                        <Form.Label>Nom</Form.Label>
-                                        <FormControl
-                                            as={"input"} value={this.state.exhibitor.name} type={"text"}
-                                            onChange={this.handleChange} name={"name"}/>
-                                    </FormGroup>
-                                </Col>
-
                                 <Col>
                                     <FormGroup>
                                         <Form.Label>Contact</Form.Label>
@@ -246,9 +237,12 @@ class ReservationDetail extends Component {
                                 <Col>
                                     <FormGroup>
                                         <Form.Label>Commentaire</Form.Label>
-                                        <FormControl
-                                            as={"input"} value={this.state.comment} type={"text"}
-                                            onChange={this.handleChange} name={"comment"}/>
+                                        <br/>
+                                        <textarea
+                                            value={this.state.comment} placeholder={"commentaire"}
+                                            onChange={this.handleChange} name={"comment"}
+                                            rows="5" cols="75"
+                                        > name</textarea>
                                     </FormGroup>
                                 </Col>
                             </Card.Body>
@@ -257,36 +251,141 @@ class ReservationDetail extends Component {
                 </Row>
 
                 <Row
-                    style={{marginTop: '1em'}}
-                    className={"justify-content-md-center"}
+                    style={{marginTop: '2em'}}
                 >
-                    <Card bg={"light"}>
-                        <Card.Header>
-                            <Card.Title>Spécifité</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <FormGroup>
-                                <Form.Label>Besoin de bénévoles ?</Form.Label>
-                                <Form.Check
-                                    checked={this.state.need_volunteer}
-                                    onChange={this.handleChange} name={"need_volunteer"}/>
-                            </FormGroup>
 
-                            <FormGroup>
-                                <Form.Label>Editeur présent ?</Form.Label>
-                                <Form.Check
-                                    checked={this.state.isEditorHere}
-                                    onChange={this.handleChange} name={"isEditorHere"}/>
-                            </FormGroup>
+                    <Col lg={9} md={9} xs={9}>
+                        <Card
+                            bg={"dark"}
+                            text={"white"}
+                        >
+                            <Card.Header>
+                                <Card.Title>Tables/m² réservés</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                <Row style={{margin: "1em"}}>
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Nombre de tables premium réservé</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.nb_t_premium}
+                                                max={this.state.festival.nb_t_premium}
+                                                name={"nb_t_premium"} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                    </Col>
 
-                            <FormGroup>
-                                <Form.Label>Compte rendu envoyé ?</Form.Label>
-                                <Form.Check
-                                    checked={this.state.reportSent}
-                                    onChange={this.handleChange} name={"reportSent"}/>
-                            </FormGroup>
-                        </Card.Body>
-                    </Card>
+
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Nombre de tables standard réservé</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.nb_t_standard}
+                                                max={this.state.festival.nb_t_standard}
+                                                name={"nb_t_standard"} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                    </Col>
+
+
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Nombre de tables low réservé</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.nb_t_low}
+                                                max={this.state.festival.nb_t_low}
+                                                name={"nb_t_low"} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+
+                                <Row style={{margin: "1em"}}>
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Nombre de m² premium réservé</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.nb_sm_premium}
+                                                max={this.state.festival.nb_sm_premium}
+                                                name={"nb_sm_premium"} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                    </Col>
+
+
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Nombre de m² standards réservé</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.nb_sm_standard}
+                                                max={this.state.festival.nb_sm_standard}
+                                                name={"nb_sm_standard"} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                    </Col>
+
+
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Nombre de m² low réservé</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.nb_sm_low}
+                                                max={this.state.festival.nb_sm_low}
+                                                name={"nb_sm_low"} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+
+
+                                <Row style={{margin: "1em"}}>
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Prix calculé</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.calculatedPrice}
+                                                readOnly/>
+                                        </FormGroup>
+                                    </Col>
+
+
+                                    <Col>
+                                        <FormGroup>
+                                            <Form.Label>Prix négocié</Form.Label>
+                                            <FormControl
+                                                as={"input"} value={this.state.price}
+                                                min={this.state.calculatedPrice} type={"number"}
+                                                name={"price"} onChange={this.handleChange}/>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col lg={"auto"} md={"auto"} xs={"auto"}>
+                        <Card bg={"light"}>
+                            <Card.Header>
+                                <Card.Title>Spécifité</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                <FormGroup>
+                                    <Form.Label>Besoin de bénévoles ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.need_volunteer}
+                                        onChange={this.handleChange} name={"need_volunteer"}/>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Form.Label>Editeur présent ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.isEditorHere}
+                                        onChange={this.handleChange} name={"isEditorHere"}/>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Form.Label>Compte rendu envoyé ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.reportSent}
+                                        onChange={this.handleChange} name={"reportSent"}/>
+                                </FormGroup>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
 
                 <Row
@@ -311,7 +410,7 @@ class ReservationDetail extends Component {
                             </Card.Header>
 
                             <Card.Body>
-                                <GamesBookedTable game={this.state.games}/>
+                                <GamesBookedTable games={this.state.games}/>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -333,108 +432,6 @@ class ReservationDetail extends Component {
                     </Col>
                 </Row>
 
-                <Card
-                    bg={"dark"}
-                    style={{marginTop: "2em"}}
-                    text={"white"}
-                >
-                    <Card.Header>
-                        <Card.Title>Facture</Card.Title>
-                    </Card.Header>
-                    <Card.Body>
-                        <Row style={{margin: "1em"}}>
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Nombre de tables premium réservé</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.nb_t_premium}
-                                        max={this.state.festival.nb_t_premium}
-                                        name={"nb_t_premium"} onChange={this.handleChange}/>
-                                </FormGroup>
-                            </Col>
-
-
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Nombre de tables standard réservé</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.nb_t_standard}
-                                        max={this.state.festival.nb_t_standard}
-                                        name={"nb_t_standard"} onChange={this.handleChange}/>
-                                </FormGroup>
-                            </Col>
-
-
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Nombre de tables low réservé</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.nb_t_low}
-                                        max={this.state.festival.nb_t_low}
-                                        name={"nb_t_low"} onChange={this.handleChange}/>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-
-                        <Row style={{margin: "1em"}}>
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Nombre de m² premium réservé</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.nb_sm_premium}
-                                        max={this.state.festival.nb_sm_premium}
-                                        name={"nb_sm_premium"} onChange={this.handleChange}/>
-                                </FormGroup>
-                            </Col>
-
-
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Nombre de m² standards réservé</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.nb_sm_standard}
-                                        max={this.state.festival.nb_sm_standard}
-                                        name={"nb_sm_standard"} onChange={this.handleChange}/>
-                                </FormGroup>
-                            </Col>
-
-
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Nombre de m² low réservé</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.nb_sm_low}
-                                        max={this.state.festival.nb_sm_low}
-                                        name={"nb_sm_low"} onChange={this.handleChange}/>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-
-
-                        <Row style={{margin: "1em"}}>
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Prix calculé</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.calculatedPrice}
-                                        readOnly/>
-                                </FormGroup>
-                            </Col>
-
-
-                            <Col>
-                                <FormGroup>
-                                    <Form.Label>Prix négocié</Form.Label>
-                                    <FormControl
-                                        as={"input"} value={this.state.price}
-                                        min={this.state.calculatedPrice} type={"number"}
-                                        name={"price"} onChange={this.handleChange}/>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                    </Card.Body>
-                </Card>
-
                 <Button
                     style={{marginTop: "1em"}}
                     variant={"outline-success"}
@@ -447,5 +444,7 @@ class ReservationDetail extends Component {
 export default ReservationDetail
 
 /*
-
+<FormControl
+                                            as={"input"} value={this.state.comment} type={"textarea"}
+                                            onChange={this.handleChange} name={"comment"}/>
  */
