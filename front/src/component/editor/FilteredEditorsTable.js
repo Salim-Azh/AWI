@@ -54,6 +54,34 @@ class FilterableEditorsTable extends Component {
             )
         }
 
+        let search
+
+        if(this.props.showSearch) {
+            search = (
+                <Table striped bordered hover>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <Filter
+                                filters={[
+                                    {english: "name", french: "nom"},
+                                ]}
+                                onFilterChange={this.handleFilterChange}
+                            />
+                        </td>
+                        <td>
+                            <SearchBar
+                                filterText={this.state.filterText}
+                                filter={{english: this.state.filterEnglish, french: this.state.filterFrench}}
+                                onFilterTextChange={this.handleFilterTextChange}
+                            />
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
+            )
+        }
+
         let table
         if(this.props.editors) {
             table = (
@@ -79,27 +107,7 @@ class FilterableEditorsTable extends Component {
         }
         return (
             <div>
-                <Table striped bordered hover>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <Filter
-                                filters={[
-                                    {english: "name", french: "nom"},
-                                ]}
-                                onFilterChange={this.handleFilterChange}
-                            />
-                        </td>
-                        <td>
-                            <SearchBar
-                                filterText={this.state.filterText}
-                                filter={{english: this.state.filterEnglish, french: this.state.filterFrench}}
-                                onFilterTextChange={this.handleFilterTextChange}
-                            />
-                        </td>
-                    </tr>
-                    </tbody>
-                </Table>
+                {search}
                 {cardForm}
                 {table}
             </div>

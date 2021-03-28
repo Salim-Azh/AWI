@@ -62,19 +62,19 @@ class EditorTabs extends Component{
                 <Tab eventKey="all" title="Tout">
                     <FilteredEditorsTable editorOnly={false} exhibitorOnly={false} potentialOnly={false}
                                           editors={this.state.editors} handleAddEditor={this.handleAddEditor}
-                                          showForm={true}
+                                          showForm={true} showSearch={true}
                     />
                 </Tab>
                 <Tab eventKey="Editeur" title="Editeur">
                     <FilteredEditorsTable editorOnly={true} exhibitorOnly={false} potentialOnly={true}
                                           editors={this.state.editors} handleAddEditor={this.handleAddEditor}
-                                          showForm={false}
+                                          showForm={false} showSearch={false}
                     />
                 </Tab>
                 <Tab eventKey="Exhibitor" title="Exposant">
                     <FilteredEditorsTable editorOnly={false} exhibitorOnly={true} potentialOnly={true}
                                           editors={this.state.editors} handleAddEditor={this.handleAddEditor}
-                                          showForm={false}
+                                          showForm={false} showSearch={false}
                     />
                 </Tab>
             </Tabs>
