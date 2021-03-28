@@ -56,6 +56,7 @@ module.exports.updateReservation = async(req, res) => {
 }
 
 // TODO il faut envoyer tous les jeux de l'éditeur avec le name en plus de l'état
+// Faut renvoyer le prix négocié aussi
 module.exports.getReservation = async(req, res) => {
     if(!ObjectId.isValid(req.params.id)){
         return res.status(400).send("Unknown id : " + req.params.id)
@@ -67,11 +68,10 @@ module.exports.getReservation = async(req, res) => {
         let editor = null
         if (reservation.games[0]) {
             const gameId = reservation.games[0].game
-            editor = await EditorModel.findOne({"games": gameId}).select("_id name contacts")
+            editor = await EditorModel.findOne({games: gameId}).select("_id name contacts")
         }
         res.status(201).json({reservation: reservation, exhibitor: exhibitor, festival: festival, editor: editor})
     } catch (error) {
         return res.status(500).send("message : " + error)
     }
 }
-
