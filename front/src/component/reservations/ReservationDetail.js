@@ -248,9 +248,6 @@ class ReservationDetail extends Component {
     submit() {
         this.state.editors = undefined
         this.state.festival = undefined
-        this.state.games.map(game =>
-            game.name = undefined
-        )
         ReservationHandler.updateReservation(this.state)
             .then()
         EditorHandler.updateEditor(this.state.exhibitor)

@@ -1,5 +1,4 @@
 const express = require('express')
-//const bodyParser = require('body-parser') deprecated
 const cookieParser = require('cookie-parser')
 const cors = require("cors")
 const path = require("path");

@@ -79,6 +79,7 @@ module.exports.getReservation = async(req, res) => {
 
         res.status(201).json({reservation: reservation, exhibitor: exhibitor, festival: festival})
     } catch (error) {
+        console.log(error)
         return res.status(500).send("message : " + error)
     }
 }
