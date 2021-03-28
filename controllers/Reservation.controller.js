@@ -71,7 +71,7 @@ module.exports.getReservation = async(req, res) => {
         for(let i = 0; i < reservation.games.length; i++) {
             const gameId = reservation.games[i]._id
             const game = await GameModel.findOne({_id: ObjectId(gameId)}).select("name")
-            reservation.games[i].name = game.name
+            reservation.games[i].name = game? game.name: "LE JEU N'EXISTE PLUS"
         }
 
         const exhibitor = await EditorModel.findById(reservation.exhibitor)
