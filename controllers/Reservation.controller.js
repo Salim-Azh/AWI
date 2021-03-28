@@ -57,6 +57,8 @@ module.exports.updateReservation = async(req, res) => {
 
 // TODO il faut envoyer tous les jeux de l'éditeur avec le name en plus de l'état
 // Faut renvoyer le prix négocié aussi
+
+// TODO envoyer la date sous un format JJ/MM/AAAA
 module.exports.getReservation = async(req, res) => {
     if(!ObjectId.isValid(req.params.id)){
         return res.status(400).send("Unknown id : " + req.params.id)

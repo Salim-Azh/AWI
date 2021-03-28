@@ -46,6 +46,7 @@ class ReservationDetail extends Component {
             nb_sm_standard: "",
             nb_sm_low: "",
             games: [],
+            talks: [],
             editors: [{_id: "", name: ""}],
             editor: {_id: "", name: ""},
             calculatedPrice: "",
@@ -54,11 +55,14 @@ class ReservationDetail extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.submit = this.submit.bind(this)
         this.addContact =this.addContact.bind(this)
-        this.removeContacts = this.removeContacts.bind(this)
+        this.removeContact = this.removeContact.bind(this)
         this.handleContactsChange = this.handleContactsChange.bind(this)
         this.calculatePrice = this.calculatePrice.bind(this)
         this.handleAddGame = this.handleAddGame.bind(this)
         this.handleEditorChange = this.handleEditorChange.bind(this)
+        this.handleTalksChange = this.handleTalksChange.bind(this)
+        this.addTalk = this.addTalk.bind(this)
+        this.removeTalk = this.removeTalk.bind(this)
     }
 
     // TODO ajouter les talks
@@ -100,6 +104,7 @@ class ReservationDetail extends Component {
                 nb_sm_standard: res.reservation.nb_sm_standard,
                 nb_sm_low: res.reservation.nb_sm_low,
                 games: res.reservation.games,
+                talks: res.reservation.talks
             }))
             .then(() => this.setState({calculatedPrice: this.calculatePrice(this.state.nb_t, this.state.nb_sm)}))
 
@@ -138,9 +143,19 @@ class ReservationDetail extends Component {
         this.setState({exhibitor: this.state.exhibitor})
     }
 
-    removeContacts() {
+    removeContact() {
         this.state.exhibitor.contacts.pop()
         this.setState({exhibitor: this.state.exhibitor})
+    }
+
+    addTalk() {
+        this.state.talks.push("")
+        this.setState({talks: this.state.talks})
+    }
+
+    removeTalk() {
+        this.state.talks.pop()
+        this.setState({talks: this.state.talks})
     }
 
     handleChange(event) {
@@ -180,6 +195,17 @@ class ReservationDetail extends Component {
         contacts[index] = value
 
         this.setState({exhibitor: {contacts: contacts}})
+    }
+
+    handleTalksChange(event) {
+        const target = event.target
+        const value = target.value
+        const index = target.name;
+
+        let talks = this.state.talks
+        talks[index] = value
+
+        this.setState({talks: talks})
     }
 
     handleAddGame(game) {
@@ -225,13 +251,21 @@ class ReservationDetail extends Component {
                 </>
             )
         })
+        // TODO liste déroulante pour contact
 
         const editorsState = this.state.editors.map(editor => {
             return (
                 <option key={editor._id} value={editor.name} id={editor._id}>{editor.name}</option>
             )
         })
-        // TODO liste déroulante pour contact
+
+        const talks = this.state.talks.map((talk, index) =>
+            <>
+                <FormControl
+                    as={"input"} type={"date"} value={talk} key={talk}
+                    onChange={this.handleTalksChange} name={index}/>
+            </>
+        )
 
         return (
             <Form style={{margin: '2em'}}>
@@ -249,7 +283,7 @@ class ReservationDetail extends Component {
                                     </FormGroup>
                                 </Col>
                                 <Button variant={"warning"} onClick={this.addContact}>Ajouter contact</Button>
-                                <Button variant={"warning"} onClick={this.removeContacts}>Enlever contact</Button>
+                                <Button variant={"warning"} onClick={this.removeContact}>Enlever contact</Button>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -284,6 +318,21 @@ class ReservationDetail extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+
+                <Row lg md xs>
+                    <Card bg={"light"}>
+                        <Card.Header>
+                            <Card.Title>Prise de contact</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                            <FormGroup>
+                                {talks}
+                            </FormGroup>
+                            <Button variant={"warning"} onClick={this.addTalk}>Ajouter prise de contact</Button>
+                            <Button variant={"warning"} onClick={this.removeTalk}>Enlever prise de contact</Button>
+                        </Card.Body>
+                    </Card>
                 </Row>
 
                 <Row
