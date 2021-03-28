@@ -1,6 +1,5 @@
 import Editor from "./Editor";
 const apiUrl = require("../../public/urlApi")
-const errorHandler = require("../error/errorHandler")
 
 export function getEditorsFromDB() {
     return fetch(apiUrl.Editors)
