@@ -5,7 +5,7 @@ export function getEditorsFromDB() {
     return fetch(apiUrl.Editors)
         .then(r => r.json())
         .then(response => {
-            return response.editors
+            return response
         })
         .catch(e => {
             console.log(e.stack)
@@ -17,7 +17,19 @@ export function getEditorFromDB(id) {
     return fetch(apiUrl.Editors + "/" + id)
         .then(r => r.json())
         .then(response => {
-            return response.editor
+            return response
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
+
+export function getGamesFromEditor(editorId) {
+    return fetch(apiUrl.Editors + "/" + editorId + "/games/")
+        .then(r => r.json())
+        .then(response => {
+            return response
         })
         .catch(e => {
             console.log(e.stack)
@@ -139,16 +151,4 @@ export function updateEditor(editor) {
     }
 
     return fetch(apiUrl.Editors + "/" + editor._id, param)
-}
-
-export function getGamesFromEditor(editorId) {
-    return fetch(apiUrl.Editors + "/" + editorId + "/games/")
-        .then(r => r.json())
-        .then(response => {
-            return response.games
-        })
-        .catch(e => {
-            console.log(e.stack)
-            console.log(e.message)
-        })
 }

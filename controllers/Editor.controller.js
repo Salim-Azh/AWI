@@ -6,7 +6,7 @@ const GamesModel = require("../models/games.model")
 module.exports.getListOfEditors = async(req,res) => {
     try {
         const editors = await EditorModel.find()
-        res.status(201).json({editors: editors})
+        res.status(201).json(editors)
     } catch (error) {
         res.status(400).send({error})
     }
@@ -16,7 +16,7 @@ module.exports.getEditor = async(req,res) => {
     const idEditor = req.url.split("/")[1]
     try {
         const editor = await EditorModel.findOne({_id: idEditor})
-        res.status(201).json({editor: editor})
+        res.status(201).json(editor)
     } catch (error) {
         res.status(400).send({error})
     }
@@ -77,7 +77,7 @@ module.exports.getGamesFromEditor = async(req, res) => {
     try {
         const editor = await EditorModel.findOne({_id: idEditor})
         games = await GamesModel.find({_id: editor.games})
-        res.status(201).json({games: games})
+        res.status(201).json(games)
     } catch (error) {
         console.log(error)
         res.status(400).send({error})

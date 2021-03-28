@@ -35,13 +35,11 @@ class GameForm extends Component {
     componentDidMount() {
         if(!this.props.editorId){
             EditorHandler.getEditorsFromDB()
-                .then(editors => editors.map(editor => {
-                    if (editor && (editor.isEditor && editor.isPotential)) {
-                        this.state.editors.push(editor)
-                    }
+                .then(editors => editors.filter(editor => {
+                    return editor.isEditor && editor.isPotential
                 }))
-                .then(() => this.setState({
-                    editors: this.state.editors
+                .then(editors => this.setState({
+                    editors: editors
                 }))
         }
     }
@@ -81,7 +79,6 @@ class GameForm extends Component {
     }
 
     submit() {
-        // TODO faire un retour utilisateur
         if (this.formIsUnchanged()) {
             return
         }
@@ -153,7 +150,7 @@ class GameForm extends Component {
                                  onChange={this.handleChange} min={0}/>
                 </FormGroup>
 
-                <Button onClick={this.submit} variant={"link"}>Ajouter</Button>
+                <Button onClick={this.submit} variant={"link"}>Ajouter à l'éditeur</Button>
             </Form>
         )
     }

@@ -10,7 +10,6 @@ const EditorHandler = require("./EditorHandler")
 const GameHandler = require("../games/GamesHandler")
 
 class EditorDetail extends Component {
-    state;
     constructor(props) {
         super(props);
 
@@ -21,8 +20,7 @@ class EditorDetail extends Component {
             isEditor: "",
             isExhibitor: "",
             isPotential: "",
-            games: [],
-            rows: []
+            games: []
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleContactsChange = this.handleContactsChange.bind(this)

@@ -4,10 +4,10 @@ import {Card, Col, Form, FormControl, FormGroup, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import GamesBookedTable from "./gamesBooked/GamesBookedTable";
 import FormContainer from "../Modal/FormContainer";
+import GamesBookedForm from "./gamesBooked/GamesBookedForm";
 
 const ReservationHandler = require('./ReservationHandler')
 const EditorHandler = require('../editor/EditorHandler')
-const GameHandler = require("../games/GamesHandler")
 
 class ReservationDetail extends Component {
     constructor(props) {
@@ -47,8 +47,6 @@ class ReservationDetail extends Component {
             nb_sm_low: "",
             games: [],
             talks: [],
-            editors: [{_id: "", name: ""}],
-            editor: {_id: "", name: ""},
             calculatedPrice: "",
             price: ""
         }
@@ -65,8 +63,6 @@ class ReservationDetail extends Component {
         this.removeTalk = this.removeTalk.bind(this)
     }
 
-    // TODO ajouter les talks
-
     componentDidMount() {
         ReservationHandler.getReservationFromDB(window.location.href.split('/')[5])
             .then(res => this.setState({
@@ -76,7 +72,6 @@ class ReservationDetail extends Component {
                     name: res.exhibitor.name,
                     contacts: res.exhibitor.contacts
                 },
-                editor: res.editor? {_id: res.editor._id, name: res.editor.name}: "",
                 festival: {
                     _id: res.festival._id,
                     premium_t_price: res.festival.premium_t_price,
@@ -106,17 +101,7 @@ class ReservationDetail extends Component {
                 games: res.reservation.games,
                 talks: res.reservation.talks
             }))
-            .then(() => this.setState({calculatedPrice: this.calculatePrice(this.state.nb_t, this.state.nb_sm)}))
-
-        EditorHandler.getEditorsFromDB()
-            .then(editors => editors.map(editor => {
-                if (editor && (editor.isEditor && editor.isPotential)) {
-                    this.state.editors.push(editor)
-                }
-            }))
-            .then(() => this.setState({
-                editors: this.state.editors
-            }))
+            .then(() => this.setState({calculatedPrice: this.calculatePrice()}))
     }
 
     calculatePrice() {
@@ -209,15 +194,21 @@ class ReservationDetail extends Component {
     }
 
     handleAddGame(game) {
-        GameHandler.addGames(game)
-            .then(response => response.json())
-            .then(response => game._id = response.gameId)
-            .then(() => this.state.games.push(game))
-            .then(() => this.setState({games: this.state.games}))
+        this.state.games.push(game)
+        const festival = this.state.festival
+        this.state.festival = undefined
+
+        ReservationHandler.updateReservation(this.state)
+            .then(gameId => game._id = gameId)
+            .then(() => this.setState({
+                games: this.state.games,
+                festival: festival
+            }))
     }
 
     submit() {
         this.state.editors = undefined
+        this.state.festival = undefined
         ReservationHandler.updateReservation(this.state)
             .then()
         EditorHandler.updateEditor(this.state.exhibitor)
@@ -253,12 +244,6 @@ class ReservationDetail extends Component {
         })
         // TODO liste déroulante pour contact
 
-        const editorsState = this.state.editors.map(editor => {
-            return (
-                <option key={editor._id} value={editor.name} id={editor._id}>{editor.name}</option>
-            )
-        })
-
         const talks = this.state.talks.map((talk, index) =>
             <>
                 <FormControl
@@ -271,7 +256,7 @@ class ReservationDetail extends Component {
             <Form style={{margin: '2em'}}>
                 <Row className="justify-content-md-center">
                     <Col lg md xs>
-                        <Card bg={"info"}>
+                        <Card bg={"info"} style={{height: "25em"}}>
                             <Card.Header>
                                 <Card.Title>Exposant : {this.state.exhibitor.name}</Card.Title>
                             </Card.Header>
@@ -290,7 +275,7 @@ class ReservationDetail extends Component {
 
 
                     <Col>
-                        <Card bg={"secondary"}>
+                        <Card bg={"secondary"} style={{height: "25em"}}>
                             <Card.Header>
                                 <Card.Title>Statut de la réservation</Card.Title>
                             </Card.Header>
@@ -320,25 +305,90 @@ class ReservationDetail extends Component {
                     </Col>
                 </Row>
 
-                <Row lg md xs>
-                    <Card bg={"light"}>
-                        <Card.Header>
-                            <Card.Title>Prise de contact</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <FormGroup>
-                                {talks}
-                            </FormGroup>
-                            <Button variant={"warning"} onClick={this.addTalk}>Ajouter prise de contact</Button>
-                            <Button variant={"warning"} onClick={this.removeTalk}>Enlever prise de contact</Button>
-                        </Card.Body>
-                    </Card>
+                <Row
+                    style={{marginTop: '2em'}}
+                    className={"justify-content-md-center"}
+                    lg md xs
+                >
+                    <Col lg={6} md={6} xs={6}>
+                        <Card bg={"secondary"}>
+                            <Card.Header>
+                                <Card.Title>Prise de contact</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                <FormGroup>
+                                    {talks}
+                                </FormGroup>
+                                <Button variant={"warning"} onClick={this.addTalk}>Ajouter prise de contact</Button>
+                                <Button variant={"warning"} onClick={this.removeTalk}>Enlever prise de contact</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+
+                    <Col lg={"auto"} md={"auto"} xs={"auto"}>
+                        <Card bg={"secondary"}>
+                            <Card.Header>
+                                <Card.Title>Spécifité</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                <FormGroup>
+                                    <Form.Label>Besoin de bénévoles ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.need_volunteer}
+                                        onChange={this.handleChange} name={"need_volunteer"}/>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Form.Label>Editeur présent ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.isEditorHere}
+                                        onChange={this.handleChange} name={"isEditorHere"}/>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Form.Label>Compte rendu envoyé ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.reportSent}
+                                        onChange={this.handleChange} name={"reportSent"}/>
+                                </FormGroup>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
 
                 <Row
-                    style={{marginTop: '2em'}}
+                    style={{marginTop: "2em"}}
                 >
+                    <Col>
+                        <Card
+                            bg={"light"}
+                        >
 
+                            <Card.Header>
+                                <Card.Title>Jeux réservés</Card.Title>
+                                <Card style={{width: '4rem'}}>
+                                    <FormContainer
+                                        title={"Ajouter un jeux à l'éditeur"}
+                                        component={"GamesBookedForm"}
+                                        reservationId={this.state._id}
+                                        handleClick={this.handleAddGame}
+                                    />
+                                </Card>
+                            </Card.Header>
+
+                            <Card.Body>
+                                <GamesBookedTable
+                                    games={this.state.games}
+                                />
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+
+                <Row
+                    style={{marginTop: "2em"}}
+                    className={"justify-content-md-center"}>
                     <Col lg={9} md={9} xs={9}>
                         <Card
                             bg={"dark"}
@@ -439,80 +489,6 @@ class ReservationDetail extends Component {
                                         </FormGroup>
                                     </Col>
                                 </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-
-                    <Col lg={"auto"} md={"auto"} xs={"auto"}>
-                        <Card bg={"light"}>
-                            <Card.Header>
-                                <Card.Title>Spécifité</Card.Title>
-                            </Card.Header>
-                            <Card.Body>
-                                <FormGroup>
-                                    <Form.Label>Besoin de bénévoles ?</Form.Label>
-                                    <Form.Check
-                                        checked={this.state.need_volunteer}
-                                        onChange={this.handleChange} name={"need_volunteer"}/>
-                                </FormGroup>
-
-                                <FormGroup>
-                                    <Form.Label>Editeur présent ?</Form.Label>
-                                    <Form.Check
-                                        checked={this.state.isEditorHere}
-                                        onChange={this.handleChange} name={"isEditorHere"}/>
-                                </FormGroup>
-
-                                <FormGroup>
-                                    <Form.Label>Compte rendu envoyé ?</Form.Label>
-                                    <Form.Check
-                                        checked={this.state.reportSent}
-                                        onChange={this.handleChange} name={"reportSent"}/>
-                                </FormGroup>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-
-                <Row
-                    style={{marginTop: "2em"}}
-                >
-                    <Col lg={6} md={8} xs={9}>
-                        <Card
-                            bg={"light"}
-                        >
-
-                            <Card.Header>
-                                <Card.Title>Jeux de l'éditeur {this.state.editor.name}</Card.Title>
-                                <Card style={{width: '4rem'}}>
-                                <FormContainer
-                                    title={"Ajouter un jeu à l'editeur"}
-                                    editorId={this.state.editor._id}
-                                    editorName={this.state.editor.name}
-                                    component={"GameForm"}
-                                    handleClick={this.handleAddGame}
-                                />
-                                </Card>
-                            </Card.Header>
-
-                            <Card.Body>
-                                <GamesBookedTable games={this.state.games}/>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-
-                    <Col>
-                        <Card bg={"info"}>
-                            <Card.Header>
-                                <Card.Title>Changer d'éditeur :</Card.Title>
-                            </Card.Header>
-
-                            <Card.Body>
-                                <FormControl
-                                    as={"select"} value={this.state.editor.name}
-                                    onChange={this.handleEditorChange}>
-                                    {editorsState}
-                                </FormControl>
                             </Card.Body>
                         </Card>
                     </Col>

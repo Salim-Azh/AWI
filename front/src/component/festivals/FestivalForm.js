@@ -59,7 +59,6 @@ class FestivalForm extends Component {
     }
 
     submit() {
-        // TODO faire un retour utilisateur
         if (this.formIsUnchanged()) {
             return
         }

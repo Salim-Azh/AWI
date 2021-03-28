@@ -43,7 +43,6 @@ class EditorForm extends Component {
     }
 
     submit() {
-        // TODO faire un retour utilisateur
         if (this.formIsUnchanged()) {
             return
         }

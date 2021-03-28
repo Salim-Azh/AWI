@@ -5,6 +5,8 @@ import EditorForm from "../editor/EditorForm";
 import GameForm from "../games/GameForm";
 import FestivalForm from "../festivals/FestivalForm";
 import ReservationForm from "../reservations/ReservationForm";
+import GamesBookedForm from "../reservations/gamesBooked/GamesBookedForm";
+import GamesBookedTable from "../reservations/gamesBooked/GamesBookedTable";
 
 const {useState} = require("react");
 
@@ -24,13 +26,20 @@ function FormContainer(props) {
             editorId={props.editorId}
             editorName={props.editorName}
         />
+
     } else if(props.component === "FestivalForm") {
         form = <FestivalForm handleClick={props.handleClick}/>
+
     } else if(props.component === "ReservationForm") {
         form = <ReservationForm exhibitors={props.exhibitors} handleClick={props.handleClick}/>
+
+    } else if(props.component === "GamesBookedForm") {
+        form = <GamesBookedForm
+            reservationId={props.reservationId}
+            handleClick={props.handleClick}
+        />
     }
-    // TODO faire le component ajouter un jeu a un editeur ici aussi
-    // TODO faire en sorte d'appeler le submit du GameForm dans le bouton ajouter
+
     return (
         <>
             <Button onClick={handleShow} variant={"success"}>

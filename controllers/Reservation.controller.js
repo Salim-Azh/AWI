@@ -55,7 +55,7 @@ module.exports.updateReservation = async(req, res) => {
     }
 }
 
-// TODO il faut envoyer tous les jeux de l'éditeur avec le name en plus de l'état
+// TODO il faut envoyer les jeux de l'éditeur avec le name en plus de l'état
 // Faut renvoyer le prix négocié aussi
 
 // TODO envoyer la date sous un format JJ/MM/AAAA
@@ -67,12 +67,8 @@ module.exports.getReservation = async(req, res) => {
         const reservation = await ReservationsModel.findById(req.params.id)
         const exhibitor = await EditorModel.findById(reservation.exhibitor)
         const festival = await FestivalModel.findOne({is_current: true}).select("-name -year -is_current")
-        let editor = null
-        if (reservation.games[0]) {
-            const gameId = reservation.games[0].game
-            editor = await EditorModel.findOne({games: gameId}).select("_id name contacts")
-        }
-        res.status(201).json({reservation: reservation, exhibitor: exhibitor, festival: festival, editor: editor})
+
+        res.status(201).json({reservation: reservation, exhibitor: exhibitor, festival: festival})
     } catch (error) {
         return res.status(500).send("message : " + error)
     }
