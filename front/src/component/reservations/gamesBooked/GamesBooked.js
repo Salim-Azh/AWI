@@ -9,19 +9,47 @@ function GamesBooked(props) {
         "renvoyé"
     ]
     const optionsState = options.map(option =>
-        <option key={option} value={option}>{option}</option>
+        <option id={props.game._id} key={option} name={"state"} value={option}>{option}</option>
     )
 
     return (
         <tr id={props.game._id}>
             <td>{props.game.name}</td>
-            <td><FormControl as={"input"} value={props.total_qte}/></td>
-            <td><FormControl as={"input"} value={props.exposed_qte}/></td>
-            <td><FormControl as={"input"} value={props.zone}/></td>
-            <td><Form.Check checked={props.proto}/></td>
             <td>
-                <FormGroup value={props.state}>
-                    <FormControl as={"select"}>
+                <FormControl
+                    as={"input"} type={"number"}
+                    value={props.game.total_qte}
+                    id={props.game._id} name={"total_qte"}
+                    onChange={props.handleChange}
+                />
+            </td>
+            <td>
+                <FormControl
+                    as={"input"} type={"number"}
+                    max={props.game.total_qte}
+                    value={props.game.exposed_qte}
+                    id={props.game._id} name={"exposed_qte"}
+                    onChange={props.handleChange}
+                />
+            </td>
+            <td>
+                <FormControl
+                    as={"input"}
+                    value={props.game.zone}
+                    id={props.game._id} name={"zone"}
+                    onChange={props.handleChange}
+                />
+            </td>
+            <td>
+                <Form.Check
+                    checked={props.game.proto}
+                    id={props.game._id} name={"proto"}
+                    onChange={props.handleChange}
+                />
+            </td>
+            <td>
+                <FormGroup value={props.game.state}>
+                    <FormControl as={"select"} onChange={props.handleChange}>
                         {optionsState}
                     </FormControl>
                 </FormGroup>

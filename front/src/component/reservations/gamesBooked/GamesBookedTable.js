@@ -1,10 +1,11 @@
 import {Table} from "react-bootstrap";
 import GamesBooked from "./GamesBooked";
 
-function GameTable(props){
+function GameBookedTable(props){
     const games = props.games.map(game =>
         <GamesBooked
             handleDelete={props.handleDelete}
+            handleChange={props.handleChange}
             game={game}
         />
     )
@@ -25,4 +26,4 @@ function GameTable(props){
         )
 }
 
-export default GameTable
+export default GameBookedTable

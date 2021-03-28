@@ -62,6 +62,7 @@ class ReservationDetail extends Component {
         this.addTalk = this.addTalk.bind(this)
         this.removeTalk = this.removeTalk.bind(this)
         this.handleDeleteGame = this.handleDeleteGame.bind(this)
+        this.handleGameChange = this.handleGameChange.bind(this)
     }
 
     componentDidMount() {
@@ -214,6 +215,33 @@ class ReservationDetail extends Component {
         })
 
         this.setState({games: games})
+    }
+
+    handleGameChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        const gameId = target.id
+        const game = this.state.games.filter(game => {
+            return game._id === gameId
+        })
+
+        if(name === "total_qte") {
+            game[0].total_qte = value
+        } else if(name === "exposed_qte") {
+            game[0].exposed_qte = value
+        } else if(name === "zone") {
+            game[0].zone = value
+        } else if(name === "proto") {
+            game[0].proto = value
+        } else if(name === "state") {
+            game[0].state = value
+        }
+
+        this.setState({
+            games: this.state.games
+        })
     }
 
     submit() {
@@ -391,6 +419,7 @@ class ReservationDetail extends Component {
                                 <GamesBookedTable
                                     games={this.state.games}
                                     handleDelete={this.handleDeleteGame}
+                                    handleChange={this.handleGameChange}
                                 />
                             </Card.Body>
                         </Card>
