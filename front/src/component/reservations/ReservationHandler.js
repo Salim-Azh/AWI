@@ -1,6 +1,5 @@
 import Reservation from "./Reservation";
 const apiUrl = require("../../public/urlApi")
-const errorHandler = require("../error/errorHandler")
 
 export function getReservationsFromDB() {
     return fetch(apiUrl.Reservations)
@@ -171,5 +170,4 @@ export function updateReservation(state) {
         body: JSON.stringify(state)
     }
     return fetch(apiUrl.Reservations + "/" + reservationId, param)
-        .then(r => errorHandler.handleResponse(r, "Modification de la réservation"))
 }

@@ -55,18 +55,18 @@ class TabsReservations extends Component {
     render() {
         return (
             <Tabs
-                defaultActiveKey="exposant"
+                defaultActiveKey="reservation"
             >
-                <Tab eventKey="exposant" title="Exposant">
-                    <FilteredEditorsTable exhibitorOnly={true} potentialOnly={true}
-                                          exhibitors={this.state.exhibitors} showSearch={true}
-                    />
-                </Tab>
                 <Tab eventKey="reservation" title="Suivi réservations">
                     <FilteredReservationsTable
                         reservations={this.state.reservations}
                         exhibitors={this.state.exhibitors}
                         handleAddReservation={this.handleAddReservation}
+                    />
+                </Tab>
+                <Tab eventKey="exposant" title="Exposant">
+                    <FilteredEditorsTable exhibitorOnly={true} potentialOnly={true}
+                                          exhibitors={this.state.exhibitors} showSearch={true}
                     />
                 </Tab>
             </Tabs>

@@ -61,6 +61,7 @@ class ReservationDetail extends Component {
         this.handleTalksChange = this.handleTalksChange.bind(this)
         this.addTalk = this.addTalk.bind(this)
         this.removeTalk = this.removeTalk.bind(this)
+        this.handleDeleteGame = this.handleDeleteGame.bind(this)
     }
 
     componentDidMount() {
@@ -204,6 +205,15 @@ class ReservationDetail extends Component {
                 games: this.state.games,
                 festival: festival
             }))
+    }
+
+    handleDeleteGame(event) {
+        const gameId = event.target.name
+        const games = this.state.games.filter(game => {
+            return game._id !== gameId
+        })
+
+        this.setState({games: games})
     }
 
     submit() {
@@ -380,6 +390,7 @@ class ReservationDetail extends Component {
                             <Card.Body>
                                 <GamesBookedTable
                                     games={this.state.games}
+                                    handleDelete={this.handleDeleteGame}
                                 />
                             </Card.Body>
                         </Card>
