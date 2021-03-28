@@ -108,7 +108,6 @@ class ReservationDetail extends Component {
                     this.state.editors.push(editor)
                 }
             }))
-            .then(() => console.log(this.state.editors))
             .then(() => this.setState({
                 editors: this.state.editors
             }))
@@ -116,14 +115,21 @@ class ReservationDetail extends Component {
     }
 
     calculatePrice() {
-        console.log(this.state.nb_t_premium)
+        const nb_t_premium = this.state.nb_t_premium? this.state.nb_t_premium:0
+        const nb_t_standard = this.state.nb_t_standard? this.state.nb_t_standard:0
+        const nb_t_low = this.state.nb_t_low? this.state.nb_t_low:0
+
+        const nb_sm_premium = this.state.nb_sm_premium? this.state.nb_sm_premium:0
+        const nb_sm_standard = this.state.nb_sm_standard? this.state.nb_sm_standard:0
+        const nb_sm_low = this.state.nb_sm_low? this.state.nb_sm_low:0
+
         return (
-            this.state.nb_t_premium * this.state.festival.premium_t_price *
-            this.state.nb_t_standard * this.state.festival.standard_t_price *
-            this.state.nb_t_low * this.state.festival.low_t_price *
-            this.state.nb_sm_premium * this.state.festival.premium_sm_price *
-            this.state.nb_sm_standard * this.state.festival.standard_sm_price *
-            this.state.nb_sm_low * this.state.festival.low_sm_price
+            nb_t_premium * this.state.festival.premium_t_price +
+            nb_t_standard * this.state.festival.standard_t_price +
+            nb_t_low * this.state.festival.low_t_price +
+            nb_sm_premium * this.state.festival.premium_sm_price +
+            nb_sm_standard * this.state.festival.standard_sm_price +
+            nb_sm_low * this.state.festival.low_sm_price
         )
     }
 
@@ -144,6 +150,9 @@ class ReservationDetail extends Component {
 
         this.setState({
             [name]: value
+        })
+        this.setState({
+            calculatedPrice: this.calculatePrice()
         })
     }
 
@@ -280,7 +289,7 @@ class ReservationDetail extends Component {
                                         <FormGroup>
                                             <Form.Label>Nombre de tables premium réservé</Form.Label>
                                             <FormControl
-                                                as={"input"} value={this.state.nb_t_premium}
+                                                as={"input"} value={this.state.nb_t_premium} id={"1"}
                                                 max={this.state.festival.nb_t_premium}
                                                 name={"nb_t_premium"} onChange={this.handleChange}/>
                                         </FormGroup>
@@ -291,7 +300,7 @@ class ReservationDetail extends Component {
                                         <FormGroup>
                                             <Form.Label>Nombre de tables standard réservé</Form.Label>
                                             <FormControl
-                                                as={"input"} value={this.state.nb_t_standard}
+                                                as={"input"} value={this.state.nb_t_standard} id={"1"}
                                                 max={this.state.festival.nb_t_standard}
                                                 name={"nb_t_standard"} onChange={this.handleChange}/>
                                         </FormGroup>
@@ -302,7 +311,7 @@ class ReservationDetail extends Component {
                                         <FormGroup>
                                             <Form.Label>Nombre de tables low réservé</Form.Label>
                                             <FormControl
-                                                as={"input"} value={this.state.nb_t_low}
+                                                as={"input"} value={this.state.nb_t_low} id={"1"}
                                                 max={this.state.festival.nb_t_low}
                                                 name={"nb_t_low"} onChange={this.handleChange}/>
                                         </FormGroup>
@@ -314,7 +323,7 @@ class ReservationDetail extends Component {
                                         <FormGroup>
                                             <Form.Label>Nombre de m² premium réservé</Form.Label>
                                             <FormControl
-                                                as={"input"} value={this.state.nb_sm_premium}
+                                                as={"input"} value={this.state.nb_sm_premium} id={"1"}
                                                 max={this.state.festival.nb_sm_premium}
                                                 name={"nb_sm_premium"} onChange={this.handleChange}/>
                                         </FormGroup>
@@ -325,7 +334,7 @@ class ReservationDetail extends Component {
                                         <FormGroup>
                                             <Form.Label>Nombre de m² standards réservé</Form.Label>
                                             <FormControl
-                                                as={"input"} value={this.state.nb_sm_standard}
+                                                as={"input"} value={this.state.nb_sm_standard} id={"1"}
                                                 max={this.state.festival.nb_sm_standard}
                                                 name={"nb_sm_standard"} onChange={this.handleChange}/>
                                         </FormGroup>
@@ -336,9 +345,9 @@ class ReservationDetail extends Component {
                                         <FormGroup>
                                             <Form.Label>Nombre de m² low réservé</Form.Label>
                                             <FormControl
-                                                as={"input"} value={this.state.nb_sm_low}
+                                                as={"input"} value={this.state.nb_sm_low} id={"1"}
                                                 max={this.state.festival.nb_sm_low}
-                                                name={"nb_sm_low"} onChange={this.handleChange}/>
+                                                name={"nb_sm_low"} onChange={this.handleChangePrice}/>
                                         </FormGroup>
                                     </Col>
                                 </Row>
