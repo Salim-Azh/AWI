@@ -46,7 +46,7 @@ class ReservationDetail extends Component {
             nb_sm_standard: "",
             nb_sm_low: "",
             games: [],
-            editors: [],
+            editors: [{_id: "", name: ""}],
             editor: {_id: "", name: ""},
             calculatedPrice: "",
             price: ""
@@ -100,8 +100,8 @@ class ReservationDetail extends Component {
                 nb_sm_low: res.reservation.nb_sm_low,
                 games: res.reservation.games,
             }))
-            .then(() => this.setState({calculatedPrice: this.calculatePrice()}))
-/*
+            .then(() => this.setState({calculatedPrice: this.calculatePrice(this.state.nb_t, this.state.nb_sm)}))
+
         EditorHandler.getEditorsFromDB()
             .then(editors => editors.map(editor => {
                 if (editor && (editor.isEditor && editor.isPotential)) {
@@ -111,12 +111,11 @@ class ReservationDetail extends Component {
             .then(() => this.setState({
                 editors: this.state.editors
             }))
- */
     }
 
     calculatePrice() {
         const nb_t_premium = this.state.nb_t_premium? this.state.nb_t_premium:0
-        const nb_t_standard = this.state.nb_t_standard? this.state.nb_t_standard:0
+        const nb_t_standard = this.state.nb_t_standard?this.state.nb_t_standard:0
         const nb_t_low = this.state.nb_t_low? this.state.nb_t_low:0
 
         const nb_sm_premium = this.state.nb_sm_premium? this.state.nb_sm_premium:0
@@ -148,12 +147,15 @@ class ReservationDetail extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
-        })
-        this.setState({
-            calculatedPrice: this.calculatePrice()
-        })
+        if(target.id) {
+            this.setState({
+                [name]: value
+            }, () => this.setState({calculatedPrice: this.calculatePrice()}))
+        } else {
+            this.setState({
+                [name]: value
+            })
+        }
     }
 
     handleContactsChange(event) {
@@ -213,7 +215,7 @@ class ReservationDetail extends Component {
 
         const editorsState = this.state.editors.map(editor => {
             return (
-                <option value={editor}>{editor}</option>
+                <option value={editor._id}>{editor.name}</option>
             )
         })
         // TODO liste déroulante pour contact
@@ -347,7 +349,7 @@ class ReservationDetail extends Component {
                                             <FormControl
                                                 as={"input"} value={this.state.nb_sm_low} id={"1"}
                                                 max={this.state.festival.nb_sm_low}
-                                                name={"nb_sm_low"} onChange={this.handleChangePrice}/>
+                                                name={"nb_sm_low"} onChange={this.handleChange}/>
                                         </FormGroup>
                                     </Col>
                                 </Row>
@@ -358,7 +360,8 @@ class ReservationDetail extends Component {
                                         <FormGroup>
                                             <Form.Label>Prix calculé</Form.Label>
                                             <FormControl
-                                                as={"input"} value={this.state.calculatedPrice}
+                                                as={"input"}
+                                                value={this.state.calculatedPrice}
                                                 readOnly/>
                                         </FormGroup>
                                     </Col>
