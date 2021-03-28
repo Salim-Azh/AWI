@@ -1,7 +1,6 @@
 import Game from "./Game";
 import EditorGame from "../editor/EditorGame";
 const apiUrl = require("../../public/urlApi")
-const errorHandler = require("../error/errorHandler")
 
 export function getGamesFromDB() {
     return fetch(apiUrl.Games)
@@ -113,5 +112,4 @@ export function updateGame(game) {
     }
 
     return fetch(apiUrl.Games + "/" + game._id, param)
-        .then(r => errorHandler.handleResponse(r, "Modification du jeu"))
 }

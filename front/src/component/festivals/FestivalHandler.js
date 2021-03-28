@@ -1,7 +1,6 @@
 import Festival from "./Festival";
 import {Card, Col} from "react-bootstrap";
 const apiUrl = require("../../public/urlApi")
-const errorHandler = require("../error/errorHandler")
 
 export function getFestivalsFromDB() {
     return fetch(apiUrl.Festivals)
@@ -93,7 +92,7 @@ export function updateFestival(festival) {
     }
 
     fetch(apiUrl.Festivals + "/" + festival._id, param)
-        .then(r => errorHandler.handleResponse(r, "Modification du festival"))
+        .then()
 }
 
 export function updateCurrent(festival) {
@@ -103,6 +102,5 @@ export function updateCurrent(festival) {
         body: JSON.stringify(festival)
     }
     fetch(apiUrl.Festivals + "/" + festival._id + "/current", param)
-        .then(r => errorHandler.handleResponse(r, "Modification du festival"))
         .then(() => _handleUpdate(festival._id, festival.is_current))
 }
