@@ -140,7 +140,6 @@ export function updateEditor(editor) {
     }
 
     return fetch(apiUrl.Editors + "/" + editor._id, param)
-        .then(r => errorHandler.handleResponse(r, "Modification de l'éditeur"))
 }
 
 export function getGamesFromEditor(editorId) {

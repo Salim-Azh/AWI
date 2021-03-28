@@ -59,7 +59,7 @@ class TabsReservations extends Component {
             >
                 <Tab eventKey="exposant" title="Exposant">
                     <FilteredEditorsTable exhibitorOnly={true} potentialOnly={true}
-                                          exhibitors={this.state.exhibitors}
+                                          exhibitors={this.state.exhibitors} showSearch={true}
                     />
                 </Tab>
                 <Tab eventKey="reservation" title="Suivi réservations">
