@@ -58,6 +58,7 @@ class ReservationDetail extends Component {
         this.handleContactsChange = this.handleContactsChange.bind(this)
         this.calculatePrice = this.calculatePrice.bind(this)
         this.handleAddGame = this.handleAddGame.bind(this)
+        this.handleEditorChange = this.handleEditorChange.bind(this)
     }
 
     // TODO ajouter les talks
@@ -158,6 +159,18 @@ class ReservationDetail extends Component {
         }
     }
 
+    handleEditorChange(event) {
+        const target = event.target
+        const value = target.value
+        const id = target.id
+
+        this.setState({
+            editor: {
+                _id: id,
+                name: value
+            }})
+    }
+
     handleContactsChange(event) {
         const target = event.target
         const value = target.value
@@ -200,14 +213,14 @@ class ReservationDetail extends Component {
         ]
 
         const optionsState = options.map(option =>
-            <option value={option}>{option}</option>
+            <option key={option} value={option}>{option}</option>
         )
 
         const contacts = this.state.exhibitor.contacts.map((contact, index) => {
             return (
                 <>
                     <FormControl
-                        as={"input"} type={"text"} value={contact} key={index}
+                        as={"input"} type={"text"} value={contact} key={contact}
                         onChange={this.handleContactsChange} name={index}/>
                 </>
             )
@@ -215,7 +228,7 @@ class ReservationDetail extends Component {
 
         const editorsState = this.state.editors.map(editor => {
             return (
-                <option value={editor._id}>{editor.name}</option>
+                <option key={editor._id} value={editor.name} id={editor._id}>{editor.name}</option>
             )
         })
         // TODO liste déroulante pour contact
@@ -447,8 +460,8 @@ class ReservationDetail extends Component {
 
                             <Card.Body>
                                 <FormControl
-                                    as={"select"} value={this.state.editor}
-                                    onChange={this.handleChange} name={"editor"}>
+                                    as={"select"} value={this.state.editor.name}
+                                    onChange={this.handleEditorChange}>
                                     {editorsState}
                                 </FormControl>
                             </Card.Body>
