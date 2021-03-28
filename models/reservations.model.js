@@ -6,6 +6,9 @@ const gamesBooked = new mongoose.Schema(
             type: String,
             required: true
         },
+        name: {
+            type: String
+        },
         total_qte: {
             type: Number
         },

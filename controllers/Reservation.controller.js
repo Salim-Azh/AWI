@@ -1,6 +1,8 @@
 const ReservationsModel = require("../models/reservations.model")
 const FestivalModel = require('../models/festivals.model')
 const EditorModel = require("../models/editors.model")
+const GameModel = require("../models/games.model")
+
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports.getFestivalReservations = async(req, res) => {
@@ -65,6 +67,13 @@ module.exports.getReservation = async(req, res) => {
     }
     try {
         const reservation = await ReservationsModel.findById(req.params.id)
+
+        for(let i = 0; i < reservation.games.length; i++) {
+            const gameId = reservation.games[i]._id
+            const game = await GameModel.findOne({_id: ObjectId(gameId)}).select("name")
+            reservation.games[i].name = game.name
+        }
+
         const exhibitor = await EditorModel.findById(reservation.exhibitor)
         const festival = await FestivalModel.findOne({is_current: true}).select("-name -year -is_current")
 

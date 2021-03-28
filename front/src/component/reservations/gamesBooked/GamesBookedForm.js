@@ -17,6 +17,7 @@ class GamesBookedForm extends Component {
                 name: "",
                 games: []
             },
+            gameSelected: {_id: "", name: ""},
             editors: []
         }
 
@@ -24,6 +25,7 @@ class GamesBookedForm extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleEditorChange = this.handleEditorChange.bind(this)
         this.handleAddGames = this.handleAddGames.bind(this)
+        this.handleGameChange = this.handleGameChange.bind(this)
     }
     componentDidMount() {
         EditorHandler.getEditorsFromDB()
@@ -37,8 +39,15 @@ class GamesBookedForm extends Component {
                 EditorHandler.getGamesFromEditor(this.state.editors[0]._id)
                     .then(games => this.state.editors[0].games = games)
                     .then(() => this.setState({editors: this.state.editors}))
+                    .then(() => this.setState({editor: this.state.editors[0]}))
                     .then(() => this.state.editor.games = this.state.editors[0].games)
                     .then(() => this.setState({editor: this.state.editor}))
+                    .then(() => this.setState({
+                        gameSelected: {
+                            _id: this.state.editors[0].games[0]._id,
+                            name: this.state.editors[0].games[0].name
+                        }
+                    }))
             )
     }
 
@@ -70,6 +79,17 @@ class GamesBookedForm extends Component {
         )
     }
 
+    handleGameChange(event) {
+        const target = event.target;
+        const value = target.value;
+
+        this.setState({
+            gameSelected: {
+                _id: value.split(',')[0],
+                name: value.split(',')[1]
+            }})
+    }
+
     handleAddGames(game) {
         GameHandler.addGames(game)
             .then(response => response.json())
@@ -81,7 +101,7 @@ class GamesBookedForm extends Component {
     submit() {
         const editors = this.state.editors
         this.state.editors = undefined
-        this.props.handleClick(this.state)
+        this.props.handleClick(this.state.gameSelected)
         this.setState({
             editors: editors
         })
@@ -95,14 +115,14 @@ class GamesBookedForm extends Component {
 
         const editorGamesDefined = this.state.editor.games? this.state.editor.games: []
         const editorGames = editorGamesDefined.map(game =>
-            <option value={game._id}>{game.name}</option>
+            <option value={game._id + "," + game.name}>{game.name}</option>
         )
         let form
         if(editorGamesDefined.length > 0) {
             form = (
                 <FormGroup>
                     <Form.Label>Jeux</Form.Label>
-                    <FormControl as={"select"}>
+                    <FormControl as={"select"} onChange={this.handleGameChange}>
                         {editorGames}
                     </FormControl>
                 </FormGroup>
@@ -120,8 +140,9 @@ class GamesBookedForm extends Component {
             <Form>
                 <FormGroup>
                     <Form.Label>Editeur</Form.Label>
-                    <FormControl as={"select"}
-                                 onChange={this.handleEditorChange}
+                    <FormControl
+                        as={"select"}
+                        onChange={this.handleEditorChange}
                     >
                         {editorRows}
                     </FormControl>

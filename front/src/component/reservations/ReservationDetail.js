@@ -197,11 +197,12 @@ class ReservationDetail extends Component {
 
     handleAddGame(game) {
         this.state.games.push(game)
+        const gameName = game.name
+        game.name = undefined
         const festival = this.state.festival
         this.state.festival = undefined
-
         ReservationHandler.updateReservation(this.state)
-            .then(gameId => game._id = gameId)
+            .then(() => game.name = gameName)
             .then(() => this.setState({
                 games: this.state.games,
                 festival: festival
@@ -247,6 +248,9 @@ class ReservationDetail extends Component {
     submit() {
         this.state.editors = undefined
         this.state.festival = undefined
+        this.state.games.map(game =>
+            game.name = undefined
+        )
         ReservationHandler.updateReservation(this.state)
             .then()
         EditorHandler.updateEditor(this.state.exhibitor)
