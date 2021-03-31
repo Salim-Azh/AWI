@@ -1,13 +1,14 @@
-const FestivalsModel = require("../models/festivals.model")
+const FestivalModel = require("../models/festivals.model")
 const ReservationModel = require("../models/reservations.model")
 const GameModel = require("../models/games.model")
-const ObjectId = require('mongoose').Types.ObjectId
 const ZoneModel = require("../models/zones.model")
 const EditorModel = require("../models/editors.model")
 
+const ObjectId = require('mongoose').Types.ObjectId
+
 module.exports.getListOfFestivals = async(req,res) => {
     try {
-        const festivals = await FestivalsModel.find()
+        const festivals = await FestivalModel.find()
         res.status(201).json({festivals: festivals})
     } catch (error) {
         res.status(400).send({error})
@@ -24,7 +25,7 @@ module.exports.addFestival = async(req, res) => {
 
     try {
 
-        const festival = await FestivalsModel.create({
+        const festival = await FestivalModel.create({
             _id: ObjectId(),
             name: name,
             year: year,
@@ -54,7 +55,7 @@ module.exports.deleteFestival = async(req, res) => {
     const mongooseId = ObjectId(idFestival)
 
     try {
-        FestivalsModel.deleteOne({_id: mongooseId})
+        FestivalModel.deleteOne({_id: mongooseId})
             .then(() => res.status(201).send())
 
     } catch(e) {
@@ -68,7 +69,7 @@ module.exports.updateFestival = async(req, res) => {
     const mongooseId = ObjectId(idFestival)
 
     try {
-        FestivalsModel.updateOne({_id: mongooseId}, req.body)
+        FestivalModel.updateOne({_id: mongooseId}, req.body)
             .then(() => res.status(201).send())
 
     } catch(e) {
@@ -82,8 +83,8 @@ module.exports.setCurrent = async(req, res) => {
     const mongooseId = ObjectId(idFestival)
 
     try {
-        await FestivalsModel.updateOne({is_current: true}, {is_current: false})
-        FestivalsModel.updateOne({_id: mongooseId}, {is_current: true})
+        await FestivalModel.updateOne({is_current: true}, {is_current: false})
+        FestivalModel.updateOne({_id: mongooseId}, {is_current: true})
             .then(() => res.status(201).send())
 
     } catch(e) {
@@ -99,7 +100,7 @@ module.exports.setCurrent = async(req, res) => {
  module.exports.getFestivalGames = async(req, res) => {
     const response=[]
     try {
-        const currentFestival = await FestivalsModel.findOne({is_current: true})
+        const currentFestival = await FestivalModel.findOne({is_current: true})
         const reservations = await ReservationModel
             .find({festival: currentFestival._id})
 
@@ -125,7 +126,7 @@ module.exports.setCurrent = async(req, res) => {
 
 module.exports.getCurrentFestival = async(req, res) => {
     try {
-        const currentFestival = await FestivalsModel
+        const currentFestival = await FestivalModel
             .findOne({is_current: true})
         res.status(200).json(currentFestival)
     } catch (error) {
