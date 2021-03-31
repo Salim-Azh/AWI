@@ -1,6 +1,9 @@
 const FestivalsModel = require("../models/festivals.model")
 const ReservationModel = require("../models/reservations.model")
+const GameModel = require("../models/games.model")
 const ObjectId = require('mongoose').Types.ObjectId
+const ZoneModel = require("../models/zones.model")
+const EditorModel = require("../models/editors.model")
 
 module.exports.getListOfFestivals = async(req,res) => {
     try {
@@ -86,6 +89,37 @@ module.exports.setCurrent = async(req, res) => {
     } catch(e) {
         console.log(e)
         res.status(400).send({e})
+    }
+}
+
+/**
+ * Returns a list of games where each 
+ * game is presented in the current festival
+ */
+ module.exports.getFestivalGames = async(req, res) => {
+    const response=[]
+    try {
+        const currentFestival = await FestivalsModel.findOne({is_current: true})
+        const reservations = await ReservationModel
+            .find({festival: currentFestival._id})
+
+        console.log(reservations)
+        const games=[]
+        for (let i = 0; i < reservations.length; i++) {
+            const g = reservations[i].games
+            for (let j = 0; j < g.length; j++) {
+                const game = await GameModel.findById(g[j]._id)
+                const zone = await ZoneModel.findById(game.zone)
+                const exhibitor = await EditorModel.findOne({games: g[j]._id})
+                games.push({game, zone, exhibitor})
+                
+            }
+        }
+        console.log(games)
+        res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({error})
     }
 }
 

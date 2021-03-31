@@ -29,7 +29,7 @@ router.put("/zones/:id", zoneController.updateZone)
 router.delete("/zones/:id", zoneController.deleteZone)*/
 
 
-//router.get("/games", festivalController.getFestivalGames)
+router.get("/games", festivalController.getFestivalGames)
 
 
 module.exports = router
