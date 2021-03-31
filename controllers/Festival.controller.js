@@ -1,4 +1,5 @@
 const FestivalsModel = require("../models/festivals.model")
+const ReservationModel = require("../models/reservations.model")
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports.getListOfFestivals = async(req,res) => {
@@ -85,5 +86,16 @@ module.exports.setCurrent = async(req, res) => {
     } catch(e) {
         console.log(e)
         res.status(400).send({e})
+    }
+}
+
+module.exports.getCurrentFestival = async(req, res) => {
+    try {
+        const currentFestival = await FestivalsModel
+            .findOne({is_current: true})
+        res.status(200).json(currentFestival)
+    } catch (error) {
+        console.log(e)
+        res.status(500).send({e})
     }
 }

@@ -10,6 +10,7 @@ router.post("/", festivalController.addFestival)
 router.put("/:id", festivalController.updateFestival)
 router.delete("/:id", festivalController.deleteFestival)
 
+router.get("/current", festivalController.getCurrentFestival)
 router.put("/:id/current", festivalController.setCurrent)
 
 router.get("/reservations", reservationController.getFestivalReservations)
@@ -26,5 +27,9 @@ router.post("/zones", zoneController.addZone)
 router.get("/zones/:id", zoneController.getZone)
 router.put("/zones/:id", zoneController.updateZone)
 router.delete("/zones/:id", zoneController.deleteZone)*/
+
+
+//router.get("/games", festivalController.getFestivalGames)
+
 
 module.exports = router
