@@ -75,7 +75,8 @@ class FilterableGamesTable extends Component {
                                 filters={[
                                     {english: "name", french: "nom"},
                                     {english: "category", french: "catégorie"},
-                                    {english: "editor", french: "éditeur"}
+                                    {english: "editor", french: "éditeur"},
+                                    {english: "zone", french: "zone"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
                             />

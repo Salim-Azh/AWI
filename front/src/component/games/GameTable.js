@@ -20,8 +20,10 @@ class GameTable extends Component {
         }
         else if(this.props.filter === "category") {
             rows = GameHandler.filterGamesByCategory(this.props.response, this.props.filterText.toLowerCase())
-        } else {
+        } else if(this.props.filter === "editor") {
             rows = GameHandler.filterGamesByEditor(this.props.response, this.props.filterText.toLowerCase())
+        } else if(this.props.filter === "zone") {
+            rows = GameHandler.filterGamesByZone(this.props.response, this.props.filterText.toLowerCase())
         }
         return (
             <Table striped bordered hover size={"sm"}>
@@ -32,6 +34,7 @@ class GameTable extends Component {
                     <th>Catégorie</th>
                     <th>Durée en minutes</th>
                     <th>Âge requis</th>
+                    <th>Zone</th>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>

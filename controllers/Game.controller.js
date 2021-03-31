@@ -1,6 +1,7 @@
 const GameModel = require("../models/games.model")
 const mongoose = require("mongoose")
 const EditorModel = require("../models/editors.model");
+const ReservationModel = require("../models/reservations.model")
 
 module.exports.getListOfGames = async(req,res) => {
     const response = []
@@ -9,13 +10,22 @@ module.exports.getListOfGames = async(req,res) => {
         const games = await GameModel.find()
         for(let i = 0; i < games.length; i++) {
             const editor = await EditorModel.findOne({games: games[i]._id}).select("name")
+            const gamesReservation = await ReservationModel.findOne({"games._id": games[i]._id}).select("games")
 
+            let j = 0
+            let zones = []
+            if(gamesReservation && gamesReservation.games[j]) {
+                zones = gamesReservation.games.filter(game => {
+                    return game._id.toString() === games[i]._id.toString()
+                })
+            }
             const res = {
                 _id: games[i]._id,
                 name: games[i].name,
                 category: games[i].category,
                 duration: games[i].duration,
                 min_yearold: games[i].min_yearold,
+                zone: zones.length>0? zones[0].zone: "Pas attribué",
                 editor: editor
             }
             response.push(res)

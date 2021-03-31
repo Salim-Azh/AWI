@@ -19,7 +19,8 @@ const gamesBooked = new mongoose.Schema(
             type: Boolean
         },
         zone: {
-            type: String
+            type: String,
+            trim: true
         },
         /*
         STATES CAN BE CALCULATED
@@ -98,7 +99,7 @@ const bookingSchema = new mongoose.Schema(
             required: false
         },
         talks: {
-            type: [Date]
+            type: [String]
         },
         negociated_price: {
             type: Number
@@ -117,6 +118,9 @@ const bookingSchema = new mongoose.Schema(
         },
         bill: {
             type: mongoose.Types.ObjectId
+        },
+        price: {
+            type: Number
         }
     },
     {

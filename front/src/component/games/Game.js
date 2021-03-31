@@ -8,6 +8,7 @@ function Game(props) {
             <td>{props.game.category}</td>
             <td>{props.game.duration}</td>
             <td>{props.game.min_yearold}</td>
+            <td>{props.game.zone}</td>
             <td><input type={"button"} onClick={props.deleteGame} name={props.game._id} value={"🗑"}/></td>
         </tr>
     )

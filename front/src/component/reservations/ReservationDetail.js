@@ -101,7 +101,8 @@ class ReservationDetail extends Component {
                 nb_sm_standard: res.reservation.nb_sm_standard,
                 nb_sm_low: res.reservation.nb_sm_low,
                 games: res.reservation.games,
-                talks: res.reservation.talks
+                talks: res.reservation.talks,
+                price: res.reservation.price
             }))
             .then(() => this.setState({calculatedPrice: this.calculatePrice()}))
     }
