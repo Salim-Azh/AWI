@@ -161,3 +161,15 @@ module.exports.getFestivalExposantEditor = async(req, res) => {
         res.status(500).send(error)
     }
 }
+
+module.exports.getFestivalZones = async(req, res) => {
+    try {
+        const currentFest = await FestivalModel
+            .findOne({is_current: true})
+        const zones = await ZoneModel.find({festival: currentFest._id})
+        res.status(200).send(zones)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+}

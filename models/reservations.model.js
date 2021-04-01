@@ -35,7 +35,9 @@ const gamesBooked = new mongoose.Schema(
                 "à renvoyer",//proto=true; received=true
                 "renvoyé",//received=true;bring_by_exhibitor=false;proto=true;returned=true
                 "à placer"
-            ]
+            ],
+            default: "en attente de réception",
+            required: true
         }
     }
 )
