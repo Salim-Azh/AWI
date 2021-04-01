@@ -10,6 +10,7 @@ const gamesRoutes = require("./routes/games.routes")
 const editorsRoutes = require("./routes/editor.routes")
 const festivalsRoutes = require("./routes/festivals.routes")
 const exhibitorsRoutes = require("./routes/exhibitors.routes")
+const zonesRoutes = require("./routes/zones.routes")
 
 const {checkUser, requireAuth} = require("./middleware/auth.middleware")
 
@@ -36,7 +37,7 @@ app.use("/api/games", gamesRoutes)
 app.use("/api/editors", editorsRoutes)
 app.use("/api/festivals", festivalsRoutes)
 app.use('/api/exhibitors', exhibitorsRoutes)
-
+app.use('/api/zones', zonesRoutes)
 // Serve front
 app.use(express.static(path.join(__dirname, 'front/build')));
 
