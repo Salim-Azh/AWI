@@ -98,13 +98,12 @@ module.exports.setCurrent = async(req, res) => {
  * game is presented in the current festival
  */
  module.exports.getFestivalGames = async(req, res) => {
-    const response=[]
     try {
         const currentFestival = await FestivalModel.findOne({is_current: true})
         const reservations = await ReservationModel
             .find({festival: currentFestival._id})
 
-        console.log(reservations)
+        //console.log(reservations)
         const games=[]
         for (let i = 0; i < reservations.length; i++) {
             const g = reservations[i].games
@@ -112,12 +111,13 @@ module.exports.setCurrent = async(req, res) => {
                 const game = await GameModel.findById(g[j]._id)
                 const zone = await ZoneModel.findById(game.zone)
                 const exhibitor = await EditorModel.findOne({games: g[j]._id})
-                games.push({game, zone, exhibitor})
-                
+                const proto = g[j].proto
+                console.log(proto)
+                games.push({game, zone, exhibitor, proto})
             }
         }
-        console.log(games)
-        res.status(200).json(response)
+        //console.log(games)
+        res.status(200).json(games)
     } catch (error) {
         console.log(error)
         res.status(500).send({error})
@@ -132,5 +132,23 @@ module.exports.getCurrentFestival = async(req, res) => {
     } catch (error) {
         console.log(e)
         res.status(500).send({e})
+    }
+}
+
+module.exports.getFestivalExposantEditor = async(req, res) => {
+   
+    try {
+        const currentFestival = await FestivalModel
+            .findOne({is_current: true})
+        const reservations = await ReservationModel
+            .find({festival: currentFestival._id})
+
+        for (let i = 0; i < reservations.length; i++) {
+            const element = reservations[i];
+            
+        }
+        const editors = await EditorModel.find()
+    } catch (error) {
+        
     }
 }
