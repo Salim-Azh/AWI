@@ -16,10 +16,3 @@ function Game(props) {
 }
 
 export default Game
-
-/*
-            <td>{props.zone}</td>
-            <td>{props.recieved}</td>
-            <td>{props.prototype}</td>
-
- */

@@ -14,7 +14,7 @@ class GameTable extends Component {
     }
 
     render() {
-        let rows
+        let rows = GameHandler.createGames(this.props.response)
         if(this.props.filter === "name") {
             rows = GameHandler.filterGamesByName(this.props.response, this.props.filterText.toLowerCase())
         }

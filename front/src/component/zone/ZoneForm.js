@@ -6,13 +6,12 @@ class ZoneForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: "",
-            capacity: ""
+            label: "",
+            sm_capacity: ""
         }
 
         this.submit = this.submit.bind(this)
         this.handleChange = this.handleChange.bind(this)
-        this.handleEditorChange = this.handleEditorChange.bind(this)
     }
 
     handleChange(event) {
@@ -25,22 +24,9 @@ class ZoneForm extends Component {
         })
     }
 
-    handleEditorChange(event) {
-        const target = event.target;
-        const value = target.value;
-
-        this.state.editor = {
-            _id: value.split(',')[0],
-            name: value.split(',')[1]
-        }
-        this.setState({
-            editor: this.state.editor
-        })
-    }
-
     formIsUnchanged() {
         return (
-            this.state.name === "" ||
+            this.state.label === "" ||
             this.state.capacity === ""
         )
     }
@@ -51,8 +37,8 @@ class ZoneForm extends Component {
         }
         this.props.handleClick(this.state)
         this.setState({
-            name: "",
-            capacity: ""
+            label: "",
+            sm_capacity: ""
         })
     }
 
@@ -61,19 +47,18 @@ class ZoneForm extends Component {
             <Form>
                 <FormGroup>
                     <Form.Label>Nom de zone</Form.Label>
-                    <FormControl as={"input"} onChange={this.handleEditorChange}>
-                        <FormControl as={"input"} name="name" type="text" value={this.state.name} placeholder="Nom de la zone"
-                                     onChange={this.handleChange}/>
-                    </FormControl>
+                    <FormControl as={"input"} name="label" type="text" value={this.state.label} placeholder="Nom de la zone"
+                                 onChange={this.handleChange}/>
+
                 </FormGroup>
 
                 <FormGroup>
                     <Form.Label>Capacité</Form.Label>
-                    <FormControl as={"input"} name="capacity" type="number" value={this.state.capacity} placeholder="Capacité"
+                    <FormControl as={"input"} name="sm_capacity" type="number" value={this.state.sm_capacity} placeholder="Capacité"
                                  onChange={this.handleChange}/>
                 </FormGroup>
 
-                <Button onClick={this.submit} variant={"link"}>Ajouter à l'éditeur</Button>
+                <Button onClick={this.submit} variant={"link"}>Ajouter</Button>
             </Form>
         )
     }

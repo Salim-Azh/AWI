@@ -2,7 +2,7 @@ import Zone from "./Zone";
 const apiUrl = require("../../public/urlApi")
 
 export function getZonesFromDB() {
-    return fetch(apiUrl.Zones)
+    return fetch(apiUrl.Festivals + "/zones")
         .then(r => r.json())
         .then((response) => {
             return response
@@ -29,7 +29,7 @@ export function createZone(zone) {
     return (
         <Zone
             key={zone._id}
-            Zone={zone}
+            zone={zone}
             editor={zone.editor}
             deleteZone={deleteZone}
         />
@@ -40,7 +40,7 @@ export function filterZonesByName(zones, filterText) {
     let rows = []
     if(zones) {
         zones.map(zone => {
-            if (zone && (zone.name.toLowerCase().includes(filterText))) {
+            if (zone && (zone.label.toLowerCase().includes(filterText))) {
                 rows.push(createZone(zone))
             }
         })

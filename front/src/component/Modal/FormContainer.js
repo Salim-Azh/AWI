@@ -6,8 +6,8 @@ import GameForm from "../games/GameForm";
 import FestivalForm from "../festivals/FestivalForm";
 import ReservationForm from "../reservations/ReservationForm";
 import GamesBookedForm from "../reservations/gamesBooked/GamesBookedForm";
-import GamesBookedTable from "../reservations/gamesBooked/GamesBookedTable";
 import ZoneForm from "../zone/ZoneForm";
+import GameZoneForm from "../zone/GameZoneForm";
 
 const {useState} = require("react");
 
@@ -41,6 +41,10 @@ function FormContainer(props) {
         />
     } else if(props.component === "ZoneForm") {
         form = <ZoneForm
+            handleClick={props.handleClick}
+        />
+    } else if(props.component === "GameZoneForm") {
+        form = <GameZoneForm
             handleClick={props.handleClick}
         />
     }

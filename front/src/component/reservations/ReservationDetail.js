@@ -8,6 +8,7 @@ import GamesBookedForm from "./gamesBooked/GamesBookedForm";
 
 const ReservationHandler = require('./ReservationHandler')
 const EditorHandler = require('../editor/EditorHandler')
+const ZoneHandler = require("../zone/ZonesHandler")
 
 class ReservationDetail extends Component {
     constructor(props) {
@@ -48,7 +49,8 @@ class ReservationDetail extends Component {
             games: [],
             talks: [],
             calculatedPrice: "",
-            price: ""
+            price: "",
+            zones: ""
         }
         this.handleChange = this.handleChange.bind(this)
         this.submit = this.submit.bind(this)
@@ -105,6 +107,8 @@ class ReservationDetail extends Component {
                 price: res.reservation.price
             }))
             .then(() => this.setState({calculatedPrice: this.calculatePrice()}))
+        ZoneHandler.getZonesFromDB()
+            .then(res => this.setState({zones: res}))
     }
 
     calculatePrice() {
@@ -196,6 +200,18 @@ class ReservationDetail extends Component {
         this.setState({talks: talks})
     }
 
+    handleZonesChange(event) {
+        const target = event.target
+        const value = target.value
+        const index = target.name;
+        console.log("zone", value, index)
+
+        let zones = this.state.talks
+        zones[index] = value
+
+        this.setState({zones: zones})
+    }
+
     handleAddGame(game) {
         this.state.games.push(game)
         const gameName = game.name
@@ -282,7 +298,6 @@ class ReservationDetail extends Component {
                 </>
             )
         })
-        // TODO liste déroulante pour contact
 
         const talks = this.state.talks.map((talk, index) =>
             <>
@@ -422,6 +437,8 @@ class ReservationDetail extends Component {
                                     games={this.state.games}
                                     handleDelete={this.handleDeleteGame}
                                     handleChange={this.handleGameChange}
+                                    handleZoneChange={this.handleZonesChange}
+                                    zones={this.state.zones}
                                 />
                             </Card.Body>
                         </Card>

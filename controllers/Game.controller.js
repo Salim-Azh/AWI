@@ -46,8 +46,12 @@ module.exports.getGame = async(req,res) => {
         const editor = await EditorModel.findOne({games: idGame}).select("name")
 
         const response = {
-            game,
-            editor
+            _id: game._id,
+            name: game.name,
+            category: game.category,
+            duration: game.duration,
+            min_yearold: game.min_yearold,
+            editor: editor
         }
 
         res.status(201).json(response)

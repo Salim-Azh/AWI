@@ -13,7 +13,7 @@ class FilterableZonesTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            zones: "",
+            zones: [],
             filterText: "",
             filterEnglish: "name",
             filterFrench: "nom"
@@ -21,6 +21,13 @@ class FilterableZonesTable extends Component {
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
+        this.handleAddZone = this.handleAddZone.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+    }
+
+    componentDidMount() {
+        ZoneHandler.getZonesFromDB()
+            .then(zones => this.setState({zones: zones}))
     }
 
     handleFilterTextChange(filterText) {
@@ -39,15 +46,14 @@ class FilterableZonesTable extends Component {
     handleAddZone(zone) {
         ZoneHandler.addZones(zone)
             .then(response => response.json())
-            .then(res => res.response)
             .then(res => this.state.zones.push(res))
             .then(() => this.setState({zones: this.state.zones}))
     }
 
-    handleDelete(reservationId) {
+    handleDelete(zoneId) {
         this.setState({
-            reservations: this.state.reservations.filter((reservation) => {
-                return reservation.reservation._id !== reservationId
+            zones: this.state.zones.filter(zone => {
+                return zone._id !== zoneId
             })
         })
     }
@@ -83,7 +89,7 @@ class FilterableZonesTable extends Component {
                         handleClick={this.handleAddZone}/>
                 </Card>
                 <ZoneTable
-                    response={this.props.zones}
+                    response={this.state.zones}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />

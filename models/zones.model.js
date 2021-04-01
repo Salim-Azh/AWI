@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const game = new mongoose.Schema(
     {
-        reservation:{ 
+        reservation:{
             type: String
         },
         game:{

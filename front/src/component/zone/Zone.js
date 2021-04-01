@@ -2,9 +2,10 @@ import {Nav} from "react-bootstrap"
 
 function Zone(props) {
     return (
-        <tr id={props._id}>
-            <td><Nav.Link href={"/nav/zone/" + props.game._id}>{props.game.name}</Nav.Link></td>
-            <td><input type={"button"} onClick={props.deleteGame} name={props.game._id} value={"🗑"}/></td>
+        <tr id={props.zone._id}>
+            <td><Nav.Link href={"/nav/zone/" + props.zone._id}>{props.zone.label}</Nav.Link></td>
+            <td>{props.zone.sm_capacity}</td>
+            <td><input type={"button"} onClick={props.deleteZone} name={props.zone._id} value={"🗑"}/></td>
         </tr>
     )
 }

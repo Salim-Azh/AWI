@@ -23,7 +23,8 @@ class ZoneTable extends Component {
                 <thead>
                 <tr>
                     <th>Nom de la zone</th>
-                    <th>Capacité</th>
+                    <th>Capacité en m²</th>
+                    <th/>
                 </tr>
                 </thead>
                 <tbody>{rows}</tbody>

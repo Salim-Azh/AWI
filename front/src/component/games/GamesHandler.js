@@ -38,15 +38,27 @@ export function getFestivalGames() {
         })
 }
 
-export function createGame(game) {
-    return (
-        <Game
-            key={game._id}
-            game={game}
-            editor={game.editor}
-            deleteGame={deleteGame}
-        />
-    )
+export function createGame(game, fromZone) {
+    if(fromZone) {
+        return (
+            <Game
+                key={game._id}
+                game={game}
+                editor={game.editor}
+                deleteGame={_handleDelete}
+            />
+        )
+    }
+    else {
+        return (
+            <Game
+                key={game._id}
+                game={game}
+                editor={game.editor}
+                deleteGame={deleteGame}
+            />
+        )
+    }
 }
 
 export function createGameFromEditor(game) {
@@ -57,6 +69,18 @@ export function createGameFromEditor(game) {
             deleteGame={deleteGame}
         />
     )
+}
+
+export function createGames(games) {
+    let rows = []
+    if(games) {
+        games.map(game => {
+            if (game) {
+                rows.push(createGame(game, true))
+            }
+        })
+        return rows
+    }
 }
 
 export function filterGamesByName(games, filterText) {

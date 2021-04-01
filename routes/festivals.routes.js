@@ -4,7 +4,6 @@ const router = express.Router()
 // Controllers
 const festivalController = require("../controllers/Festival.controller")
 const reservationController = require("../controllers/Reservation.controller")
-const zoneController = require("../controllers/zone.controller")
 
 router.get("/", festivalController.getListOfFestivals)
 router.post("/", festivalController.addFestival)
@@ -22,7 +21,7 @@ router.get("/reservations/:id", reservationController.getReservation)
 router.put("/reservations/:id", reservationController.updateReservation)
 router.delete("/reservations/:id", reservationController.deleteReservation)
 
-//router.get("/zones", festivalController.getFestivalZones)
+router.get("/zones", festivalController.getFestivalZones)
 router.get("/games", festivalController.getFestivalGames)
 
 router.get("/editors", festivalController.getFestivalExposantEditor)
