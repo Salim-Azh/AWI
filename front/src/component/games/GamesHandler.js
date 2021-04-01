@@ -83,6 +83,18 @@ export function filterGamesByZone(games, filterText) {
     }
 }
 
+export function filterGamesByState(games, filterText) {
+    let rows = []
+    if(games) {
+        games.map(game => {
+            if (game && (game.state.toLowerCase().includes(filterText))) {
+                rows.push(createGame(game))
+            }
+        })
+        return rows
+    }
+}
+
 export function filterGamesByEditor(games, filterText) {
     let rows = []
     if(games) {

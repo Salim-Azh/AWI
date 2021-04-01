@@ -15,7 +15,7 @@ class Exhibitor extends Component {
                 _id: event.target.name.split(",")[0],
                 name: event.target.name.split(",")[1]
             }
-        }, true)
+        })
     }
 
     render() {

@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 
 
-import FilteredGamesTable from "./component/games/FilteredGamesTable"
 import FormSignIn from "./component/signIn/FormSignIn"
 import FilteredFestivalsTable from "./component/festivals/FilteredFestivalsTable"
 import FilteredBillsTable from "./component/bills/FilteredBillsTable"
@@ -20,6 +19,7 @@ import TabsReservations from "./component/reservations/TabsReservations";
 import EditorDetail from "./component/editor/EditorDetail";
 import GameDetail from "./component/games/GameDetail";
 import ReservationDetail from "./component/reservations/ReservationDetail";
+import TabsGames from "./component/games/TabsGames";
 
 function App() {
   return (
@@ -62,7 +62,7 @@ function App() {
             </Route>
 
             <Route path="/nav/jeux">
-              <FilteredGamesTable/>
+              <TabsGames/>
             </Route>
 
             <Route path="/nav/jeu/:id">

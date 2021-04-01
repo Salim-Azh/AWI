@@ -45,7 +45,6 @@ class ReservationTable extends Component {
                     <th>CR envoyé ?</th>
                     <th>table</th>
                     <th>m²</th>
-                    <th>Facture</th>
                     <th>Total</th>
                     <th/>
                 </tr>

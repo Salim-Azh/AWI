@@ -21,7 +21,7 @@ function createExhibitor(exhibitor) {
             _id={exhibitor._id}
             name={exhibitor.name}
             contacts={exhibitor.contacts}
-            addReservation={ReservationHandler.addReservation}
+            addReservation={ReservationHandler._addHandler}
         />
     )
 }

@@ -13,6 +13,8 @@ class EditorTable extends Component {
             rows: []
         }
     }
+
+    // TODO faire état de la résa
     render() {
         let rows
 
@@ -31,6 +33,7 @@ class EditorTable extends Component {
                 <thead>
                 <tr>
                     <th>Nom</th>
+                    <th>Etat de réservation</th>
                     <th>Contact</th>
                     <th>Editeur</th>
                     <th>Exposant</th>

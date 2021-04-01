@@ -6,14 +6,11 @@ import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import FormContainer from "../Modal/FormContainer"
 
-const GameHandler = require("./GamesHandler")
-
 // TODO faire un tabs comme editeur pour tous les jeux ou les jeux du festival courant
 class FilterableGamesTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            games: "",
             filterText: "",
             filterEnglish: "name",
             filterFrench: "nom"
@@ -21,18 +18,6 @@ class FilterableGamesTable extends Component {
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
-        this.handleAddGames = this.handleAddGames.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-    }
-
-    componentDidMount() {
-        GameHandler.getGamesFromDB()
-            .then(games => {
-                this.setState({
-                    games: games
-                })
-            })
-        GameHandler.setHandleDelete(this.handleDelete)
     }
 
     handleFilterTextChange(filterText) {
@@ -48,22 +33,7 @@ class FilterableGamesTable extends Component {
         })
     }
 
-    handleAddGames(game) {
-        GameHandler.addGames(game)
-            .then(response => response.json())
-            .then(response => game._id = response.gameId)
-            .then(() => this.state.games.push(game))
-            .then(() => this.setState({games: this.state.games}))
-    }
-
-    handleDelete(gameId) {
-        this.setState({
-            games: this.state.games.filter(game => {
-                return game._id !== gameId
-            })
-        })
-    }
-
+    // TODO faire état du jeu de la résa
     render() {
         return (
             <div>
@@ -74,8 +44,9 @@ class FilterableGamesTable extends Component {
                             <Filter
                                 filters={[
                                     {english: "name", french: "nom"},
-                                    {english: "category", french: "catégorie"},
                                     {english: "editor", french: "éditeur"},
+                                    {english: "state", french: "état"},
+                                    {english: "category", french: "catégorie"},
                                     {english: "zone", french: "zone"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
@@ -98,7 +69,7 @@ class FilterableGamesTable extends Component {
                         handleClick={this.handleAddGames}/>
                 </Card>
                 <GameTable
-                    response={this.state.games}
+                    response={this.props.games}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />

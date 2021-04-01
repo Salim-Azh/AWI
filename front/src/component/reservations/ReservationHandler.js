@@ -112,20 +112,16 @@ export function mapCreateReservation(reservations) {
     return reservations.map(reservation => createReservation(reservation))
 }
 
-let _addHandler
+export let _addHandler
 export function setAddHandler(handler) {
     _addHandler = handler
 }
 
-export function addReservation(reservation, doUpdate) {
+export function addReservation(reservation) {
     const param = {
         headers: {'Content-Type': 'application/json'},
         method: "POST",
         body: JSON.stringify(reservation)
-    }
-    if(doUpdate) {
-        return fetch(apiUrl.Reservations, param)
-            .then(() => _addHandler(reservation))
     }
     return fetch(apiUrl.Reservations, param)
 }
