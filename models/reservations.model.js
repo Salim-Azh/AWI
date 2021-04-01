@@ -20,7 +20,8 @@ const gamesBooked = new mongoose.Schema(
         },
         zone: {
             type: String,
-            trim: true
+            trim: true,
+            default: "Non assigné"
         },
         /*
         STATES CAN BE CALCULATED
