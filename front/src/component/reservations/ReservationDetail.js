@@ -8,7 +8,6 @@ import GamesBookedForm from "./gamesBooked/GamesBookedForm";
 
 const ReservationHandler = require('./ReservationHandler')
 const EditorHandler = require('../editor/EditorHandler')
-const ZoneHandler = require("../zone/ZonesHandler")
 
 class ReservationDetail extends Component {
     constructor(props) {
@@ -49,8 +48,7 @@ class ReservationDetail extends Component {
             games: [],
             talks: [],
             calculatedPrice: "",
-            price: "",
-            zones: ""
+            price: ""
         }
         this.handleChange = this.handleChange.bind(this)
         this.submit = this.submit.bind(this)
@@ -107,8 +105,6 @@ class ReservationDetail extends Component {
                 price: res.reservation.price
             }))
             .then(() => this.setState({calculatedPrice: this.calculatePrice()}))
-        ZoneHandler.getZonesFromDB()
-            .then(res => this.setState({zones: res}))
     }
 
     calculatePrice() {
@@ -198,18 +194,6 @@ class ReservationDetail extends Component {
         talks[index] = value
 
         this.setState({talks: talks})
-    }
-
-    handleZonesChange(event) {
-        const target = event.target
-        const value = target.value
-        const index = target.name;
-        console.log("zone", value, index)
-
-        let zones = this.state.talks
-        zones[index] = value
-
-        this.setState({zones: zones})
     }
 
     handleAddGame(game) {
@@ -438,7 +422,6 @@ class ReservationDetail extends Component {
                                     handleDelete={this.handleDeleteGame}
                                     handleChange={this.handleGameChange}
                                     handleZoneChange={this.handleZonesChange}
-                                    zones={this.state.zones}
                                 />
                             </Card.Body>
                         </Card>

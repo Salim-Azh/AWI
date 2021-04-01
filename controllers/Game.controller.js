@@ -38,11 +38,10 @@ module.exports.getListOfGames = async(req,res) => {
 }
 
 module.exports.getGame = async(req,res) => {
-    const idGame = req.url.split("/")[1]
-    const mongooseId = mongoose.Types.ObjectId(idGame)
+    const idGame = req.params.id
 
     try {
-        const game = await GameModel.findOne({_id: mongooseId})
+        const game = await GameModel.findOne({_id: idGame})
         const editor = await EditorModel.findOne({games: idGame}).select("name")
 
         const response = {

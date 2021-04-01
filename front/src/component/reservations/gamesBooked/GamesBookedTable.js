@@ -6,11 +6,10 @@ function GameBookedTable(props){
         <GamesBooked
             handleDelete={props.handleDelete}
             handleChange={props.handleChange}
-            handleZoneChange={props.handleZoneChange}
-            zones={props.zones}
             game={game}
         />
     )
+
     return (
         <Table striped bordered hover size={"sm"}>
             <thead>

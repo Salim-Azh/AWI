@@ -36,6 +36,7 @@ module.exports.addZone = async(req,res) => {
 }
 
 module.exports.updateZone = async(req,res) => {
+    console.log(req.body.games)
     try {
         ZoneModel.updateOne({_id: req.params.id}, req.body)
             .then(() => res.status(201).send("success"))

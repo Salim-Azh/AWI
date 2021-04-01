@@ -12,18 +12,7 @@ function GamesBooked(props) {
     const optionsState = options.map(option =>
         <option id={props.game._id} key={option} name={"state"} value={option}>{option}</option>
     )
-    console.log("map zone", props.zones)
-/*
-    const zones = props.zones.map((zone, index) =>
-        <>
-            <FormControl
-                as={"input"} type={"text"} value={zone} key={zone}
-                onChange={props.handleZonesChange} name={index}/>
-        </>
-    )
 
-
- */
     return (
         <tr id={props.game._id}>
             <td>{props.game.name}</td>
@@ -46,10 +35,11 @@ function GamesBooked(props) {
             </td>
             <td>
                 <FormControl
-                    as={"select"}
-                    onChange={props.handleZoneChange}
-                >
-                </FormControl>
+                    as={"input"}
+                    name={"zone"}
+                    value={props.zone}
+                    onChange={props.handleChange}
+                />
             </td>
             <td>
                 <Form.Check

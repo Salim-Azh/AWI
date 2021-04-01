@@ -9,12 +9,7 @@ class GamesBookedForm extends Component {
         super(props)
 
         this.state = {
-            _id: props.reservationId,
-            editor: {
-                _id: "",
-                name: "",
-                games: []
-            },
+            _id: "",
             gameSelected: {
                 _id: "", name: "",
                 editor: {
@@ -43,14 +38,14 @@ class GamesBookedForm extends Component {
                 EditorHandler.getGamesFromEditor(this.state.editors[0]._id)
                     .then(games => this.state.editors[0].games = games)
                     .then(() => this.setState({editors: this.state.editors}))
-                    .then(() => this.setState({editor: this.state.editors[0]}))
-                    .then(() => this.state.editor.games = this.state.editors[0].games)
-                    .then(() => this.setState({editor: this.state.editor}))
                     .then(() => this.setState({
                         gameSelected: {
                             _id: this.state.editors[0].games[0]._id,
                             name: this.state.editors[0].games[0].name,
-                            editor: this.state.editor
+                            category: this.state.editors[0].games[0].category,
+                            duration: this.state.editors[0].games[0].duration,
+                            min_yearold: this.state.editors[0].games[0].min_yearold,
+                            editor: this.state.editors[0]
                         }
                     }))
             )
@@ -80,6 +75,9 @@ class GamesBookedForm extends Component {
                 EditorHandler.getGamesFromEditor(value)
                     .then(games => editor[0].games = games)
                     .then(() => this.setState({editor: editor[0]}))
+                    .then(() => this.state.gameSelected = editor[0].games[0])
+                    .then(() => this.state.gameSelected.editor = editor[0])
+                    .then(() => this.setState({gameSelected: this.state.gameSelected}))
             }
         )
     }
@@ -87,13 +85,12 @@ class GamesBookedForm extends Component {
     handleGameChange(event) {
         const target = event.target;
         const value = target.value;
+        const game = this.state.editor.games.filter(game => {
+            return game._id === value
+        })
+        game[0].editor = this.state.editor
 
-        this.setState({
-            gameSelected: {
-                _id: value.split(',')[0],
-                name: value.split(',')[1],
-                editor: this.state.editor
-            }})
+        this.setState({gameSelected: game[0]}, () => console.log("state", this.state.gameSelected))
     }
 
     submit() {
@@ -106,9 +103,9 @@ class GamesBookedForm extends Component {
                 {editor.name}</option>
         )
 
-        const editorGamesDefined = this.state.editor.games? this.state.editor.games: []
+        const editorGamesDefined = this.state.gameSelected.editor.games? this.state.gameSelected.editor.games: []
         const editorGames = editorGamesDefined.map(game =>
-            <option value={game._id + "," + game.name}>{game.name}</option>
+            <option value={game._id}>{game.name}</option>
         )
         let form
         form = (

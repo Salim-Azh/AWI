@@ -32,17 +32,16 @@ class ZoneDetail extends Component {
                 gamesId: res.games
             }))
             .then(() => this.state.gamesId.map(game =>
-                GameHandler.getGameFromDB(game._id)
+                GameHandler.getGameFromDB(game.game)
                 .then(res => this.state.games.push(res))
-                .then(() =>this.setState({games: this.state.games})))
+                .then(() => this.setState({games: this.state.games})))
             )
         GameHandler.setHandleDelete(this.handleDeleteGame)
     }
 
     handleAddGame(game) {
         this.state.games.push(game)
-        ZonesHandler.updateZone(this.state)
-            .then(() => this.setState({games: this.state.games}))
+        this.setState({games: this.state.games})
     }
 
     handleDeleteGame(event) {
@@ -64,9 +63,12 @@ class ZoneDetail extends Component {
     }
 
     submit() {
+        this.state.gamesId = undefined
+        this.state.games = this.state.games.map(game => {
+            return {game: game._id}
+        })
         ZonesHandler.updateZone(this.state)
             .then(() => this.setState({redirect: "/nav/zones"}))
-        // TODO update résa games: [{idRésa: ... game: }]
     }
 
     render() {

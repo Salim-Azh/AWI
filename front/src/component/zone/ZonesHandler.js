@@ -70,6 +70,7 @@ export function deleteZone(event) {
 }
 
 export function updateZone(zone) {
+    console.log("zone", zone)
     const param = {
         headers: {'Content-Type': 'application/json'},
         method: "PUT",
