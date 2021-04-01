@@ -6,6 +6,13 @@ const schema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true
+        },
+        sm_capacity: {
+            type: Number,
+            minimum: 0
+        },
+        games:{
+            type: [String]
         }
     }
 )

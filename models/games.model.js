@@ -23,8 +23,7 @@ const schema = new mongoose.Schema(
             min: 0
         },
         zone: {
-            type: String,
-            required: false
+            type: mongoose.Types.ObjectId
         }
     }
 )

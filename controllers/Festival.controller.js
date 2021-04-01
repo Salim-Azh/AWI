@@ -1,9 +1,14 @@
-const FestivalsModel = require("../models/festivals.model")
+const FestivalModel = require("../models/festivals.model")
+const ReservationModel = require("../models/reservations.model")
+const GameModel = require("../models/games.model")
+const ZoneModel = require("../models/zones.model")
+const EditorModel = require("../models/editors.model")
+
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports.getListOfFestivals = async(req,res) => {
     try {
-        const festivals = await FestivalsModel.find()
+        const festivals = await FestivalModel.find()
         res.status(201).json({festivals: festivals})
     } catch (error) {
         res.status(400).send({error})
@@ -20,7 +25,7 @@ module.exports.addFestival = async(req, res) => {
 
     try {
 
-        const festival = await FestivalsModel.create({
+        const festival = await FestivalModel.create({
             _id: ObjectId(),
             name: name,
             year: year,
@@ -50,7 +55,7 @@ module.exports.deleteFestival = async(req, res) => {
     const mongooseId = ObjectId(idFestival)
 
     try {
-        FestivalsModel.deleteOne({_id: mongooseId})
+        FestivalModel.deleteOne({_id: mongooseId})
             .then(() => res.status(201).send())
 
     } catch(e) {
@@ -64,7 +69,7 @@ module.exports.updateFestival = async(req, res) => {
     const mongooseId = ObjectId(idFestival)
 
     try {
-        FestivalsModel.updateOne({_id: mongooseId}, req.body)
+        FestivalModel.updateOne({_id: mongooseId}, req.body)
             .then(() => res.status(201).send())
 
     } catch(e) {
@@ -78,12 +83,81 @@ module.exports.setCurrent = async(req, res) => {
     const mongooseId = ObjectId(idFestival)
 
     try {
-        await FestivalsModel.updateOne({is_current: true}, {is_current: false})
-        FestivalsModel.updateOne({_id: mongooseId}, {is_current: true})
+        await FestivalModel.updateOne({is_current: true}, {is_current: false})
+        FestivalModel.updateOne({_id: mongooseId}, {is_current: true})
             .then(() => res.status(201).send())
 
     } catch(e) {
         console.log(e)
         res.status(400).send({e})
+    }
+}
+
+/**
+ * Returns a list of games where each 
+ * game is presented in the current festival
+ */
+ module.exports.getFestivalGames = async(req, res) => {
+    try {
+        const currentFestival = await FestivalModel.findOne({is_current: true})
+        const reservations = await ReservationModel
+            .find({festival: currentFestival._id})
+
+        //console.log(reservations)
+        let games=[]
+        for (let i = 0; i < reservations.length; i++) {
+            const g = reservations[i].games
+            for (let j = 0; j < g.length; j++) {
+                const game = await GameModel.findById(g[j]._id)
+                const zone = await ZoneModel.findById(game.zone)
+                const exhibitor = await EditorModel.findOne({games: g[j]._id})
+                const proto = g[j].proto
+                games.push({game, zone, exhibitor, proto})
+            }
+        }
+        //console.log(games)
+        res.status(200).json(games)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({error})
+    }
+}
+
+module.exports.getCurrentFestival = async(req, res) => {
+    try {
+        const currentFestival = await FestivalModel
+            .findOne({is_current: true})
+        res.status(200).json(currentFestival)
+    } catch (error) {
+        console.log(e)
+        res.status(500).send({e})
+    }
+}
+
+module.exports.getFestivalExposantEditor = async(req, res) => {
+   
+    try {
+        const currentFestival = await FestivalModel
+            .findOne({is_current: true})
+        const reservations = await ReservationModel
+            .find({festival: currentFestival._id})
+
+        let editors=[]
+
+        for (let i = 0; i < reservations.length; i++) {
+            const g = reservations[i].games
+            for (let j = 0; j < g.length; j++) {
+                const game = await GameModel.findById(g[j]._id)
+                const editor = await EditorModel.findOne({games: game._id})
+                if (!editors.includes('editor')) {
+                    editors.push(editor)
+                }
+            }
+        }
+        res.status(200).send(editors)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
     }
 }

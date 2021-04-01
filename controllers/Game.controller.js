@@ -30,7 +30,7 @@ module.exports.getListOfGames = async(req,res) => {
             }
             response.push(res)
         }
-        res.status(201).json(response)
+        res.status(200).json(response)
     } catch (error) {
         console.log(error)
         res.status(400).send({error})
