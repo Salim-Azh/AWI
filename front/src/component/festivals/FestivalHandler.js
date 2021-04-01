@@ -6,7 +6,7 @@ export function getFestivalsFromDB() {
     return fetch(apiUrl.Festivals)
         .then(r => r.json())
         .then((response) => {
-            return response.festivals
+            return response
         })
         .catch(e => {
             console.log(e.stack)
@@ -17,7 +17,7 @@ export function getFestivalsFromDB() {
 
 function createFestival(festival) {
     let color
-    if(festival.is_current) {color = "success"}
+    if(festival.f.is_current) {color = "success"}
     else {color = "secondary"}
 
     return (
@@ -38,7 +38,7 @@ export function filterFestivalByName(festivals, filterText) {
     let rows = []
     if(festivals) {
         festivals.map(festival => {
-            if (festival && (festival.name.toLowerCase().includes(filterText))) {
+            if (festival && (festival.f.name.toLowerCase().includes(filterText))) {
                 rows.push(createFestival(festival))
             }
         })
@@ -50,7 +50,7 @@ export function filterFestivalByYear(festivals, filterText) {
     let rows = []
     if(festivals) {
         festivals.map(festival => {
-            if (festival && (festival.year.toString().includes(filterText))) {
+            if (festival && (festival.f.year.toString().includes(filterText))) {
                 rows.push(createFestival(festival))
             }
         })

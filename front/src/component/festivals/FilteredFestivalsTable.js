@@ -52,15 +52,15 @@ class FilterableFestivalsTable extends Component {
     handleAddFestival(festival) {
         FestivalHandler.addFestival(festival)
             .then(response => response.json())
-            .then(response => festival._id = response.festivalId)
-            .then(() => this.state.festivals.push(festival))
+            .then(response => festival._id = response._id)
+            .then(() => this.state.festivals.push({f: festival}))
             .then(() => this.setState({festivals: this.state.festivals}))
     }
 
     handleDelete(festivalId) {
         this.setState({
             festivals: this.state.festivals.filter(festival => {
-                return festival._id !== festivalId
+                return festival.f._id !== festivalId
             })
         })
     }
@@ -68,17 +68,17 @@ class FilterableFestivalsTable extends Component {
     handleUpdate(festivalId, checked) {
         // UnCheck current to passive
         const festivalChecked = this.state.festivals.filter(festival => {
-            return festival._id !== festivalId
+            return festival.f._id !== festivalId
         })
         festivalChecked.map(festival =>
-            festival.is_current = false
+            festival.f.is_current = false
         )
 
         // Check to current
         const festival = this.state.festivals.filter(festival => {
-            return festival._id === festivalId
+            return festival.f._id === festivalId
         })
-        festival[0].is_current = checked
+        festival[0].f.is_current = checked
 
         this.setState({festivals: this.state.festivals})
     }

@@ -115,6 +115,18 @@ class GameForm extends Component {
                 <option key={editor._id} value={editor._id + "," + editor.name}>{editor.name}</option>
             )
         }
+        const optionsCategory = [
+            "Famille",
+            "Ambiance",
+            "Expert",
+            "Enfant",
+            "Classiqe",
+            "Famille+"
+        ]
+
+        const category = optionsCategory.map(cat =>
+            <option value={cat}>{cat}</option>
+        )
         return (
             <Form>
                 <FormGroup>
@@ -141,9 +153,7 @@ class GameForm extends Component {
                     <Form.Label>Catégorie</Form.Label>
                     <FormControl as={"select"} name="category" onChange={this.handleChange}>
                         <option value="">---</option>
-                        <option value="enfant">enfant</option>
-                        <option value="ambiance">ambiance</option>
-                        <option value="famille">famille</option>
+                        {category}
                     </FormControl>
                 </FormGroup>
 

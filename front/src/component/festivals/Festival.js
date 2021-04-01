@@ -7,27 +7,26 @@ class Festival extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            _id: props.festival._id,
-            nb_t_premium: props.festival.nb_t_premium,
-            nb_t_standard: props.festival.nb_t_standard,
-            nb_t_low: props.festival.nb_t_low,
-            nb_sm_premium: props.festival.nb_sm_premium,
-            nb_sm_standard: props.festival.nb_sm_standard,
-            nb_sm_low: props.festival.nb_sm_low,
-            premium_t_price: props.festival.premium_t_price,
-            standard_t_price: props.festival.standard_t_price,
-            low_t_price: props.festival.low_t_price,
-            premium_sm_price: props.festival.premium_sm_price,
-            standard_sm_price: props.festival.standard_sm_price,
-            low_sm_price: props.festival.low_sm_price,
-            is_current: props.festival.is_current,
-            premium_remaining_t: "",
-            standard_remaining_t: "",
-            low_remaining_t: "",
-            premium_remaining_sm: "",
-            standard_remaining_sm: "",
-            low_remaining_sm: "",
-
+            _id: props.festival.f._id,
+            nb_t_premium: props.festival.f.nb_t_premium,
+            nb_t_standard: props.festival.f.nb_t_standard,
+            nb_t_low: props.festival.f.nb_t_low,
+            nb_sm_premium: props.festival.f.nb_sm_premium,
+            nb_sm_standard: props.festival.f.nb_sm_standard,
+            nb_sm_low: props.festival.f.nb_sm_low,
+            premium_t_price: props.festival.f.premium_t_price,
+            standard_t_price: props.festival.f.standard_t_price,
+            low_t_price: props.festival.f.low_t_price,
+            premium_sm_price: props.festival.f.premium_sm_price,
+            standard_sm_price: props.festival.f.standard_sm_price,
+            low_sm_price: props.festival.f.low_sm_price,
+            is_current: props.festival.f.is_current,
+            nb_rt_premium: props.festival.nb_rt_premium,
+            nb_rt_standard: props.festival.nb_rt_standard,
+            nb_rt_low: props.festival.nb_rt_low,
+            nb_rsm_premium: props.festival.nb_rsm_premium,
+            nb_rsm_standard: props.festival.nb_rsm_standard,
+            nb_rsm_low: props.festival.nb_rsm_low,
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -66,7 +65,7 @@ class Festival extends Component {
             <>
                 <Card.Body>
                     <Card.Header>
-                        <Card.Title>{this.props.festival.name} - {this.props.festival.year}</Card.Title>
+                        <Card.Title>{this.props.festival.f.name} - {this.props.festival.f.year}</Card.Title>
                     </Card.Header>
                     <Card.Text>
                         <Table>
@@ -96,21 +95,25 @@ class Festival extends Component {
                                     />
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.premium_remaining_t}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.nb_rt_premium+"/"+this.state.nb_t_premium}
                                                  readOnly/>
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.nb_sm_premium}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.nb_sm_premium+"/"+this.state.nb_sm_premium}
                                                  onChange={this.handleChange} name={"nb_sm_premium"}
                                     />
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.premium_sm_price}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.premium_sm_price}
                                                  onChange={this.handleChange} name={"premium_sm_price"}
                                     />
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.premium_remaining_sm}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.nb_rsm_premium+"/"+this.state.nb_sm_premium}
                                                  readOnly/>
                                 </td>
                             </tr>
@@ -128,7 +131,8 @@ class Festival extends Component {
                                     />
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.standard_remaining_t}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.nb_rt_standard+"/"+this.state.nb_t_standard}
                                                  readOnly/>
                                 </td>
                                 <td>
@@ -142,7 +146,8 @@ class Festival extends Component {
                                     />
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.standard_remaining_sm}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.nb_rsm_standard+"/"+this.state.nb_sm_standard}
                                                  readOnly/>
                                 </td>
                             </tr>
@@ -160,7 +165,8 @@ class Festival extends Component {
                                     />
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.low_remaining_t}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.nb_rt_low+"/"+this.state.nb_t_low}
                                                  readOnly/>
                                 </td>
                                 <td>
@@ -174,7 +180,8 @@ class Festival extends Component {
                                     />
                                 </td>
                                 <td>
-                                    <FormControl as={"input"} type={"text"} value={this.state.low_remaining_sm}
+                                    <FormControl as={"input"} type={"text"}
+                                                 value={this.state.nb_rsm_low+"/"+this.state.nb_sm_low}
                                                  readOnly/>
                                 </td>
                             </tr>
@@ -187,7 +194,7 @@ class Festival extends Component {
                     >Set courant</Button>
                     <Button
                         variant={"warning"} type={"button"}
-                        onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
+                        onClick={this.props.deleteFestival} name={this.props.festival.f._id}>🗑</Button>
                 </Card.Body>
             </>
         )

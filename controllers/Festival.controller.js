@@ -69,7 +69,6 @@ module.exports.addFestival = async(req, res) => {
         premium_sm_price, standard_sm_price, low_sm_price} = req.body
 
     try {
-
         const festival = await FestivalModel.create({
             _id: ObjectId(),
             name: name,
@@ -88,7 +87,7 @@ module.exports.addFestival = async(req, res) => {
             low_sm_price: low_sm_price,
             is_current: true
         })
-        res.status(201).json({festivalId: festival._id})
+        res.status(201).json({f: festival})
 
     } catch (error) {
         res.status(400).send({error})
@@ -161,6 +160,7 @@ module.exports.setCurrent = async(req, res) => {
                 if(game) {
                     zone = await ZoneModel.findById(game.zone)
                 }
+                zone = zone? zone: "Pas attribué"
                 const editor = await EditorModel.findOne({games: g[j]._id}).select("-games")
                 const proto = g[j].proto
                 games.push({game, state, zone, editor, exhibitor, proto})
@@ -195,7 +195,7 @@ module.exports.getFestivalEditors = async(req, res) => {
         for (let i = 0; i < reservations.length; i++) {
             const g = reservations[i].games
             for (let j = 0; j < g.length; j++) {
-                // g[j] is the game j of the reservation i 
+                // g[j] is the game j of the reservation i
                 const game = await GameModel.findById(g[j]._id)
                 if(game){
                     const editor = await EditorModel.findOne({games: game._id})
@@ -229,7 +229,7 @@ module.exports.getFestivalExhibitors = async(req, res) => {
         let exhibitors = []
         for (let i = 0; i < reservations.length; i++) {
             const exhibitor = await EditorModel
-                .findById(reservations[i].exhibitor) 
+                .findById(reservations[i].exhibitor)
             console.log(exhibitor)
             exhibitors.push(exhibitor)
         }
