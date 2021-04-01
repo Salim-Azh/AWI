@@ -1,5 +1,5 @@
 import Festival from "./Festival";
-import {Card, Col} from "react-bootstrap";
+import {Card, Row} from "react-bootstrap";
 const apiUrl = require("../../public/urlApi")
 
 export function getFestivalsFromDB() {
@@ -21,7 +21,7 @@ function createFestival(festival) {
     else {color = "secondary"}
 
     return (
-        <Col style={{margin: '1em'}} key={festival._id}>
+        <Row style={{margin: '1em'}} key={festival._id}>
         <Card bg={color}>
             <Festival
                 festival={festival}
@@ -30,7 +30,7 @@ function createFestival(festival) {
                 handleUpdateCurrent={updateCurrent}
             />
         </Card>
-        </Col>
+        </Row>
     )
 }
 
