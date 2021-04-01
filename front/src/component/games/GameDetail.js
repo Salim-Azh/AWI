@@ -22,11 +22,11 @@ class GameDetail extends Component {
     componentDidMount() {
         GamesHandler.getGameFromDB(window.location.href.split('/')[5])
             .then(res => this.setState({
-                _id: res.game._id,
-                name: res.game.name,
-                category: res.game.category,
-                duration: res.game.duration,
-                min_yearold: res.game.min_yearold,
+                _id: res._id,
+                name: res.name,
+                category: res.category,
+                duration: res.duration,
+                min_yearold: res.min_yearold,
                 editor: res.editor
             }))
     }

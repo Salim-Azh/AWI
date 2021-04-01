@@ -12,6 +12,9 @@ class GameForm extends Component {
             editorId = props.editorId
             editorName = props.editorName
         }
+
+        let zoneId = ""
+        if(props.zone) {zoneId = props.zone}
         this.state = {
             editors: [],
             name: "",
@@ -19,7 +22,7 @@ class GameForm extends Component {
             category: "",
             duration: "",
             editor: {_id: editorId, name: editorName},
-            zone: "",
+            zone: zoneId,
             countPlayer: "",
             prototype: "",
             placed: "",

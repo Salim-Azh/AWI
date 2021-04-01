@@ -1,16 +1,19 @@
 import {Component} from "react"
 
-import GameTable from "./GameTable"
+import ZoneTable from "./ZoneTable"
 import SearchBar from "../search/Search";
 import Filter from "../search/Filter";
 import {Card, Table} from "react-bootstrap";
 import FormContainer from "../Modal/FormContainer"
 
+const ZoneHandler = require("./ZonesHandler")
+
 // TODO faire un tabs comme editeur pour tous les jeux ou les jeux du festival courant
-class FilterableGamesTable extends Component {
+class FilterableZonesTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            zones: [],
             filterText: "",
             filterEnglish: "name",
             filterFrench: "nom"
@@ -18,6 +21,13 @@ class FilterableGamesTable extends Component {
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
+        this.handleAddZone = this.handleAddZone.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+    }
+
+    componentDidMount() {
+        ZoneHandler.getZonesFromDB()
+            .then(zones => this.setState({zones: zones}))
     }
 
     handleFilterTextChange(filterText) {
@@ -33,19 +43,22 @@ class FilterableGamesTable extends Component {
         })
     }
 
-    // TODO faire état du jeu de la résa
+    handleAddZone(zone) {
+        ZoneHandler.addZones(zone)
+            .then(response => response.json())
+            .then(res => this.state.zones.push(res))
+            .then(() => this.setState({zones: this.state.zones}))
+    }
+
+    handleDelete(zoneId) {
+        this.setState({
+            zones: this.state.zones.filter(zone => {
+                return zone._id !== zoneId
+            })
+        })
+    }
+
     render() {
-        let form
-        if(this.props.showForm) {
-            form = (
-                <Card style={{width: '4rem'}}>
-                    <FormContainer
-                        title={"Ajouter un jeu"}
-                        component={"GameForm"}
-                        handleClick={this.props.handleClick}/>
-                </Card>
-                )
-        }
         return (
             <div>
                 <Table striped bordered hover>
@@ -54,11 +67,7 @@ class FilterableGamesTable extends Component {
                         <td>
                             <Filter
                                 filters={[
-                                    {english: "name", french: "nom"},
-                                    {english: "editor", french: "éditeur"},
-                                    {english: "state", french: "état"},
-                                    {english: "category", french: "catégorie"},
-                                    {english: "zone", french: "zone"}
+                                    {english: "name", french: "nom"}
                                 ]}
                                 onFilterChange={this.handleFilterChange}
                             />
@@ -73,9 +82,14 @@ class FilterableGamesTable extends Component {
                     </tr>
                     </tbody>
                 </Table>
-                {form}
-                <GameTable
-                    response={this.props.games}
+                <Card style={{width: '4rem'}}>
+                    <FormContainer
+                        title={"Ajouter une zone"}
+                        component={"ZoneForm"}
+                        handleClick={this.handleAddZone}/>
+                </Card>
+                <ZoneTable
+                    response={this.state.zones}
                     filterText={this.state.filterText}
                     filter={this.state.filterEnglish}
                 />
@@ -84,4 +98,4 @@ class FilterableGamesTable extends Component {
     }
 }
 
-export default FilterableGamesTable
+export default FilterableZonesTable
