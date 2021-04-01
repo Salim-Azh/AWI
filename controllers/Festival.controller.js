@@ -7,10 +7,55 @@ const EditorModel = require("../models/editors.model")
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports.getListOfFestivals = async(req,res) => {
+    const response = []
     try {
         const festivals = await FestivalModel.find()
-        res.status(201).json({festivals: festivals})
+        for (let i = 0; i < festivals.length; i++) {
+            const f = festivals[i];
+            let nb_rt_low = f.nb_t_low
+            let nb_rt_premium = f.nb_t_premium
+            let nb_rt_standard = f.nb_t_standard
+            let nb_rsm_low = f.nb_sm_low
+            let nb_rsm_premium = f.nb_sm_premium
+            let nb_rsm_standard = f.nb_sm_standard
+
+            const reservations = await ReservationModel.find({festival: f._id})
+            let cpt_t_low = 0
+            let cpt_t_premium = 0
+            let cpt_t_standard = 0
+            let cpt_sm_low = 0
+            let cpt_sm_premium = 0
+            let cpt_sm_standard = 0
+
+            for (let j = 0; j < reservations.length; j++) {
+                const r = reservations[j];
+                cpt_t_low += r.nb_t_low? r.nb_t_low : 0
+                cpt_t_premium += r.nb_t_premium? r.nb_t_premium : 0
+                cpt_t_standard += r.nb_t_standard? r.nb_t_standard : 0
+                cpt_sm_low += r.nb_sm_low? r.nb_sm_low : 0
+                cpt_sm_premium += r.nb_sm_premium? r.nb_sm_premium : 0
+                cpt_sm_standard += r.nb_sm_standard? r.nb_sm_standard : 0
+            }
+            nb_rt_low = f.nb_t_low - cpt_t_low
+            nb_rt_premium = f.nb_t_premium - cpt_t_premium
+            nb_rt_standard = f.nb_t_standard - cpt_t_standard
+            nb_rsm_low = f.nb_sm_low - cpt_sm_low
+            nb_rsm_premium = f.nb_sm_premium - cpt_sm_premium
+            nb_rsm_standard = f.nb_sm_standard - cpt_sm_standard
+
+            response.push({
+                f,
+                nb_rt_low,
+                nb_rt_premium,
+                nb_rt_standard,
+                nb_rsm_low,
+                nb_rsm_premium,
+                nb_rsm_standard
+            })
+        }
+        res.status(201).json(response)
     } catch (error) {
+        console.log(error)
         res.status(400).send({error})
     }
 }
