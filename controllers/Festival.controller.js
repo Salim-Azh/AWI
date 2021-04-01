@@ -177,8 +177,8 @@ module.exports.getFestivalExhibitors = async(req, res) => {
         let exhibitors = []
         for (let i = 0; i < reservations.length; i++) {
             const exhibitor = await EditorModel
-                .find(reservations[i].exhibitor) 
-
+                .findById(reservations[i].exhibitor) 
+            console.log(exhibitor)
             exhibitors.push(exhibitor)
         }
         res.status(200).send(exhibitors)
