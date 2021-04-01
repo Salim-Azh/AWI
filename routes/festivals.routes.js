@@ -4,7 +4,7 @@ const router = express.Router()
 // Controllers
 const festivalController = require("../controllers/Festival.controller")
 const reservationController = require("../controllers/Reservation.controller")
-//const zoneController = require("../controllers/zone.controller")
+const zoneController = require("../controllers/zone.controller")
 
 router.get("/", festivalController.getListOfFestivals)
 router.post("/", festivalController.addFestival)
