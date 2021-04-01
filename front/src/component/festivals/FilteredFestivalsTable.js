@@ -59,7 +59,7 @@ class FilterableFestivalsTable extends Component {
 
     handleDelete(festivalId) {
         this.setState({
-            festivals: this.state.festivals.filter((festival) => {
+            festivals: this.state.festivals.filter(festival => {
                 return festival._id !== festivalId
             })
         })

@@ -1,5 +1,4 @@
 import {Component} from "react"
-import {Row} from "react-bootstrap";
 
 const FestivalHandler = require("./FestivalHandler")
 
@@ -22,9 +21,9 @@ class FestivalTable extends Component {
             rows = FestivalHandler.filterFestivalByYear(this.props.festivals, this.props.filterText)
         }
         return (
-            <Row>
+            <>
                 {rows}
-            </Row>
+            </>
         )
     }
 }

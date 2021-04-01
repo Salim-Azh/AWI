@@ -2,7 +2,6 @@ import {Component} from "react"
 import {Card, FormControl, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
-// Faire le set current ou la nav vers reservation
 class Festival extends Component {
 
     constructor(props) {
@@ -21,7 +20,14 @@ class Festival extends Component {
             premium_sm_price: props.festival.premium_sm_price,
             standard_sm_price: props.festival.standard_sm_price,
             low_sm_price: props.festival.low_sm_price,
-            is_current: props.festival.is_current
+            is_current: props.festival.is_current,
+            premium_remaining_t: "",
+            standard_remaining_t: "",
+            low_remaining_t: "",
+            premium_remaining_sm: "",
+            standard_remaining_sm: "",
+            low_remaining_sm: "",
+
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -60,10 +66,6 @@ class Festival extends Component {
             <>
                 <Card.Body>
                     <Card.Header>
-                        <Button
-                            variant={"warning"} type={"button"}
-                            onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
-
                         <Card.Title>{this.props.festival.name} - {this.props.festival.year}</Card.Title>
                     </Card.Header>
                     <Card.Text>
@@ -73,8 +75,10 @@ class Festival extends Component {
                                 <th/>
                                 <th>Tables</th>
                                 <th>prix/table</th>
+                                <th>restant</th>
                                 <th>m²</th>
                                 <th>prix/m²</th>
+                                <th>restant</th>
                             </tr>
                             </thead>
 
@@ -83,7 +87,7 @@ class Festival extends Component {
                                 <td>Premium</td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.nb_t_premium}
-                                                 onChange={this.handleChange} name={"nb_tables_premium"}
+                                                 onChange={this.handleChange} name={"nb_t_premium"}
                                     />
                                 </td>
                                 <td>
@@ -92,8 +96,12 @@ class Festival extends Component {
                                     />
                                 </td>
                                 <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.premium_remaining_t}
+                                                 readOnly/>
+                                </td>
+                                <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.nb_sm_premium}
-                                                 onChange={this.handleChange} name={"nb_tables_premium"}
+                                                 onChange={this.handleChange} name={"nb_sm_premium"}
                                     />
                                 </td>
                                 <td>
@@ -101,13 +109,17 @@ class Festival extends Component {
                                                  onChange={this.handleChange} name={"premium_sm_price"}
                                     />
                                 </td>
+                                <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.premium_remaining_sm}
+                                                 readOnly/>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>Standard</td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.nb_t_standard}
-                                                 onChange={this.handleChange} name={"nb_tables_standard"}
+                                                 onChange={this.handleChange} name={"nb_t_standard"}
                                     />
                                 </td>
                                 <td>
@@ -116,8 +128,12 @@ class Festival extends Component {
                                     />
                                 </td>
                                 <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.standard_remaining_t}
+                                                 readOnly/>
+                                </td>
+                                <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.nb_sm_standard}
-                                                 onChange={this.handleChange} name={"nb_tables_standard"}
+                                                 onChange={this.handleChange} name={"nb_sm_standard"}
                                     />
                                 </td>
                                 <td>
@@ -125,13 +141,17 @@ class Festival extends Component {
                                                  onChange={this.handleChange} name={"standard_sm_price"}
                                     />
                                 </td>
+                                <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.standard_remaining_sm}
+                                                 readOnly/>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>Low</td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.nb_t_low}
-                                                 onChange={this.handleChange} name={"nb_tables_low"}
+                                                 onChange={this.handleChange} name={"nb_t_low"}
                                     />
                                 </td>
                                 <td>
@@ -139,16 +159,23 @@ class Festival extends Component {
                                                  onChange={this.handleChange} name={"low_t_price"}
                                     />
                                 </td>
-
+                                <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.low_remaining_t}
+                                                 readOnly/>
+                                </td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.nb_sm_low}
-                                                 onChange={this.handleChange} name={"nb_tables_low"}
+                                                 onChange={this.handleChange} name={"nb_sm_low"}
                                     />
                                 </td>
                                 <td>
                                     <FormControl as={"input"} type={"text"} value={this.state.low_sm_price}
                                                  onChange={this.handleChange} name={"low_sm_price"}
                                     />
+                                </td>
+                                <td>
+                                    <FormControl as={"input"} type={"text"} value={this.state.low_remaining_sm}
+                                                 readOnly/>
                                 </td>
                             </tr>
                             </tbody>
@@ -157,8 +184,10 @@ class Festival extends Component {
                     <Button variant="primary" type={"button"} onClick={this.submit}>Sauvegarder</Button>
                     <Button variant="primary" type={"button"}
                             onClick={this.setCurrent}
-                            //disabled={this.state.is_current}
                     >Set courant</Button>
+                    <Button
+                        variant={"warning"} type={"button"}
+                        onClick={this.props.deleteFestival} name={this.props._id}>🗑</Button>
                 </Card.Body>
             </>
         )
