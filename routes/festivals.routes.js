@@ -24,6 +24,7 @@ router.delete("/reservations/:id", reservationController.deleteReservation)
 router.get("/zones", festivalController.getFestivalZones)
 router.get("/games", festivalController.getFestivalGames)
 
-router.get("/editors", festivalController.getFestivalExposantEditor)
+router.get("/editors", festivalController.getFestivalEditors)
+router.get("/exhibitors", festivalController.getFestivalExhibitors)
 
 module.exports = router

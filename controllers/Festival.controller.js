@@ -139,8 +139,7 @@ module.exports.getCurrentFestival = async(req, res) => {
     }
 }
 
-module.exports.getFestivalExposantEditor = async(req, res) => {
-
+module.exports.getFestivalEditors = async(req, res) => {
     try {
         const currentFestival = await FestivalModel
             .findOne({is_current: true})
@@ -148,21 +147,42 @@ module.exports.getFestivalExposantEditor = async(req, res) => {
             .find({festival: currentFestival._id})
 
         let editors=[]
-
         for (let i = 0; i < reservations.length; i++) {
             const g = reservations[i].games
             for (let j = 0; j < g.length; j++) {
+                // g[j] is the game j of the reservation i 
                 const game = await GameModel.findById(g[j]._id)
-                const editor = await EditorModel.findOne({games: game._id})
-                if (!editors.includes('editor')) {
-                    editors.push(editor)
+                if(game){
+                    const editor = await EditorModel.findOne({games: game._id})
+                    if (!editors.includes('editor')) {
+                        editors.push(editor)
+                    }
                 }
             }
         }
         res.status(200).send(editors)
-
     } catch (error) {
         console.log(error)
+        res.status(500).send(error)
+    }
+}
+
+module.exports.getFestivalExhibitors = async(req, res) => {
+    try {
+        const currentFestival = await FestivalModel
+            .findOne({is_current: true})
+        const reservations = await ReservationModel
+            .find({festival: currentFestival._id})
+
+        let exhibitors = []
+        for (let i = 0; i < reservations.length; i++) {
+            const exhibitor = await EditorModel
+                .findById(reservations[i].exhibitor) 
+            console.log(exhibitor)
+            exhibitors.push(exhibitor)
+        }
+        res.status(200).send(exhibitors)
+    } catch (error) {
         res.status(500).send(error)
     }
 }
