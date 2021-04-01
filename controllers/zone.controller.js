@@ -11,6 +11,17 @@ module.exports.getZones = async(req,res) => {
     }
 }
 
+module.exports.getZone = async(req,res) => {
+    if(!ObjectId.isValid(req.params.id)){
+        return res.status(400).send("Unknown id : " + req.params.id)
+    }
+    
+    ZoneModel.findById(req.params.id, (err,data) =>{
+        if(!err) res.send(data)
+        else console.log(err)
+    })
+}
+
 module.exports.addZone = async(req,res) => {
     const {label, sm_capacity, games} = req.body
     try {
@@ -31,7 +42,6 @@ module.exports.updateZone = async(req,res) => {
         res.status(400).send({error})
     }
 }
-
 
 module.exports.deleteZone = async(req,res) => {
     try {
