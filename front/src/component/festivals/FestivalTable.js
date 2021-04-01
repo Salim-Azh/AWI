@@ -14,6 +14,7 @@ class FestivalTable extends Component {
 
     render() {
         let rows
+        console.log("props", this.props.festivals)
         if(this.props.filter === "name") {
             rows = FestivalHandler.filterFestivalByName(this.props.festivals, this.props.filterText.toLowerCase())
         }

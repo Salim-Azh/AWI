@@ -53,8 +53,7 @@ class FestivalForm extends Component {
             this.state.low_t_price === "" ||
             this.state.premium_sm_price === "" ||
             this.state.standard_sm_price === "" ||
-            this.state.low_sm_price === "" ||
-            this.state.isCurrent === ""
+            this.state.low_sm_price === ""
         )
     }
 
@@ -78,7 +77,13 @@ class FestivalForm extends Component {
             premium_sm_price: "",
             standard_sm_price: "",
             low_sm_price: "",
-            isCurrent: ""
+            isCurrent: "",
+            nb_rt_premium: 0,
+            nb_rt_standard: 0,
+            nb_rt_low: 0,
+            nb_rsm_premium: 0,
+            nb_rsm_standard: 0,
+            nb_rsm_low: 0
         })
     }
 
