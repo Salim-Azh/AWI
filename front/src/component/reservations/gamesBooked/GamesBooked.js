@@ -5,6 +5,7 @@ function GamesBooked(props) {
         "en attente de réception",//received=false;bring_by_exhibitor=false;
         "reçu",//received=true;bring_by_exhibitor=false;
         "apporté par exposant",//received=false;bring_by_exhibitor=true;
+        "à placer",
         "à renvoyer",//proto=true; received=true
         "renvoyé"
     ]

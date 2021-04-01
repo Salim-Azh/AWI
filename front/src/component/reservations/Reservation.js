@@ -30,8 +30,7 @@ function Reservation(props) {
 
             <td>{sumTable}</td>
             <td>{sumSquareMeters}</td>
-            <td>{props.bill}</td>
-            <td>{props.total} €</td>
+            <td>{props.reservation.price} €</td>
             <td><Button variant={"warning"}
                 onClick={props.handleDelete} name={props.reservation._id}>🗑</Button></td>
         </tr>

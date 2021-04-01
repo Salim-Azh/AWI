@@ -33,7 +33,8 @@ const gamesBooked = new mongoose.Schema(
                 "reçu",//received=true;bring_by_exhibitor=false;
                 "apporté par exposant",//received=false;bring_by_exhibitor=true;
                 "à renvoyer",//proto=true; received=true
-                "renvoyé"//received=true;bring_by_exhibitor=false;proto=true;returned=true
+                "renvoyé",//received=true;bring_by_exhibitor=false;proto=true;returned=true
+                "à placer"
             ]
         }
     }
