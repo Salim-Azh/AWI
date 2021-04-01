@@ -104,7 +104,7 @@ module.exports.setCurrent = async(req, res) => {
             .find({festival: currentFestival._id})
 
         //console.log(reservations)
-        const games=[]
+        let games=[]
         for (let i = 0; i < reservations.length; i++) {
             const g = reservations[i].games
             for (let j = 0; j < g.length; j++) {
@@ -112,7 +112,6 @@ module.exports.setCurrent = async(req, res) => {
                 const zone = await ZoneModel.findById(game.zone)
                 const exhibitor = await EditorModel.findOne({games: g[j]._id})
                 const proto = g[j].proto
-                console.log(proto)
                 games.push({game, zone, exhibitor, proto})
             }
         }
@@ -143,12 +142,22 @@ module.exports.getFestivalExposantEditor = async(req, res) => {
         const reservations = await ReservationModel
             .find({festival: currentFestival._id})
 
+        let editors=[]
+
         for (let i = 0; i < reservations.length; i++) {
-            const element = reservations[i];
-            
+            const g = reservations[i].games
+            for (let j = 0; j < g.length; j++) {
+                const game = await GameModel.findById(g[j]._id)
+                const editor = await EditorModel.findOne({games: game._id})
+                if (!editors.includes('editor')) {
+                    editors.push(editor)
+                }
+            }
         }
-        const editors = await EditorModel.find()
+        res.status(200).send(editors)
+
     } catch (error) {
-        
+        console.log(error)
+        res.status(500).send(error)
     }
 }
