@@ -103,17 +103,19 @@ module.exports.setCurrent = async(req, res) => {
         const reservations = await ReservationModel
             .find({festival: currentFestival._id})
 
+        //   6065b1c7b393e02c7cf028a5
         let games=[]
         for (let i = 0; i < reservations.length; i++) {
             const g = reservations[i].games
-            for (let j = 0; j < g.length; j++) {
+            for (let j = 0; j < g.length; j++) { 
+                // g[j] is the game j of the reservation i 
+                const exhibitor = await EditorModel.findById(reservations[i].exhibitor).select("-games")
                 const game = await GameModel.findById(g[j]._id)
                 const state = g[j].state
                 const zone = await ZoneModel.findById(game.zone)
-                const exhibitor = await EditorModel.findOne({games: g[j]._id}).select("-games")
+                const editor = await EditorModel.findOne({games: g[j]._id}).select("-games")
                 const proto = g[j].proto
-
-                games.push({game, state, zone, exhibitor, proto})
+                games.push({game, state, zone, editor, exhibitor, proto})
             }
         }
         res.status(200).json(games)
