@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const schema = new mongoose.Schema(
     {
         festival: {
-            type: mongoose.Types.ObjectId
+            type: mongoose.Types.ObjectId,
+            required: true
         },
         label:{
             type: String,
