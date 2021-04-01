@@ -20,6 +20,7 @@ import EditorDetail from "./component/editor/EditorDetail";
 import GameDetail from "./component/games/GameDetail";
 import ReservationDetail from "./component/reservations/ReservationDetail";
 import TabsGames from "./component/games/TabsGames";
+import FilteredZonesTable from "./component/zone/FilteredZonesTable";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                   <Nav.Link href="/nav/jeux">Jeux</Nav.Link>
                   <Nav.Link href="/nav/editeurs">Éditeur</Nav.Link>
                   <Nav.Link href="/nav/reservations">Réservations</Nav.Link>
+                  <Nav.Link href="/nav/zones">Zones</Nav.Link>
                   <Nav.Link href="/nav/factures">Factures</Nav.Link>
                 </Nav>
                 <Nav>
@@ -75,6 +77,10 @@ function App() {
 
             <Route path="/nav/reservation/:id">
               <ReservationDetail/>
+            </Route>
+
+            <Route path="/nav/zones">
+              <FilteredZonesTable/>
             </Route>
 
             <Route path="/nav/factures">

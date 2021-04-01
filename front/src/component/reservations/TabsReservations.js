@@ -42,7 +42,6 @@ class TabsReservations extends Component {
                 exhibitor: res.exhibitor
             }))
             .then(() => this.setState({reservations: this.state.reservations}))
-            .then(() => console.log(this.state.reservations[0].reservation._id))
     }
 
     handleDelete(reservationId) {

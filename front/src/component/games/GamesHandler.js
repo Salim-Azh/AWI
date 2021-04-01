@@ -26,6 +26,18 @@ export function getGameFromDB(gameId) {
         })
 }
 
+export function getFestivalGames() {
+    return fetch(apiUrl.Games + "/games")
+        .then(r => r.json())
+        .then((response) => {
+            return response
+        })
+        .catch(e => {
+            console.log(e.stack)
+            console.log(e.message)
+        })
+}
+
 export function createGame(game) {
     return (
         <Game

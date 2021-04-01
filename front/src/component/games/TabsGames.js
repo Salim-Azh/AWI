@@ -9,7 +9,8 @@ class TabsGames extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            games: ""
+            games: "",
+            gamesBooked: ""
         }
         this.handleAddGames = this.handleAddGames.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
@@ -22,6 +23,8 @@ class TabsGames extends Component {
                     games: games
                 })
             })
+
+
         GameHandler.setHandleDelete(this.handleDelete)
     }
 
@@ -49,11 +52,14 @@ class TabsGames extends Component {
                 <Tab eventKey="allGames" title="Jeux">
                     <FilteredGamesTable
                         games={this.state.games}
+                        handleClick={this.handleAddGames}
+                        showForm={true}
                     />
                 </Tab>
                 <Tab eventKey="festivalGames" title="Jeu du festival">
                     <FilteredGamesTable
                         games={this.state.games}
+                        showForm={false}
                     />
                 </Tab>
             </Tabs>
