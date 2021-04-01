@@ -1,4 +1,5 @@
 const ZoneModel = require("../models/zones.model")
+const FestivalModel = require("../models/festivals.model")
 
 const ObjectId = require('mongoose').Types.ObjectId
 
@@ -15,7 +16,7 @@ module.exports.getZone = async(req,res) => {
     if(!ObjectId.isValid(req.params.id)){
         return res.status(400).send("Unknown id : " + req.params.id)
     }
-    
+
     ZoneModel.findById(req.params.id, (err,data) =>{
         if(!err) res.send(data)
         else console.log(err)
@@ -25,7 +26,8 @@ module.exports.getZone = async(req,res) => {
 module.exports.addZone = async(req,res) => {
     const {label, sm_capacity, games} = req.body
     try {
-        const zone = await ZoneModel.create({label, sm_capacity, games})
+        const festival = await FestivalModel.findOne({is_current: true})
+        const zone = await ZoneModel.create({festival, label, sm_capacity, games})
         res.status(201).json(zone)
     } catch (error) {
         console.log(error)
