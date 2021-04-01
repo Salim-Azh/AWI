@@ -202,7 +202,6 @@ module.exports.getFestivalEditors = async(req, res) => {
                     let found = false;
                     for(let k = 0; k < editors.length; k++) {
                         if (editors[k]._id.toString() === editor._id.toString()) {
-                            console.log("bhee")
                             found = true;
                             break;
                         }
