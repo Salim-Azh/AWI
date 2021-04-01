@@ -1,5 +1,16 @@
 const mongoose = require('mongoose')
 
+const game = new mongoose.Types.Schema(
+    {
+        reservation:{ 
+            type: String
+        },
+        game:{
+            type: String
+        }
+    }
+)
+
 const schema = new mongoose.Schema(
     {
         festival: {
@@ -16,7 +27,7 @@ const schema = new mongoose.Schema(
             minimum: 0
         },
         games:{
-            type: [String]
+            type: [game]
         }
     }
 )
