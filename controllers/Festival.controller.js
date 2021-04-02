@@ -197,18 +197,18 @@ module.exports.getFestivalEditors = async(req, res) => {
             for (let j = 0; j < g.length; j++) {
                 // g[j] is the game j of the reservation i
                 const game = await GameModel.findById(g[j]._id)
-                if(game){
-                    const editor = await EditorModel.findOne({games: game._id})
-                    let found = false;
-                    for(let k = 0; k < editors.length; k++) {
-                        if (editors[k]._id.toString() === editor._id.toString()) {
-                            found = true;
-                            break;
-                        }
+                const editor = await EditorModel.findById(game.editorId)
+                const games = await GameModel.find({editorId: editor._id})
+
+                let found = false;
+                for(let k = 0; k < editors.length; k++) {
+                    if (editors[k]._id.toString() === editor._id.toString()) {
+                        found = true;
+                        break;
                     }
-                    if (!found) {
-                        editors.push(editor)
-                    }
+                }
+                if (!found) {
+                    editors.push({editor, games})
                 }
             }
         }
