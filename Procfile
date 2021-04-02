@@ -1,1 +1,1 @@
-web: node front/build/index.js
+web: npm start
