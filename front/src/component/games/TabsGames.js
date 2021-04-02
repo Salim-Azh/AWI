@@ -25,6 +25,7 @@ class TabsGames extends Component {
             })
         GameHandler.getFestivalGames()
             .then(games => {
+                games.map(game => game.editor = undefined)
                 this.setState({gamesBooked: games})
             })
             .then(() => this.state.gamesBooked.map(game =>
