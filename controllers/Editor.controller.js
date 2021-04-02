@@ -75,7 +75,7 @@ module.exports.getGamesFromEditor = async(req, res) => {
     const idEditor = req.params.id
     try {
         const games = await GamesModel.find({editorId: idEditor})
-        console.log(games)
+        //console.log(games)
         res.status(201).json(games)
     } catch (error) {
         console.log(error)
