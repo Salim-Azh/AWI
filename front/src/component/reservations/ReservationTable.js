@@ -37,7 +37,7 @@ class ReservationTable extends Component {
             <Table striped bordered hover size={"sm"}>
                 <thead>
                 <tr>
-                    <th>Nom</th>
+                    <th>Nom exposant</th>
                     <th>Commentaire</th>
                     <th>état</th>
                     <th>Besoin de bénévoles ?</th>
