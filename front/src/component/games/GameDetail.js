@@ -43,7 +43,8 @@ class GameDetail extends Component {
 
     submit() {
         GamesHandler.updateGame(this.state)
-            .then(() => this.setState({redirect: "/nav/jeux"}))
+            .then()
+        this.setState({redirect: "/nav/jeux"})
     }
 
     render() {
