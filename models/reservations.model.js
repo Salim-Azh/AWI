@@ -112,13 +112,16 @@ const bookingSchema = new mongoose.Schema(
             type: [gamesBooked]
         },
         need_volunteer: {
-            type: Boolean
+            type: Boolean,
+            default: false
         },
-        isPresent: {
-            type: Boolean
+        isEditorHere: {
+            type: Boolean,
+            default: false
         },
         reportSent: {
-            type: Boolean
+            type: Boolean,
+            default: false
         },
         bill: {
             type: mongoose.Types.ObjectId

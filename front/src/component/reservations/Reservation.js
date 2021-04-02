@@ -15,7 +15,8 @@ function Reservation(props) {
             <td>{props.reservation.state}</td>
 
             <td><input type={"checkbox"} checked={props.reservation.need_volunteer}
-                       onChange={props.handleChange} id={props.reservation._id} name={"need_volunteer"}/>
+                       onChange={props.handleChange} id={props.reservation._id}
+                       name={"need_volunteer"}/>
             </td>
 
             <td><input type={"checkbox"} checked={props.reservation.isEditorHere}
@@ -38,12 +39,3 @@ function Reservation(props) {
 }
 
 export default Reservation
-/*
-0:En discussions,
-1:Presence confirme,
-2:Pas de reponse,
-3:considere absent,
-5:absent,
-6:liste des jeux demande
-7:liste des jeux recu
- */

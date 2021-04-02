@@ -78,7 +78,7 @@ class GamesBookedForm extends Component {
         const target = event.target;
         const value = target.value;
         const game = this.state.editor.games.filter(game => {
-            return game._id === value
+            return game._id === value.split(",")[0]
         })
         game[0].game = game[0]._id
         this.setState({game: game[0]})

@@ -63,6 +63,7 @@ class ReservationDetail extends Component {
         this.removeTalk = this.removeTalk.bind(this)
         this.handleDeleteGame = this.handleDeleteGame.bind(this)
         this.handleGameChange = this.handleGameChange.bind(this)
+
     }
 
     componentDidMount() {
@@ -179,10 +180,10 @@ class ReservationDetail extends Component {
         const value = target.value
         const index = target.name;
 
-        let contacts = this.state.exhibitor.contacts
-        contacts[index] = value
+        let exhibitor = this.state.exhibitor
+        exhibitor.contacts[index] = value
 
-        this.setState({exhibitor: {contacts: contacts}})
+        this.setState({exhibitor: exhibitor})
     }
 
     handleTalksChange(event) {
@@ -197,7 +198,6 @@ class ReservationDetail extends Component {
     }
 
     handleAddGame(game) {
-        console.log("newGame", game)
         this.state.games.push(game)
         this.setState({games: this.state.games})
     }
@@ -241,11 +241,6 @@ class ReservationDetail extends Component {
     submit() {
         this.state.editors = undefined
         this.state.festival = undefined
-        /*
-        this.state.games = this.state.games.map(game => {
-            return {game: game._id}
-        })
-         */
         ReservationHandler.updateReservation(this.state)
             .then()
         EditorHandler.updateEditor(this.state.exhibitor)
@@ -275,7 +270,8 @@ class ReservationDetail extends Component {
                 <>
                     <FormControl
                         as={"input"} type={"text"} value={contact} key={contact}
-                        onChange={this.handleContactsChange} name={index}/>
+                        onChange={this.handleContactsChange}
+                        name={index}/>
                 </>
             )
         })

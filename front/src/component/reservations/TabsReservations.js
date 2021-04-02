@@ -16,6 +16,7 @@ class TabsReservations extends Component {
         }
         this.handleAddReservation = this.handleAddReservation.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleUpdateCheck = this.handleUpdateCheck.bind(this)
     }
 
     componentDidMount() {
@@ -31,6 +32,7 @@ class TabsReservations extends Component {
             })
         ReservationHandler.setAddHandler(this.handleAddReservation)
         ReservationHandler.setHandleDelete(this.handleDelete)
+        ReservationHandler.setUpdateHandlerCheck(this.handleUpdateCheck)
     }
 
     handleAddReservation(reservation) {
@@ -50,6 +52,22 @@ class TabsReservations extends Component {
                 return reservation.reservation._id !== reservationId
             })
         })
+    }
+
+    handleUpdateCheck(reservationId, attribute, checked) {
+        const reservation = this.state.reservations.filter((reservation) => {
+            return reservation.reservation._id === reservationId
+        })
+
+        if(attribute === "need_volunteer") {
+            reservation[0].reservation.need_volunteer = checked
+        } else if(attribute === "reportSent") {
+            reservation[0].reservation.reportSent = checked
+        } else {
+            console.log("ge")
+            reservation[0].reservation.isEditorHere = checked
+        }
+        this.setState({reservations: this.state.reservations})
     }
 
     render() {

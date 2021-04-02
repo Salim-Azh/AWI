@@ -6,7 +6,6 @@ import {Card, Table} from "react-bootstrap";
 import ReservationTable from "./ReservationTable";
 import FormContainer from "../Modal/FormContainer";
 import FilterCheck from "../search/FilterCheck";
-const ReservationHandler = require("./ReservationHandler")
 
 class FilterableReservationsTable extends Component {
     constructor(props) {
@@ -24,11 +23,6 @@ class FilterableReservationsTable extends Component {
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleFilterCheckedChange = this.handleFilterCheckedChange.bind(this)
-        this.handleUpdateCheck = this.handleUpdateCheck.bind(this)
-    }
-
-    componentDidMount() {
-        ReservationHandler.setUpdateHandlerCheck(this.handleUpdateCheck)
     }
 
     handleFilterTextChange(filterText) {
@@ -57,21 +51,6 @@ class FilterableReservationsTable extends Component {
             this.state.isEditorHere = value
         }
         this.setState({[name]: value})
-    }
-
-    handleUpdateCheck(reservationId, attribute, checked) {
-        const reservation = this.props.reservations.filter((reservation) => {
-            return reservation.reservation._id === reservationId
-        })
-
-        if(attribute === "need_volunteer") {
-            reservation[0].reservation.need_volunteer = checked
-        } else if(attribute === "reportSent") {
-            reservation[0].reservation.reportSent = checked
-        } else {
-            reservation[0].reservation.isEditorHere = checked
-        }
-        this.setState({reservations: this.state.reservations})
     }
 
     render() {
