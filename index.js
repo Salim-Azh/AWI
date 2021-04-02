@@ -40,7 +40,6 @@ app.use("/api/festivals", festivalsRoutes)
 app.use('/api/exhibitors', exhibitorsRoutes)
 app.use('/api/zones', zonesRoutes)
 
-
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}`)
 })

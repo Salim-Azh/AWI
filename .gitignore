@@ -1,8 +1,6 @@
 /node_modules
 /config/.env
 
-/front/build
-
 /.vscode
 /.idea
 /front/node_modules/
