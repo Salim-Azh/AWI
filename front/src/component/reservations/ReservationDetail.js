@@ -197,17 +197,9 @@ class ReservationDetail extends Component {
     }
 
     handleAddGame(game) {
+        console.log("newGame", game)
         this.state.games.push(game)
-        const gameName = game.name
-        game.name = undefined
-        const festival = this.state.festival
-        this.state.festival = undefined
-        ReservationHandler.updateReservation(this.state)
-            .then(() => game.name = gameName)
-            .then(() => this.setState({
-                games: this.state.games,
-                festival: festival
-            }))
+        this.setState({games: this.state.games})
     }
 
     handleDeleteGame(event) {
@@ -249,6 +241,11 @@ class ReservationDetail extends Component {
     submit() {
         this.state.editors = undefined
         this.state.festival = undefined
+        /*
+        this.state.games = this.state.games.map(game => {
+            return {game: game._id}
+        })
+         */
         ReservationHandler.updateReservation(this.state)
             .then()
         EditorHandler.updateEditor(this.state.exhibitor)
@@ -421,7 +418,6 @@ class ReservationDetail extends Component {
                                     games={this.state.games}
                                     handleDelete={this.handleDeleteGame}
                                     handleChange={this.handleGameChange}
-                                    handleZoneChange={this.handleZonesChange}
                                 />
                             </Card.Body>
                         </Card>

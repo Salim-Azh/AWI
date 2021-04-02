@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const gamesBooked = new mongoose.Schema(
     {
-        game: {
-            type: String,
+        _id: {
+            type: mongoose.Types.ObjectId,
             required: true
         },
         name: {

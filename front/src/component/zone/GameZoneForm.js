@@ -90,7 +90,7 @@ class GamesBookedForm extends Component {
         })
         game[0].editor = this.state.editor
 
-        this.setState({gameSelected: game[0]}, () => console.log("state", this.state.gameSelected))
+        this.setState({gameSelected: game[0]})
     }
 
     submit() {

@@ -10,17 +10,18 @@ function GamesBooked(props) {
         "renvoyé"
     ]
     const optionsState = options.map(option =>
-        <option id={props.game._id} key={option} name={"state"} value={option}>{option}</option>
+        <option id={props.game.game} key={option} name={"state"} value={option}>{option}</option>
     )
 
+    console.log("game", props.game.game)
     return (
-        <tr id={props.game._id}>
+        <tr id={props.game.game}>
             <td>{props.game.name}</td>
             <td>
                 <FormControl
                     as={"input"} type={"number"}
                     value={props.game.total_qte}
-                    id={props.game._id} name={"total_qte"}
+                    id={props.game.game} name={"total_qte"}
                     onChange={props.handleChange}
                 />
             </td>
@@ -29,7 +30,7 @@ function GamesBooked(props) {
                     as={"input"} type={"number"}
                     max={props.game.total_qte}
                     value={props.game.exposed_qte}
-                    id={props.game._id} name={"exposed_qte"}
+                    id={props.game.game} name={"exposed_qte"}
                     onChange={props.handleChange}
                 />
             </td>
@@ -44,7 +45,7 @@ function GamesBooked(props) {
             <td>
                 <Form.Check
                     checked={props.game.proto}
-                    id={props.game._id} name={"proto"}
+                    id={props.game.game} name={"proto"}
                     onChange={props.handleChange}
                 />
             </td>

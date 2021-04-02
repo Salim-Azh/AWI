@@ -160,6 +160,7 @@ function updateReservationCheck(event) {
 
 export function updateReservation(state) {
     const reservationId = state._id
+    console.log(state)
     const param = {
         headers: {'Content-Type': 'application/json'},
         method: "POST",
