@@ -41,7 +41,7 @@ app.use('/api/exhibitors', exhibitorsRoutes)
 app.use('/api/zones', zonesRoutes)
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '/front/build', 'index.html'));
 });
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}`)
