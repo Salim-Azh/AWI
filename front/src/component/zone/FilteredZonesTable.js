@@ -28,6 +28,7 @@ class FilterableZonesTable extends Component {
     componentDidMount() {
         ZoneHandler.getZonesFromDB()
             .then(zones => this.setState({zones: zones}))
+        ZoneHandler.setHandleDelete(this.handleDelete)
     }
 
     handleFilterTextChange(filterText) {
