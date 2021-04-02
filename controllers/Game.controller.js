@@ -8,18 +8,19 @@ module.exports.getListOfGames = async(req,res) => {
 
     try {
         const games = await GameModel.find()
+/*
         for(let i = 0; i < games.length; i++) {
             const editor = await EditorModel.findOne({_id: games[i].editorId}).select("name")
-
+            /*
             const gamesReservation = ReservationModel.findOne({"games._id": games[0]._id}).select("games")
 
-            let j = 0
             let zones = []
             if(gamesReservation.length > 0) {
                 zones = gamesReservation.games.filter(game => {
                     return game._id.toString() === games[0]._id.toString()
                 })
             }
+             */
 
             const resp = {
                 _id: games[0]._id,
@@ -27,12 +28,13 @@ module.exports.getListOfGames = async(req,res) => {
                 category: games[0].category,
                 duration: games[0].duration,
                 min_yearold: games[0].min_yearold,
-                zone: zones.length>0? zones[0].zone: "Pas attribué",
-                editor: editor
+                zone: "", //zones.length>0? zones[0].zone: "Pas attribué",
+                //editor: editor
             }
             response.push(resp)
-        }
-        res.status(200).json(response)
+
+        //}
+        res.status(200).json(games)
     } catch (error) {
         console.log(error)
         res.status(400).send({error})

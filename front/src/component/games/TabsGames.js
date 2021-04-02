@@ -25,7 +25,6 @@ class TabsGames extends Component {
             })
         GameHandler.getFestivalGames()
             .then(games => {
-                console.log(games)
                 this.setState({gamesBooked: games})
             })
             .then(() => this.state.gamesBooked.map(game =>

@@ -64,7 +64,6 @@ class TabsReservations extends Component {
         } else if(attribute === "reportSent") {
             reservation[0].reservation.reportSent = checked
         } else {
-            console.log("ge")
             reservation[0].reservation.isEditorHere = checked
         }
         this.setState({reservations: this.state.reservations})
