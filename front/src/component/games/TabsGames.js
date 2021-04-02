@@ -10,7 +10,7 @@ class TabsGames extends Component {
         super(props);
         this.state = {
             games: "",
-            gamesBooked: ""
+            gamesBooked: []
         }
         this.handleAddGames = this.handleAddGames.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
@@ -23,8 +23,15 @@ class TabsGames extends Component {
                     games: games
                 })
             })
-
-
+        GameHandler.getFestivalGames()
+            .then(games => {
+                this.setState({gamesBooked: games})
+            })
+            .then(() => this.state.gamesBooked.map(game =>
+                GameHandler.getGameFromDB(game.game._id)
+                    .then(res => game.game = res)
+            ))
+            .then(() => this.setState({gamesBooked: this.state.gamesBooked}))
         GameHandler.setHandleDelete(this.handleDelete)
     }
 
@@ -58,7 +65,7 @@ class TabsGames extends Component {
                 </Tab>
                 <Tab eventKey="festivalGames" title="Jeu du festival">
                     <FilteredGamesTable
-                        games={this.state.games}
+                        games={this.state.gamesBooked}
                         showForm={false}
                     />
                 </Tab>

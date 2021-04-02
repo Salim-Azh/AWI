@@ -27,7 +27,7 @@ export function getGameFromDB(gameId) {
 }
 
 export function getFestivalGames() {
-    return fetch(apiUrl.Games + "/games")
+    return fetch(apiUrl.Festivals + "/games")
         .then(r => r.json())
         .then((response) => {
             return response
@@ -87,8 +87,14 @@ export function filterGamesByName(games, filterText) {
     let rows = []
     if(games) {
         games.map(game => {
-            if (game && (game.name.toLowerCase().includes(filterText))) {
-                rows.push(createGame(game))
+            if(game.name) {
+                if (game && (game.name.toLowerCase().includes(filterText))) {
+                    rows.push(createGame(game))
+                }
+            } else {
+                if (game && (game.game.name.toLowerCase().includes(filterText))) {
+                    rows.push(createGame(game))
+                }
             }
         })
         return rows
