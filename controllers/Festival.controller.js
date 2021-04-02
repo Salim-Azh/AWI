@@ -85,7 +85,7 @@ module.exports.addFestival = async(req, res) => {
             premium_sm_price: premium_sm_price,
             standard_sm_price: standard_sm_price,
             low_sm_price: low_sm_price,
-            is_current: true
+            is_current: false
         })
         res.status(201).json({f: festival})
 
@@ -258,7 +258,7 @@ module.exports.getFestivalZones = async(req, res) => {
         const editor = await EditorModel.findById(req.params.id)
         for (let i = 0; i < editor.length; i++) {
             const e = editor[i];
-            
+
         }
     } catch (error) {
         console.log(error)

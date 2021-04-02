@@ -21,7 +21,7 @@ class FestivalForm extends Component {
             premium_sm_price: "",
             standard_sm_price: "",
             low_sm_price: "",
-            isCurrent: ""
+            is_current: false
         }
 
         this.submit = this.submit.bind(this)
@@ -33,9 +33,7 @@ class FestivalForm extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
-        })
+        this.setState({[name]: value})
     }
 
     formIsUnchanged() {
@@ -149,9 +147,6 @@ class FestivalForm extends Component {
                     <FormControl as={"input"} name="low_sm_price" type="number" min={0} value={this.state.low_sm_price}
                                  placeholder="low" onChange={this.handleChange}/>
                 </FormGroup>
-
-                <Form.Check label={"Festival courant ?"} name={"isCurrent"} checked={this.state.isCurrent}
-                onChange={this.handleChange}/>
 
                 <Button onClick={this.submit} variant={"link"}>Ajouter</Button>
             </Form>

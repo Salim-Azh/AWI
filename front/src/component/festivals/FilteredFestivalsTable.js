@@ -52,9 +52,18 @@ class FilterableFestivalsTable extends Component {
     handleAddFestival(festival) {
         FestivalHandler.addFestival(festival)
             .then(response => response.json())
-            .then(response => festival._id = response._id)
-            .then(() => this.state.festivals.push({f: festival}))
+            .then(response => festival._id = response.f._id)
+            .then(() => this.state.festivals.push({
+                f: festival,
+                nb_rt_premium: 0,
+                nb_rt_standard: 0,
+                nb_rt_low: 0,
+                nb_rsm_premium: 0,
+                nb_rsm_standard: 0,
+                nb_rsm_low: 0
+            }))
             .then(() => this.setState({festivals: this.state.festivals}))
+            .then(() => console.log("state", this.state.festivals))
     }
 
     handleDelete(festivalId) {

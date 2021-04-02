@@ -42,10 +42,6 @@ class Festival extends Component {
         this.setState({
             [name]: value
         })
-
-        if(name === "") {
-            this.setCurrent()
-        }
     }
 
     submit() {
@@ -101,7 +97,7 @@ class Festival extends Component {
                                 </td>
                                 <td>
                                     <FormControl as={"input"} type={"text"}
-                                                 value={this.state.nb_sm_premium+"/"+this.state.nb_sm_premium}
+                                                 value={this.state.nb_sm_premium}
                                                  onChange={this.handleChange} name={"nb_sm_premium"}
                                     />
                                 </td>
