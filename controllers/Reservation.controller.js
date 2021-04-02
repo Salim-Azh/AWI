@@ -13,7 +13,6 @@ module.exports.getFestivalReservations = async(req, res) => {
 
         for (let i = 0; i < reservations.length; i++) {
             const element = reservations[i]
-            console.log(element)
             const exhibitor = await EditorModel.findById({_id: element.exhibitor}).select("-games")
             response.push({
                 exhibitor: exhibitor,
