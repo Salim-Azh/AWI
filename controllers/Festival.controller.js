@@ -207,7 +207,7 @@ module.exports.getFestivalEditors = async(req, res) => {
                     }
                 }
                 if (!found) {
-                    editors.push({editor, games})
+                    editors.push({editor/*, games*/})
                 }
             }
         }
