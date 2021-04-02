@@ -12,10 +12,6 @@ const schema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        games: {
-            type: [mongoose.Types.ObjectId],
-            required: false
-        },
         isEditor: {
             type: Boolean,
             required: true
