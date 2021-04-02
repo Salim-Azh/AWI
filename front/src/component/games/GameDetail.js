@@ -60,7 +60,7 @@ class GameDetail extends Component {
         ]
 
         const category = optionsCategory.map(cat =>
-            <option value={cat}>{cat}</option>
+            <option value={cat.toUpperCase()}>{cat}</option>
         )
 
         return (

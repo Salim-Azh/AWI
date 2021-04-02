@@ -13,7 +13,7 @@ module.exports.getListOfEditors = async(req,res) => {
 }
 
 module.exports.getEditor = async(req,res) => {
-    const idEditor = req.url.split("/")[1]
+    const idEditor = req.params.id
     try {
         const editor = await EditorModel.findOne({_id: idEditor})
         res.status(201).json(editor)
@@ -44,7 +44,7 @@ module.exports.addEditor = async(req, res) => {
 }
 
 module.exports.deleteEditor = async(req, res) => {
-    const idEditor = req.url.split("/")[1]
+    const idEditor = req.params.id
     const mongooseId = mongoose.Types.ObjectId(idEditor)
 
     try {
@@ -58,7 +58,7 @@ module.exports.deleteEditor = async(req, res) => {
 }
 
 module.exports.updateEditor = async(req, res) => {
-    const idEditor = req.url.split("/")[1]
+    const idEditor = req.params.id
     const mongooseId = mongoose.Types.ObjectId(idEditor)
 
     try {
@@ -72,7 +72,7 @@ module.exports.updateEditor = async(req, res) => {
 }
 
 module.exports.getGamesFromEditor = async(req, res) => {
-    const idEditor = req.url.split("/")[1]
+    const idEditor = req.params.id
     let games = []
     try {
         const editor = await EditorModel.findOne({_id: idEditor})

@@ -24,6 +24,9 @@ const schema = new mongoose.Schema(
         },
         zone: {
             type: mongoose.Types.ObjectId
+        },
+        editorId: {
+            type: mongoose.Types.ObjectId
         }
     }
 )

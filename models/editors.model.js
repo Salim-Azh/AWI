@@ -13,7 +13,7 @@ const schema = new mongoose.Schema(
             trim: true
         },
         games: {
-            type: [String],
+            type: [mongoose.Types.ObjectId],
             required: false
         },
         isEditor: {

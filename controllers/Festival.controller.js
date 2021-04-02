@@ -230,7 +230,6 @@ module.exports.getFestivalExhibitors = async(req, res) => {
         for (let i = 0; i < reservations.length; i++) {
             const exhibitor = await EditorModel
                 .findById(reservations[i].exhibitor)
-            console.log(exhibitor)
             exhibitors.push(exhibitor)
         }
         res.status(200).send(exhibitors)
@@ -250,18 +249,3 @@ module.exports.getFestivalZones = async(req, res) => {
         res.status(500).send(error)
     }
 }
-
-/*module.exports.getEditor = async(req, res) => {
-    if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send("ID unknown : " + req.params.id)
-    try {
-        const editor = await EditorModel.findById(req.params.id)
-        for (let i = 0; i < editor.length; i++) {
-            const e = editor[i];
-
-        }
-    } catch (error) {
-        console.log(error)
-        res.status(500).send(error)
-    }
-} */

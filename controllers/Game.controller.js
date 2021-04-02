@@ -9,26 +9,28 @@ module.exports.getListOfGames = async(req,res) => {
     try {
         const games = await GameModel.find()
         for(let i = 0; i < games.length; i++) {
-            const editor = await EditorModel.findOne({games: games[i]._id}).select("name")
-            const gamesReservation = await ReservationModel.findOne({"games._id": games[i]._id}).select("games")
+            const editor = await EditorModel.findOne({_id: games[i].editorId}).select("name")
+
+            const gamesReservation = ReservationModel.findOne({"games._id": games[0]._id}).select("games")
 
             let j = 0
             let zones = []
-            if(gamesReservation && gamesReservation.games[j]) {
+            if(gamesReservation.length > 0) {
                 zones = gamesReservation.games.filter(game => {
-                    return game._id.toString() === games[i]._id.toString()
+                    return game._id.toString() === games[0]._id.toString()
                 })
             }
-            const res = {
-                _id: games[i]._id,
-                name: games[i].name,
-                category: games[i].category,
-                duration: games[i].duration,
-                min_yearold: games[i].min_yearold,
+
+            const resp = {
+                _id: games[0]._id,
+                name: games[0].name,
+                category: games[0].category,
+                duration: games[0].duration,
+                min_yearold: games[0].min_yearold,
                 zone: zones.length>0? zones[0].zone: "Pas attribué",
                 editor: editor
             }
-            response.push(res)
+            response.push(resp)
         }
         res.status(200).json(response)
     } catch (error) {
@@ -71,7 +73,7 @@ module.exports.addGame = async(req, res) => {
             category: category,
             duration: duration
         })
-        const update = {$addToSet: {games: game._id.toString()}}
+        const update = {$addToSet: {games: game._id}}
         await EditorModel.updateOne({_id: mongoose.Types.ObjectId(editor._id)}, update)
         res.status(201).json({gameId: game._id})
 
