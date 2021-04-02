@@ -199,6 +199,8 @@ module.exports.getFestivalEditors = async(req, res) => {
                 const editor = await EditorModel.findById(game.editorId)
                 const games = await GameModel.find({editorId: editor._id})
 
+                editors.push(editor)
+                /*
                 let found = false;
                 for(let k = 0; k < editors.length; k++) {
                     if (editors[k]._id.toString() === editor._id.toString()) {
@@ -207,8 +209,9 @@ module.exports.getFestivalEditors = async(req, res) => {
                     }
                 }
                 if (!found) {
-                    editors.push({editor/*, games*/})
+                    editors.push({editor/*, games})
                 }
+        */
             }
         }
         res.status(200).send(editors)
