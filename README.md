@@ -9,7 +9,7 @@
 
 ### Contexte
 Depuis 2015, l’organisation du Festival du Jeu de Montpellier est soutenue par un collectif d’associations. Dans le cadre de la formation IG4 à l'école Polytech Montpellier,
-nous avons réalisé une application web pour la gestion des festivals et le suivi des réservations. Nous aussi développé une application mobile pour consulter les jeux et les exposants et les éditeurs présent au festival. Lien repository de l'application mobile :  https://github.com/Riko38nano/MobileApp
+nous avons réalisé une application web pour la gestion des festivals et le suivi des réservations. Nous aussi développé une application mobile iOS pour consulter les jeux et les exposants et les éditeurs présent au festival. Lien repository de l'application mobile :  https://github.com/Riko38nano/MobileApp
 
 ### Setup - Back-end
 * Installer les dépendances : `npm i`
