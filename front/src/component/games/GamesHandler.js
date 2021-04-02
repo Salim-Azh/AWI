@@ -105,8 +105,14 @@ export function filterGamesByCategory(games, filterText) {
     let rows = []
     if(games) {
         games.map(game => {
-            if (game && (game.category.toLowerCase().includes(filterText))) {
-                rows.push(createGame(game))
+            if(game.name) {
+                if (game && (game.category.toLowerCase().includes(filterText))) {
+                    rows.push(createGame(game))
+                }
+            } else {
+                if (game && (game.game.category.toLowerCase().includes(filterText))) {
+                    rows.push(createGame(game))
+                }
             }
         })
         return rows
