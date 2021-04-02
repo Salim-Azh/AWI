@@ -29,7 +29,8 @@ app.use(cors())
 app.use(express.json()) //body
 app.use(express.urlencoded({extended: true})) //url
 
-
+// Serve front
+app.use(express.static(path.join(__dirname, 'front/build')));
 
 //routes
 app.use("/api/users", usersRoutes)
@@ -38,8 +39,7 @@ app.use("/api/editors", editorsRoutes)
 app.use("/api/festivals", festivalsRoutes)
 app.use('/api/exhibitors', exhibitorsRoutes)
 app.use('/api/zones', zonesRoutes)
-// Serve front
-app.use(express.static(path.join(__dirname, 'front/build')));
+
 
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}`)
