@@ -9,7 +9,7 @@ class TabsGames extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            games: "",
+            games: [],
             gamesBooked: []
         }
         this.handleAddGames = this.handleAddGames.bind(this)
@@ -25,6 +25,7 @@ class TabsGames extends Component {
             })
         GameHandler.getFestivalGames()
             .then(games => {
+                console.log(games)
                 this.setState({gamesBooked: games})
             })
             .then(() => this.state.gamesBooked.map(game =>
