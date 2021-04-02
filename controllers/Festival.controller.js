@@ -199,7 +199,14 @@ module.exports.getFestivalEditors = async(req, res) => {
                 const game = await GameModel.findById(g[j]._id)
                 if(game){
                     const editor = await EditorModel.findOne({games: game._id})
-                    if (!editors.includes('editor')) {
+                    let found = false;
+                    for(let k = 0; k < editors.length; k++) {
+                        if (editors[k]._id.toString() === editor._id.toString()) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
                         editors.push(editor)
                     }
                 }
@@ -243,3 +250,18 @@ module.exports.getFestivalZones = async(req, res) => {
         res.status(500).send(error)
     }
 }
+
+/*module.exports.getEditor = async(req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send("ID unknown : " + req.params.id)
+    try {
+        const editor = await EditorModel.findById(req.params.id)
+        for (let i = 0; i < editor.length; i++) {
+            const e = editor[i];
+            
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+} */
