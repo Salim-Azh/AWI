@@ -16,7 +16,8 @@ const gamesBooked = new mongoose.Schema(
             type: Number
         },
         proto: {
-            type: Boolean
+            type: Boolean,
+            default: false
         },
         zone: {
             type: String,
