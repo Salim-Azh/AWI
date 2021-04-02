@@ -41,7 +41,7 @@ function App() {
                   <Nav.Link href="/nav/factures">Factures</Nav.Link>
                 </Nav>
                 <Nav>
-                  <Nav.Link href="/deconnexion">Deconnexion</Nav.Link>
+                  <Nav.Link href="/">Deconnexion</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
