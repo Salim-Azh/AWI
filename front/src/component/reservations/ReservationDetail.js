@@ -356,68 +356,6 @@ class ReservationDetail extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
-
-
-                    <Col lg={"auto"} md={"auto"} xs={"auto"}>
-                        <Card bg={"secondary"}>
-                            <Card.Header>
-                                <Card.Title>Spécifité</Card.Title>
-                            </Card.Header>
-                            <Card.Body>
-                                <FormGroup>
-                                    <Form.Label>Besoin de bénévoles ?</Form.Label>
-                                    <Form.Check
-                                        checked={this.state.need_volunteer}
-                                        onChange={this.handleChange} name={"need_volunteer"}/>
-                                </FormGroup>
-
-                                <FormGroup>
-                                    <Form.Label>Editeur présent ?</Form.Label>
-                                    <Form.Check
-                                        checked={this.state.isEditorHere}
-                                        onChange={this.handleChange} name={"isEditorHere"}/>
-                                </FormGroup>
-
-                                <FormGroup>
-                                    <Form.Label>Compte rendu envoyé ?</Form.Label>
-                                    <Form.Check
-                                        checked={this.state.reportSent}
-                                        onChange={this.handleChange} name={"reportSent"}/>
-                                </FormGroup>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-
-                <Row
-                    style={{marginTop: "2em"}}
-                >
-                    <Col>
-                        <Card
-                            bg={"light"}
-                        >
-
-                            <Card.Header>
-                                <Card.Title>Jeux réservés</Card.Title>
-                                <Card style={{width: '4rem'}}>
-                                    <FormContainer
-                                        title={"Ajouter un jeux à l'éditeur"}
-                                        component={"GamesBookedForm"}
-                                        reservationId={this.state._id}
-                                        handleClick={this.handleAddGame}
-                                    />
-                                </Card>
-                            </Card.Header>
-
-                            <Card.Body>
-                                <GamesBookedTable
-                                    games={this.state.games}
-                                    handleDelete={this.handleDeleteGame}
-                                    handleChange={this.handleGameChange}
-                                />
-                            </Card.Body>
-                        </Card>
-                    </Col>
                 </Row>
 
                 <Row
@@ -523,6 +461,68 @@ class ReservationDetail extends Component {
                                         </FormGroup>
                                     </Col>
                                 </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col lg={"auto"} md={"auto"} xs={"auto"}>
+                        <Card bg={"secondary"}>
+                            <Card.Header>
+                                <Card.Title>Spécifité</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                <FormGroup>
+                                    <Form.Label>Besoin de bénévoles ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.need_volunteer}
+                                        onChange={this.handleChange} name={"need_volunteer"}/>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Form.Label>Editeur présent ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.isEditorHere}
+                                        onChange={this.handleChange} name={"isEditorHere"}/>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Form.Label>Compte rendu envoyé ?</Form.Label>
+                                    <Form.Check
+                                        checked={this.state.reportSent}
+                                        onChange={this.handleChange} name={"reportSent"}/>
+                                </FormGroup>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                </Row>
+
+                <Row
+                    style={{marginTop: "2em"}}
+                >
+                    <Col>
+                        <Card
+                            bg={"light"}
+                        >
+
+                            <Card.Header>
+                                <Card.Title>Jeux réservés</Card.Title>
+                                <Card style={{width: '4rem'}}>
+                                    <FormContainer
+                                        title={"Ajouter un jeux à l'éditeur"}
+                                        component={"GamesBookedForm"}
+                                        reservationId={this.state._id}
+                                        handleClick={this.handleAddGame}
+                                    />
+                                </Card>
+                            </Card.Header>
+
+                            <Card.Body>
+                                <GamesBookedTable
+                                    games={this.state.games}
+                                    handleDelete={this.handleDeleteGame}
+                                    handleChange={this.handleGameChange}
+                                />
                             </Card.Body>
                         </Card>
                     </Col>
