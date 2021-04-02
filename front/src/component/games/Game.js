@@ -18,7 +18,7 @@ function Game(props) {
     } else {
         return (
             <tr id={props.game.game._id}>
-                <td><Nav.Link href={"/nav/jeu/" + props.game._id}>{props.game.game.name}</Nav.Link></td>
+                <td><Nav.Link href={"/nav/jeu/" + props.game.game._id}>{props.game.game.name}</Nav.Link></td>
                 <td>{props.editor.name}</td>
                 <td>{props.game.state}</td>
                 <td>{props.game.game.category}</td>

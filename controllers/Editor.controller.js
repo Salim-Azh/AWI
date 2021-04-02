@@ -30,7 +30,7 @@ module.exports.addEditor = async(req, res) => {
         const editor = await EditorModel.create({
             _id: mongoose.Types.ObjectId(),
             name: name,
-            contacts: [contacts],
+            contacts: contacts,
             isEditor: isEditor,
             isExhibitor: isExhibitor,
             isPotential: isPotential

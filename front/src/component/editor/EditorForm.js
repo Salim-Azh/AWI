@@ -7,15 +7,9 @@ class EditorForm extends Component {
     constructor(props) {
         super(props)
 
-        if(props.editor) {
-
-        }
         this.state = {
             name: "",
-            contacts: {
-                email: "",
-                phone_number: ""
-            },
+            contacts: [],
             isEditor: false,
             isExhibitor: false,
             isPotential: true
@@ -23,6 +17,9 @@ class EditorForm extends Component {
 
         this.submit = this.submit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleContactsChange = this.handleContactsChange.bind(this)
+        this.addContact = this.addContact.bind(this)
+        this.removeContacts = this.removeContacts.bind(this)
     }
 
     handleChange(event) {
@@ -33,6 +30,27 @@ class EditorForm extends Component {
         this.setState({
             [name]: value
         })
+    }
+
+    handleContactsChange(event) {
+        const target = event.target
+        const value = target.value
+        const index = target.name;
+
+        let contacts = this.state.contacts
+        contacts[index] = value
+
+        this.setState({contacts: contacts})
+    }
+
+    addContact() {
+        this.state.contacts.push("")
+        this.setState({contacts: this.state.contacts})
+    }
+
+    removeContacts() {
+        this.state.contacts.pop()
+        this.setState({contacts: this.state.contacts})
     }
 
     formIsUnchanged() {
@@ -57,6 +75,16 @@ class EditorForm extends Component {
     }
 
     render() {
+        const rows = this.state.contacts.map((contact, index) => {
+            return (
+                <>
+                    <FormControl
+                        as={"input"} type={"text"} value={contact} key={index}
+                        onChange={this.handleContactsChange} name={index}/>
+                </>
+            )
+        })
+
         return (
             <Form>
                 <FormGroup>
@@ -67,9 +95,9 @@ class EditorForm extends Component {
 
                 <FormGroup>
                     <Form.Label>Contacts</Form.Label>
-                    <FormControl as={"input"} name="contacts.email" type="text" value={this.state.contacts.email}
-                                 placeholder="Contact"
-                                 onChange={this.handleChange}/>
+                    <Button variant={"warning"} onClick={this.addContact}>Ajouter contact</Button>
+                    <Button variant={"warning"} onClick={this.removeContacts}>Enlever contact</Button>
+                    {rows}
                 </FormGroup>
 
                 <FormGroup>
