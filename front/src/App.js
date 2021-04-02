@@ -29,7 +29,7 @@ function App() {
         <div className="App">
           <Route path="/nav">
             <Navbar expand="lg" bg="dark" variant="dark">
-              <Navbar.Brand href="/nav/festivals">Le festival des jeux</Navbar.Brand>
+              <Navbar.Brand href="/nav/festivals">Le festival du jeu</Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
